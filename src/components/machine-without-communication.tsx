@@ -32,8 +32,8 @@ const MachineWithoutCommunication: React.FC<Props> = ({
       <Link
         to={
           isPoint
-            ? { pathname: 'single-point-of-sale', state: machineId }
-            : { pathname: 'single-machine', state: machineId }
+            ? { pathname: 'detalhes-do-ponto-de-venda', state: machineId }
+            : { pathname: 'detalhes-da-maquina', state: machineId }
         }
       >
         <button className="edit-btn" type="button">

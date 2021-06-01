@@ -32,29 +32,37 @@ import GroupInfoPage from '../pages/group-info';
 import NotificationsPage from '../pages/notifications';
 import MachineEventsLogs from '../pages/machine-events-log';
 import ReportPage from '../pages/reports';
+import ForgotPasswordPage from '../pages/forgot-password';
 
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" isPrivate={false} exact component={LoginPage} />
 
+    <Route
+      path="/recuperar-senha"
+      isPrivate={false}
+      exact
+      component={ForgotPasswordPage}
+    />
+
     <Route path="/dashboard" isPrivate exact component={Dashboard} />
 
-    <Route path="/machines" isPrivate exact component={MachinesPage} />
+    <Route path="/maquinas" isPrivate exact component={MachinesPage} />
 
     <Route
-      path="/categories"
+      path="/categorias"
       isPrivate
       except="OPERATOR"
       exact
       component={CategoriesPage}
     />
 
-    <Route path="/collections" isPrivate exact component={CollectionsPage} />
+    <Route path="/coletas" isPrivate exact component={CollectionsPage} />
 
-    <Route path="/telemetries" isPrivate exact component={TelemetriesPage} />
+    <Route path="/telemetrias" isPrivate exact component={TelemetriesPage} />
 
     <Route
-      path="/group-stock"
+      path="/estoque-da-parceria"
       isPrivate
       except="OPERATOR"
       exact
@@ -62,7 +70,7 @@ const Routes: React.FC = () => (
     />
 
     <Route
-      path="/personal-stock"
+      path="/estoque-pessoal"
       isPrivate
       except="OWNER"
       exact
@@ -70,16 +78,16 @@ const Routes: React.FC = () => (
     />
 
     <Route
-      path="/points-of-sale"
+      path="/pontos-de-venda"
       isPrivate
       exact
       component={PointsOfSalePage}
     />
 
-    <Route path="/routes" isPrivate exact component={OperatorRoutesPages} />
+    <Route path="/rotas" isPrivate exact component={OperatorRoutesPages} />
 
     <Route
-      path="/groups"
+      path="/parcerias"
       isPrivate
       except="OPERATOR"
       exact
@@ -87,14 +95,14 @@ const Routes: React.FC = () => (
     />
 
     <Route
-      path="/handle-point-of-sale"
+      path="/editar-ponto-de-venda"
       isPrivate
       exact
       component={CreateEditPointOfSalePage}
     />
 
     <Route
-      path="/managers"
+      path="/colaboradores"
       isPrivate
       exact
       except="OPERATOR"
@@ -103,7 +111,7 @@ const Routes: React.FC = () => (
     />
 
     <Route
-      path="/operators"
+      path="/operadores"
       isPrivate
       exact
       except="OPERATOR"
@@ -120,57 +128,67 @@ const Routes: React.FC = () => (
       component={ReportPage}
     />
 
-    <Route path="/profile" isPrivate exact component={ProfilePage} />
+    <Route path="/perfil" isPrivate exact component={ProfilePage} />
 
     <Route
-      path="/handle-manager"
+      path="/editar-colaborador"
       isPrivate
       exact
       component={HandleManagerPage}
     />
     <Route
-      path="/handle-operator"
+      path="/editar-operador"
       isPrivate
       exact
       component={HandleOperatorPage}
     />
 
     <Route
-      path="/handle-category"
+      path="/editar-categoria"
       isPrivate
       exact
       component={HandleCategoryPage}
     />
 
     <Route
-      path="/counter-types"
+      path="/tipos-de-contadores"
       isPrivate
       except="OPERATOR"
       exact
       component={CounterTypesPage}
     />
     <Route
-      path="/handle-machine"
+      path="/editar-maquina"
       isPrivate
       exact
       component={HandleMachinePage}
     />
 
     <Route
-      path="/create-collection"
+      path="/criar-coleta"
       isPrivate
       exact
       component={CreateCollectionPage}
     />
-    <Route path="/collection-info" isPrivate exact component={CollectionInfo} />
-    <Route path="/single-machine" isPrivate exact component={MachineInfoPage} />
     <Route
-      path="/single-point-of-sale"
+      path="/detalhes-da-coleta"
+      isPrivate
+      exact
+      component={CollectionInfo}
+    />
+    <Route
+      path="/detalhes-da-maquina"
+      isPrivate
+      exact
+      component={MachineInfoPage}
+    />
+    <Route
+      path="/detalhes-do-ponto-de-venda"
       isPrivate
       exact
       component={PointOfSaleInfo}
     />
-    <Route path="/single-route" isPrivate exact component={RouteInfo} />
+    <Route path="/detalhes-da-rota" isPrivate exact component={RouteInfo} />
     <Route
       path="/historico-de-eventos"
       isPrivate

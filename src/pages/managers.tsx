@@ -83,7 +83,7 @@ const ManagersPage: React.FC = () => {
             />
           </div>
           {user?.permissions?.createManagers || user?.role === 'OWNER' ? (
-            <Link to="/handle-manager">
+            <Link to="/editar-colaborador">
               <Button title="Novo colaborador" color="primary" />
             </Link>
           ) : null}

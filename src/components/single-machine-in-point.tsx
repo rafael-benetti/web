@@ -31,7 +31,10 @@ const SingleMachineInPoint: React.FC<Props> = ({ machineInfo }) => {
   return (
     <SingleMachineInPointContainer>
       <Link
-        to={{ pathname: '/single-machine', state: machineInfo?.machine.id }}
+        to={{
+          pathname: '/detalhes-da-maquina',
+          state: machineInfo?.machine.id,
+        }}
       >
         <button type="button">
           <div className="serial-number">

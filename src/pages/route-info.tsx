@@ -82,7 +82,7 @@ const RouteInfo: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: 'Rotas', url: '/routes' },
+                { name: 'Rotas', url: '/rotas' },
                 { name: 'Detalhes' },
               ]}
             />
@@ -251,7 +251,7 @@ const RouteInfo: React.FC = () => {
         <HandleRoute initialData={routeInfo?.route} operators={operators} />
       ) : null}
       {showDeleteRoute && <ModalDeleteRoute route={routeInfo?.route} />}
-      {redirect && <Redirect to="routes" />}
+      {redirect && <Redirect to="rotas" />}
     </Container>
   );
 };

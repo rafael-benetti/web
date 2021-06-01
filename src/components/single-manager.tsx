@@ -17,8 +17,8 @@ const SingleManager: React.FC<Props> = ({ data, user }) => {
         to={{
           pathname: `${
             user?.permissions?.createManagers || user?.role === 'OWNER'
-              ? '/handle-manager'
-              : '/managers'
+              ? '/editar-colaborador'
+              : '/colaboradores'
           }`,
           state: data,
         }}

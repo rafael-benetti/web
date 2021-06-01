@@ -74,20 +74,20 @@ const SideBar: React.FC<IProps> = ({ active }) => {
       menu: 'Máquinas',
       icon: FiHardDrive,
       class: user?.role === 'OPERATOR' ? 'machines' : 'buttons',
-      path: user?.role === 'OPERATOR' ? '/machines' : undefined,
+      path: user?.role === 'OPERATOR' ? '/maquinas' : undefined,
       subMenu:
         user?.role === 'OPERATOR'
           ? undefined
           : [
-              { menu: 'Minhas Máquinas', path: '/machines', class: 'machines' },
+              { menu: 'Minhas Máquinas', path: '/maquinas', class: 'machines' },
               {
                 menu: 'Categorias',
-                path: '/categories',
+                path: '/categorias',
                 class: 'categories',
               },
               {
                 menu: 'Tipos de contador',
-                path: '/counter-types',
+                path: '/tipos-de-contadores',
                 class: 'counter-types',
               },
             ],
@@ -95,13 +95,13 @@ const SideBar: React.FC<IProps> = ({ active }) => {
     {
       menu: 'Coletas',
       icon: FiPocket,
-      path: '/collections',
+      path: '/coletas',
       class: 'collections',
     },
     {
       menu: 'Telemetria',
       icon: FiRadio,
-      path: '/telemetries',
+      path: '/telemetrias',
       class: 'telemetries',
     },
     {
@@ -117,19 +117,19 @@ const SideBar: React.FC<IProps> = ({ active }) => {
         user?.role === 'MANAGER'
           ? undefined
           : user?.role === 'OPERATOR'
-          ? '/personal-stock'
-          : '/group-stock',
+          ? '/estoque-pessoal'
+          : '/estoque-da-parceria',
       subMenu:
         user?.role === 'MANAGER'
           ? [
               {
                 menu: 'Estoque da parceria',
-                path: '/group-stock',
+                path: '/estoque-da-parceria',
                 class: 'group-stock',
               },
               {
                 menu: 'Estoque pessoal',
-                path: '/personal-stock',
+                path: '/estoque-pessoal',
                 class: 'personal-stock',
               },
             ]
@@ -138,19 +138,19 @@ const SideBar: React.FC<IProps> = ({ active }) => {
     {
       menu: 'Pontos de venda',
       icon: FiHome,
-      path: '/points-of-sale',
+      path: '/pontos-de-venda',
       class: 'points-of-sale',
     },
     {
       menu: 'Rotas',
       icon: FiMap,
-      path: '/routes',
+      path: '/rotas',
       class: 'routes',
     },
     {
       menu: 'Parcerias',
       icon: FiThumbsUp,
-      path: '/groups',
+      path: '/parcerias',
       class: 'groups',
     },
     {
@@ -166,12 +166,12 @@ const SideBar: React.FC<IProps> = ({ active }) => {
       subMenu: [
         {
           menu: 'Operadores',
-          path: '/operators',
+          path: '/operadores',
           class: 'operators',
         },
         {
           menu: 'Colaboradores',
-          path: '/managers',
+          path: '/colaboradores',
           class: 'managers',
         },
       ],

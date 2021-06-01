@@ -52,7 +52,7 @@ const Header: React.FC = () => {
         </div>
         <div className="menu">
           <div className="menu-content">
-            <Link to="/profile">
+            <Link to="/perfil">
               <button type="button">
                 <BsPerson size={15} />
                 <span>Perfil</span>

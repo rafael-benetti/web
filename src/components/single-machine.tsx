@@ -54,7 +54,7 @@ const MachineInPoint: React.FC<Props> = ({
 
   return (
     <SingleMachineContainer>
-      <Link to={{ pathname: '/single-machine', state: machine.id }}>
+      <Link to={{ pathname: '/detalhes-da-maquina', state: machine.id }}>
         <button className="edit-btn" type="button">
           <div className="serial-number">{machine.serialNumber}</div>
           {isSingleGroup ? null : group?.isPersonal ? (

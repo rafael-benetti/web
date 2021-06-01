@@ -135,7 +135,7 @@ const PointOfSaleInfo: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: 'Pontos de venda', url: '/points-of-sale' },
+                { name: 'Pontos de venda', url: '/pontos-de-venda' },
                 { name: 'Detalhes' },
               ]}
             />
@@ -143,7 +143,7 @@ const PointOfSaleInfo: React.FC = () => {
           {user?.role === 'OWNER' || user?.permissions?.editPointsOfSale ? (
             <Link
               to={{
-                pathname: '/handle-point-of-sale',
+                pathname: '/editar-ponto-de-venda',
                 state: {
                   initialData: {
                     pointOfSale: pointOfSaleInfo?.pointOfSale,
@@ -179,7 +179,7 @@ const PointOfSaleInfo: React.FC = () => {
                 <div className="spacer" />
                 <Link
                   to={{
-                    pathname: 'single-route',
+                    pathname: 'detalhes-da-rota',
                     state: pointOfSaleInfo?.route?.id,
                   }}
                 >
@@ -510,7 +510,7 @@ const PointOfSaleInfo: React.FC = () => {
       {showAction === 'ROUTE' && (
         <AddPointInRoute pointOfSaleId={pointOfSaleInfo?.pointOfSale.id} />
       )}
-      {redirect && <Redirect to="points-of-sale" />}
+      {redirect && <Redirect to="pontos-de-venda" />}
     </Container>
   );
 };

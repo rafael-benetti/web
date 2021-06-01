@@ -70,10 +70,10 @@ const MachineEventsLogs: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: '/ Máquinas', url: '/machines' },
+                { name: '/ Máquinas', url: '/maquinas' },
                 {
                   name: '/ Detalhes da máquina',
-                  state: { pathname: '/single-machine', state: machineId },
+                  state: { pathname: '/detalhes-da-maquina', state: machineId },
                 },
               ]}
             />

@@ -138,7 +138,7 @@ const MachinesPage: React.FC = () => {
           {user?.permissions?.createMachines || user?.role === 'OWNER' ? (
             <>
               {categories.length > 0 ? (
-                <Link to="/handle-machine">
+                <Link to="/editar-maquina">
                   <Button title="Nova Máquina" color="primary" />
                 </Link>
               ) : (

@@ -154,14 +154,14 @@ const MachineInfoPage: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: 'Máquinas', url: '/machines' },
+                { name: 'Máquinas', url: '/maquinas' },
                 { name: 'Detalhes' },
               ]}
             />
           </div>
           {user?.role === 'OWNER' || user?.permissions?.editMachines ? (
             <Link
-              to={{ pathname: '/handle-machine', state: machineInfo?.machine }}
+              to={{ pathname: '/editar-maquina', state: machineInfo?.machine }}
             >
               <Button title="Editar máquina" color="primary" />
             </Link>
@@ -218,7 +218,7 @@ const MachineInfoPage: React.FC = () => {
                   {canCollect() ? (
                     <Link
                       to={{
-                        pathname: '/create-collection',
+                        pathname: '/criar-coleta',
                         state: { machine: machineInfo?.machine },
                       }}
                     >
@@ -329,7 +329,7 @@ const MachineInfoPage: React.FC = () => {
                   <button type="button">
                     <Link
                       to={{
-                        pathname: 'single-point-of-sale',
+                        pathname: 'detalhes-do-ponto-de-venda',
                         state: machineInfo?.machine.locationId,
                       }}
                     >
@@ -781,7 +781,7 @@ const MachineInfoPage: React.FC = () => {
         />
       )}
       {showRemoteCredit && <RemoteCredit machineId={machineInfo?.machine.id} />}
-      {redirect && <Redirect to="machines" />}
+      {redirect && <Redirect to="maquinas" />}
     </Container>
   );
 };

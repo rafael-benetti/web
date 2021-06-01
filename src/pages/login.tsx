@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
+import { Link } from 'react-router-dom';
 import Button from '../components/button';
 import { Content, LoginPageContainer } from '../styles/pages/login';
 import Logo from '../assets/logo-login.png';
@@ -49,7 +50,12 @@ const LoginPage: React.FC = () => {
       <Content>
         <Form ref={formRef} onSubmit={handleLoginForm}>
           <Input name="email" type="text" label="E-mail" />
-          <Input name="password" type="password" label="Senha" />
+          <div className="column">
+            <Input name="password" type="password" label="Senha" />
+            <div className="link">
+              <Link to="recuperar-senha">Esqueci minha seinha</Link>
+            </div>
+          </div>
           <Button title="Entrar" color="primary" isSubmit busy={busyBtn} />
         </Form>
       </Content>

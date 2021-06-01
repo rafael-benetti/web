@@ -304,7 +304,7 @@ const HandleMachinePage: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: 'Máquinas', url: '/machines' },
+                { name: 'Máquinas', url: '/maquinas' },
                 {
                   name: `${initialData ? 'Editar máquina' : 'Criar máquina'}`,
                 },
@@ -674,7 +674,7 @@ const HandleMachinePage: React.FC = () => {
         </HandleMachineContent>
       </HandleMachineContainer>
       {redirect ? (
-        <Redirect to={{ pathname: '/single-machine', state: machineId }} />
+        <Redirect to={{ pathname: '/detalhes-da-maquina', state: machineId }} />
       ) : null}
     </Container>
   );

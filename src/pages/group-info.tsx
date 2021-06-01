@@ -96,7 +96,7 @@ const GroupInfoPage: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: '/ Parcerias', url: '/groups' },
+                { name: '/ Parcerias', url: '/parcerias' },
                 { name: 'Detalhe da parceria' },
               ]}
             />

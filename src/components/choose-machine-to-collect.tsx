@@ -71,7 +71,7 @@ const ChooseMachineToCollect: React.FC = () => {
               {machineId ? (
                 <Link
                   to={{
-                    pathname: '/create-collection',
+                    pathname: '/criar-coleta',
                     state: {machine :machines.find(machine => machine.id === machineId), initialData: undefined} ,
                   }}
                 >

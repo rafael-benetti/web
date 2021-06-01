@@ -994,7 +994,7 @@ const HandleManagerPage: React.FC = () => {
           type="CAN_CREATE_OPERATORS"
         />
       ) : null}
-      {redirect ? <Redirect to="managers" /> : null}
+      {redirect ? <Redirect to="colaboradores" /> : null}
     </Container>
   );
 };

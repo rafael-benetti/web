@@ -66,14 +66,14 @@ const PointsOfSalePage: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: 'Pontos de venda', url: 'points-of-sale' },
+                { name: 'Pontos de venda', url: 'pontos-de-venda' },
               ]}
             />
           </div>
           {user?.permissions?.createPointsOfSale || user?.role === 'OWNER' ? (
             <Link
               to={{
-                pathname: '/handle-point-of-sale',
+                pathname: '/editar-ponto-de-venda',
                 state: { initialData: {} },
               }}
             >

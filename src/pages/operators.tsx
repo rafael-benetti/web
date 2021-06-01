@@ -83,7 +83,7 @@ const OperatorsPage: React.FC = () => {
             />
           </div>
           {user?.permissions?.createOperators || user?.role === 'OWNER' ? (
-            <Link to="/handle-operator">
+            <Link to="/editar-operador">
               <Button title="Novo operador" color="primary" />
             </Link>
           ) : null}

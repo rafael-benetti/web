@@ -36,7 +36,7 @@ const SingleRoute: React.FC<Props> = ({ route, operator, locations }) => {
   return (
     <>
       <SingleRouteContainer>
-        <Link to={{ pathname: '/single-route', state: route.id }}>
+        <Link to={{ pathname: '/detalhes-da-rota', state: route.id }}>
           <button className="edit-btn" type="button">
             <div className="label">{route.label}</div>
             <div className="operator">

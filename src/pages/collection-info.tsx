@@ -120,7 +120,7 @@ const CollectionInfo: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: 'Coletas', url: '/collections' },
+                { name: 'Coletas', url: '/coletas' },
                 { name: 'Informações da coleta' },
               ]}
             />
@@ -128,7 +128,7 @@ const CollectionInfo: React.FC = () => {
           {user?.permissions?.editCollections || user?.role === 'OWNER' ? (
             <Link
               to={{
-                pathname: '/create-collection',
+                pathname: '/criar-coleta',
                 state: {
                   initialData: collection,
                   machine: collection?.machine,

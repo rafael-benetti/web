@@ -16,8 +16,8 @@ const SingleCategory: React.FC<Props> = ({ data, user }) => {
         to={{
           pathname: `${
             user?.permissions?.editCategories || user?.role === 'OWNER'
-              ? '/handle-category'
-              : '/categories'
+              ? '/editar-categoria'
+              : '/categorias'
           }`,
           state: data,
         }}

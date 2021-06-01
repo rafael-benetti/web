@@ -60,7 +60,7 @@ const ModalDeleteRoute: React.FC<Props> = ({ route }) => {
         </div>
       </ModalContainer>
       <ContainerWithOpacity showContainer={() => toggleDeleteRoute(false)} />
-      {redirect ? <Redirect to="/routes" /> : null}
+      {redirect ? <Redirect to="/rotas" /> : null}
     </>
   );
 };

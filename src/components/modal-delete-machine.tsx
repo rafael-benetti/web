@@ -60,7 +60,7 @@ const ModalDeleteMachine: React.FC<Props> = ({ machine }) => {
         </div>
       </ModalContainer>
       <ContainerWithOpacity showContainer={() => toggleDeleteMachine(false)} />
-      {redirect ? <Redirect to="machines" /> : null}
+      {redirect ? <Redirect to="maquinas" /> : null}
     </>
   );
 };

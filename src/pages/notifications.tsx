@@ -66,7 +66,7 @@ const NotificationsPage: React.FC = () => {
                 <SingleNotifications>
                   <Link
                     to={{
-                      pathname: 'single-machine',
+                      pathname: 'detalhes-da-maquina',
                       state: notification.machineId,
                     }}
                   >

@@ -167,7 +167,7 @@ const HandleOperatorPage: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/dashboard' },
-                { name: 'Operadores', url: '/operators' },
+                { name: 'Operadores', url: '/operadores' },
                 {
                   name: `${initialData ? 'Editar Operador' : 'Criar Operador'}`,
                 },
@@ -382,7 +382,7 @@ const HandleOperatorPage: React.FC = () => {
           </Form>
         </HandleOperatorContent>
       </HandleOperatorContainer>
-      {redirect ? <Redirect to="/operators" /> : null}
+      {redirect ? <Redirect to="/operadores" /> : null}
     </Container>
   );
 };

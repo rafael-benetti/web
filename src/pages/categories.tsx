@@ -43,7 +43,7 @@ const CategoriesPage: React.FC = () => {
             />
           </div>
           {user?.permissions?.createCategories || user?.role === 'OWNER' ? (
-            <Link to="/handle-category">
+            <Link to="/editar-categoria">
               <Button title="Nova Categoria" color="primary" />
             </Link>
           ) : null}

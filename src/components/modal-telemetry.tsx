@@ -34,7 +34,10 @@ const ModalTelemetry: React.FC<Props> = ({
         <div className="modal-buttons">
           {!isMachine && (
             <Link
-              to={{ pathname: '/single-machine', state: telemetry?.machineId }}
+              to={{
+                pathname: '/detalhes-da-maquina',
+                state: telemetry?.machineId,
+              }}
               style={{ marginRight: '2rem' }}
             >
               <Button color="secondary" title="Acessar a máquina" />

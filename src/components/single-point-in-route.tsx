@@ -13,7 +13,9 @@ interface Props {
 const SinglePointInRoute: React.FC<Props> = ({ pointOfSale }) => {
   return (
     <SinglePointInRouteContainer>
-      <Link to={{ pathname: '/single-point-of-sale', state: pointOfSale?.id }}>
+      <Link
+        to={{ pathname: '/detalhes-do-ponto-de-venda', state: pointOfSale?.id }}
+      >
         <button type="button">
           <div className="serial-number">{pointOfSale?.label}</div>
           <div className="group">

@@ -171,7 +171,7 @@ const CreateCollectionPage: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: 'Coletas', url: '/collections' },
+                { name: 'Coletas', url: '/coletas' },
                 { name: 'Criar coleta' },
               ]}
             />
@@ -513,7 +513,7 @@ const CreateCollectionPage: React.FC = () => {
                 </div>
               )}
             <div className="submit-button">
-              <Link to="collections">
+              <Link to="coletas">
                 <Button color="tertiary" title="Cancelar" />
               </Link>
               <Button
@@ -527,10 +527,10 @@ const CreateCollectionPage: React.FC = () => {
         </CreateCollectionContent>
       </CreateCollectionContainer>
       {photoDetail ? <PhotoDetail photo={photoDetail} /> : null}
-      {redirect && <Redirect to="/collections" />}
+      {redirect && <Redirect to="/coletas" />}
       {editRedirect && (
         <Redirect
-          to={{ pathname: '/collection-info', state: initialData?.id }}
+          to={{ pathname: '/detalhes-da-coleta', state: initialData?.id }}
         />
       )}
       /

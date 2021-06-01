@@ -212,7 +212,7 @@ const HandlePointOfSalePage: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: 'Pontos de venda', url: '/points-of-sale' },
+                { name: 'Pontos de venda', url: '/pontos-de-venda' },
                 {
                   name: `${
                     Object.keys(initialData).length > 0
@@ -367,7 +367,7 @@ const HandlePointOfSalePage: React.FC = () => {
         </HandlePointOfSalePageContent>
       </HandlePointOfSalePageContainer>
       {loadingCepResponse ? <AbsoluteLoading /> : null}
-      {redirect ? <Redirect to="/points-of-sale" /> : null}
+      {redirect ? <Redirect to="/pontos-de-venda" /> : null}
     </Container>
   );
 };

@@ -34,7 +34,9 @@ const SinglePointOfSale: React.FC<IProps> = ({
 
   return (
     <PointOfSaleContainer>
-      <Link to={{ pathname: 'single-point-of-sale', state: pointOfSale.id }}>
+      <Link
+        to={{ pathname: 'detalhes-do-ponto-de-venda', state: pointOfSale.id }}
+      >
         <button className="edit-btn" type="button">
           <div className="label">{pointOfSale.label}</div>
           {isSingleGroup ? null : group?.isPersonal ? (

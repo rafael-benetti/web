@@ -1,14 +1,33 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-export const LoginPageContainer = styled.div`
+const appear = keyframes`
+  from: {
+    opacity: 0
+  }
+  to: {
+    opacity: 1
+  }
+`;
+
+export const ForgotPasswordContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   width: 100%;
+  animation: ${appear} 0.8s;
   img {
     width: 250px;
+  }
+  .filter {
+    margin: 3rem 0 3rem 0;
+  }
+  .back {
+    a {
+      display: flex;
+    }
+    margin-bottom: 3rem;
   }
   .responsible-space {
     display: none;

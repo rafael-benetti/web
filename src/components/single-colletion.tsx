@@ -21,8 +21,8 @@ const SingleCollection: React.FC<Props> = ({ collection, user }) => {
         to={{
           pathname: `${
             user?.permissions?.editPointsOfSale || user?.role === 'OWNER'
-              ? '/collection-info'
-              : '/collections'
+              ? '/detalhes-da-coleta'
+              : '/coletas'
           }`,
           state: collection!.id,
         }}

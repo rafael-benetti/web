@@ -19,7 +19,7 @@ const MachineItem: React.FC<Props> = ({ machine, groups, isGridView }) => {
     <>
       {isGridView ? (
         <MachineItemContainer>
-          <Link to={{ pathname: 'single-machine', state: machine.id }}>
+          <Link to={{ pathname: 'detalhes-da-maquina', state: machine.id }}>
             <div className="row">
               <h1 className="group heading-secondary-font">
                 {groups.find(group => group.id === machine.groupId)?.isPersonal
@@ -36,7 +36,7 @@ const MachineItem: React.FC<Props> = ({ machine, groups, isGridView }) => {
         </MachineItemContainer>
       ) : (
         <Link
-          to={{ pathname: 'single-machine', state: machine.id }}
+          to={{ pathname: 'detalhes-da-maquina', state: machine.id }}
           style={{ textDecoration: 'none', color: '#333' }}
         >
           <MachineItemTable>

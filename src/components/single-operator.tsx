@@ -19,8 +19,8 @@ const SingleOperator: React.FC<Props> = ({ data, user }) => {
         to={{
           pathname: `${
             user?.permissions?.createOperators || user?.role === 'OWNER'
-              ? '/handle-operator'
-              : '/operators'
+              ? '/editar-operador'
+              : '/operadores'
           }`,
           state: data,
         }}

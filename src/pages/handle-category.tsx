@@ -133,7 +133,7 @@ const HandleCategoryPage: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
-                { name: 'Categorias', url: 'categories' },
+                { name: 'Categorias', url: 'categorias' },
                 { name: `${initialData ? 'Editar categoria': 'Criar categoria'}` },
               ]}
             />
@@ -283,7 +283,7 @@ const HandleCategoryPage: React.FC = () => {
           </Form>
         </HandleCategoryContent>
       </HandleCategoryContainer>
-      {redirect ? <Redirect to="categories" /> : null }
+      {redirect ? <Redirect to="categorias" /> : null }
     </Container>
   );
 };

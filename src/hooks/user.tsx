@@ -21,6 +21,7 @@ interface UserContext {
   editProfile(data: EditProfileDto, file?: File): Promise<void>;
   getUnreadNotifications(): Promise<void>;
   getNotifications(offset: number): Promise<void>;
+  forgotPassword(email: string): Promise<void>;
   numberOfUnreadNotifications: number;
   notifications: Notification[];
   count?: number;
@@ -49,6 +50,18 @@ const UserProvider: React.FC = ({ children }) => {
   ] = useState<number>(0);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [count, setCount] = useState<number>();
+
+  const forgotPassword = useCallback(async (email: string) => {
+    try {
+      await api.post('users/forgot-password', { email });
+      addToast({
+        title: 'E-mail enviado com sucesso!',
+        type: 'success',
+      });
+    } catch (error) {
+      shootError(error.response.data.errorCode);
+    }
+  }, []);
 
   const getDashboardData = useCallback(
     async (filter: {
@@ -205,6 +218,7 @@ const UserProvider: React.FC = ({ children }) => {
         getDashboardData,
         getUnreadNotifications,
         getNotifications,
+        forgotPassword,
         notifications,
         count,
         numberOfUnreadNotifications,
