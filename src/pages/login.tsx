@@ -53,7 +53,7 @@ const LoginPage: React.FC = () => {
           <div className="column">
             <Input name="password" type="password" label="Senha" />
             <div className="link">
-              <Link to="recuperar-senha">Esqueci minha seinha</Link>
+              <Link to="recuperar-senha">Esqueci minha senha</Link>
             </div>
           </div>
           <Button title="Entrar" color="primary" isSubmit busy={busyBtn} />

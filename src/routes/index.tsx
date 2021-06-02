@@ -33,6 +33,7 @@ import NotificationsPage from '../pages/notifications';
 import MachineEventsLogs from '../pages/machine-events-log';
 import ReportPage from '../pages/reports';
 import ForgotPasswordPage from '../pages/forgot-password';
+import ChangePasswordPage from '../pages/change-password';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -43,6 +44,13 @@ const Routes: React.FC = () => (
       isPrivate={false}
       exact
       component={ForgotPasswordPage}
+    />
+
+    <Route
+      path="/email-confirmado"
+      isPrivate={false}
+      exact
+      component={ChangePasswordPage}
     />
 
     <Route path="/dashboard" isPrivate exact component={Dashboard} />
