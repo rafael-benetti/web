@@ -22,6 +22,7 @@ interface UserContext {
   getUnreadNotifications(): Promise<void>;
   getNotifications(offset: number): Promise<void>;
   forgotPassword(email: string): Promise<void>;
+  resetPassword(tokenData: string): Promise<void>;
   numberOfUnreadNotifications: number;
   notifications: Notification[];
   count?: number;
@@ -55,7 +56,20 @@ const UserProvider: React.FC = ({ children }) => {
     try {
       await api.post('users/forgot-password', { email });
       addToast({
-        title: 'E-mail enviado com sucesso!',
+        title:
+          'Um e-mail foi enviado! Confirme seu e-mail para receber a sua nova senha',
+        type: 'success',
+      });
+    } catch (error) {
+      shootError(error.response.data.errorCode);
+    }
+  }, []);
+
+  const resetPassword = useCallback(async (tokenData: string) => {
+    try {
+      await api.post('users/reset-password', { resetPasswordToken: tokenData });
+      addToast({
+        title: 'E-mail de troca de senha enviado com sucesso',
         type: 'success',
       });
     } catch (error) {
@@ -219,6 +233,7 @@ const UserProvider: React.FC = ({ children }) => {
         getUnreadNotifications,
         getNotifications,
         forgotPassword,
+        resetPassword,
         notifications,
         count,
         numberOfUnreadNotifications,
