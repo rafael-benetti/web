@@ -44,6 +44,7 @@ const HandleCategoryPage: React.FC = () => {
   const [redirect, setRedirect] = useState(false);
   const [busyBtn, setBusyBtn] = useState<boolean>(false);
   const [boxesCreater, setBoxesCreater] = useState<Box[]>([])
+  const [categoryName, setCategoryName] = useState<string>()
 
   const [telemetry, setTelemetry] = useState<Options[]>([
     {label: 'Pino 2', value: 'Pino 2'},
@@ -116,6 +117,7 @@ const HandleCategoryPage: React.FC = () => {
   useEffect(() => {
     setBusy(true);
     if(initialData) {
+      setCategoryName(initialData.label)
       formRef.current?.setData({
         label: initialData.label,
       })
@@ -142,7 +144,7 @@ const HandleCategoryPage: React.FC = () => {
         <HandleCategoryContent>
           <Form ref={formRef} onSubmit={handleCategory}>
             <div className="label-input">
-              <Input name="label" label="Nome" />
+              <Input name="label" label="Nome" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
             </div>
             {boxesCreater.map((box, index) => {
               return (
@@ -161,7 +163,7 @@ const HandleCategoryPage: React.FC = () => {
                           <FiXCircle  />
                         </button>
                       )}
-                      <h1 className="heading-secondary-font cabin-title">{`Cabine ${index + 1}`}</h1>
+                      <h1 className="heading-secondary-font cabin-title">{`${categoryName?.toLowerCase().includes('roleta') ? 'Haste' : 'Cabine'} ${index + 1}`}</h1>
                     </div>
                     {box.counters && box.counters.map((counter, indx) => {
                       return (
@@ -273,7 +275,7 @@ const HandleCategoryPage: React.FC = () => {
                 setBoxesCreater([...boxesCreater, {counters: []}]);
                 }}
               >
-                Adicionar cabine
+                {`${categoryName?.toLowerCase().includes('roleta') ? 'Adicionar haste' : 'Adicionar cabine'}`}
                 <FiPlus size={16} />
               </button>
 )}

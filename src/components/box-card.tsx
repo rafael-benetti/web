@@ -17,6 +17,7 @@ interface Props {
   machineId?: string;
   user?: User;
   typeOfPrize?: Prize;
+  isRoleta: boolean;
 }
 
 const BoxCard: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const BoxCard: React.FC<Props> = ({
   machineId,
   user,
   typeOfPrize,
+  isRoleta,
 }) => {
   // hooks
   const {
@@ -52,7 +54,7 @@ const BoxCard: React.FC<Props> = ({
     <>
       <BoxCardContainer>
         <h1 className="heading-secondary-font">
-          Cabine
+          {isRoleta ? 'Haste' : 'Cabine'}
           {` ${index + 1}`}
         </h1>
 

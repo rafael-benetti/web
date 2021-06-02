@@ -85,6 +85,7 @@ const HandleMachinePage: React.FC = () => {
     value: string;
     label: string;
   }>({ value: '', label: 'Indefinido' });
+  const [categoryName, setCategoryName] = useState<string>();
   const [redirect, setRedirect] = useState(false);
 
   // const
@@ -232,6 +233,7 @@ const HandleMachinePage: React.FC = () => {
 
   useEffect(() => {
     if (initialData) {
+      setCategoryName(initialData.categoryLabel);
       formRef.current?.setData({
         category:
           categories.find(category => category.id === initialData.categoryId)
@@ -367,6 +369,7 @@ const HandleMachinePage: React.FC = () => {
                       category => category.id === categoryId,
                     );
                     setBoxesCreater(categories[index].boxes);
+                    setCategoryName(e ? e.label : '');
                   }}
                   options={categories.map(category => {
                     return {
@@ -496,7 +499,11 @@ const HandleMachinePage: React.FC = () => {
                     <Boxes>
                       <div className="cabin-title">
                         <h1 className="heading-secondary-font">
-                          {`Cabine ${index + 1}`}
+                          {`${
+                            categoryName?.toLowerCase().includes('roleta')
+                              ? 'Haste'
+                              : 'Cabine'
+                          } ${index + 1}`}
                         </h1>
                       </div>
 

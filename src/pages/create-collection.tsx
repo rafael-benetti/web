@@ -210,7 +210,13 @@ const CreateCollectionPage: React.FC = () => {
                                 <Input
                                   id={`digitalCount${idx}-${index}`}
                                   name="digitalCount"
-                                  label={`Cabine ${index + 1} - ${
+                                  label={`${
+                                    machine.categoryLabel
+                                      .toLowerCase()
+                                      .includes('roleta')
+                                      ? 'Haste'
+                                      : 'Cabine'
+                                  } ${index + 1} - ${
                                     counterTypes.find(
                                       counterType =>
                                         counterType.id ===
@@ -283,7 +289,13 @@ const CreateCollectionPage: React.FC = () => {
                                 <Input
                                   id={`mechanicalCount${idx}-${index}`}
                                   name="mechanicalCount"
-                                  label={`Cabine ${index + 1} - ${
+                                  label={`${
+                                    machine.categoryLabel
+                                      .toLowerCase()
+                                      .includes('roleta')
+                                      ? 'Haste'
+                                      : 'Cabine'
+                                  } ${index + 1} - ${
                                     counterTypes.find(
                                       counterType =>
                                         counterType.id ===
@@ -349,7 +361,13 @@ const CreateCollectionPage: React.FC = () => {
                                 <Input
                                   id={`userCount${idx}-${index}`}
                                   name="userCount"
-                                  label={`Cabine ${index + 1} - ${
+                                  label={`${
+                                    machine.categoryLabel
+                                      .toLowerCase()
+                                      .includes('roleta')
+                                      ? 'Haste'
+                                      : 'Cabine'
+                                  } ${index + 1} - ${
                                     counterTypes.find(
                                       counterType =>
                                         counterType.id ===
@@ -388,7 +406,13 @@ const CreateCollectionPage: React.FC = () => {
                     return (
                       <Photo key={counter.id}>
                         <h1>
-                          {`Cabine ${index + 1} - ${
+                          {`${
+                            machine.categoryLabel
+                              .toLowerCase()
+                              .includes('roleta')
+                              ? 'Haste'
+                              : 'Cabine'
+                          } ${index + 1} - ${
                             counterTypes.find(
                               counterType =>
                                 counterType.id === counter.counterTypeId,
@@ -502,7 +526,13 @@ const CreateCollectionPage: React.FC = () => {
                       <Scope key={v4()} path={`boxCollections[${index}]`}>
                         <div className="count-prize">
                           <p>
-                            {`Cabine
+                            {`${
+                              machine.categoryLabel
+                                .toLowerCase()
+                                .includes('roleta')
+                                ? 'Haste'
+                                : 'Cabine'
+                            }
                          ${index + 1}`}
                           </p>
                           <Input name="prizeCount" id={`${box.id}${index}`} />

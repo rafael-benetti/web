@@ -297,7 +297,13 @@ const CollectionInfo: React.FC = () => {
                   <div key={v4()}>
                     <div key={v4()} className="table-title">
                       <h1 className="table-title-font partnerships-name">
-                        {`Box ${index + 1}`}
+                        {`${
+                          collection.machine.categoryLabel
+                            .toLowerCase()
+                            .includes('roleta')
+                            ? 'Haste'
+                            : 'Cabine'
+                        } ${index + 1}`}
                       </h1>
                     </div>
                     {box.counterCollections.map(collect => {
@@ -427,9 +433,13 @@ const CollectionInfo: React.FC = () => {
                     return (
                       <Photo key={counter.counterId}>
                         <h1>
-                          {`Cabine ${index + 1} - ${
-                            counter.counterTypeLabel
-                          }  `}
+                          {`${
+                            collection.machine.categoryLabel
+                              .toLowerCase()
+                              .includes('roleta')
+                              ? 'Haste'
+                              : 'Cabine'
+                          } ${index + 1} - ${counter.counterTypeLabel}  `}
                         </h1>
                         <Gallery>
                           <div className="images">

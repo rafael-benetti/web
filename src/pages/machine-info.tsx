@@ -503,7 +503,13 @@ const MachineInfoPage: React.FC = () => {
             </h1>
             {machineInfo && machineInfo.boxesInfo.length > 1 && (
               <div className="all-cabins">
-                <h1 className="heading-secondary-font">Resumo das cabines</h1>
+                <h1 className="heading-secondary-font">
+                  {machineInfo.machine.categoryLabel
+                    .toLowerCase()
+                    .includes('roleta')
+                    ? 'Resumo das Hastes'
+                    : 'Resumo das cabines'}
+                </h1>
                 <div className="row">
                   <div className="line">
                     <h2>Faturamento</h2>
@@ -567,6 +573,11 @@ const MachineInfoPage: React.FC = () => {
                       group={machineInfo.machine.group}
                       machineId={machineInfo.machine.id}
                       typeOfPrize={machineInfo.machine.typeOfPrize}
+                      isRoleta={
+                        !!machineInfo.machine.categoryLabel
+                          .toLowerCase()
+                          .includes('roleta')
+                      }
                     />
                   );
                 })}

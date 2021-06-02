@@ -199,7 +199,7 @@ const MachineProvider: React.FC = ({ children }) => {
         delete createData.minimumPrizeCount;
       }
       try {
-        const response = await api.post<Machine>('/maquinas', createData, {
+        const response = await api.post<Machine>('/machines', createData, {
           headers: {
             authorization: `Bearer ${token}`,
           },
