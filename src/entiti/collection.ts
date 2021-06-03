@@ -36,7 +36,7 @@ export interface Collection {
   date: string;
   boxCollections: BoxColection[];
   startTime?: Date;
-  reviewedData?: { date: Date; reviewedBy?: string };
+  reviewedData?: { date: Date; reviewedBy?: string; reviewerName?: string };
   startLocation: { latitude: number; longitude: number };
   endLocation: { latitude: number; longitude: number };
 }
