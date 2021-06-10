@@ -59,7 +59,7 @@ const StockPage: React.FC = () => {
     setBusy(true);
     (async () => {
       await getGroups();
-      await getMachines(0, { pointOfSaleId: null });
+      await getMachines(undefined, { pointOfSaleId: null }, true);
       await getStockItems('GROUP');
       await getOperators();
       await getManagers();
