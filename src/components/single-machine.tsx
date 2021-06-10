@@ -34,14 +34,11 @@ const MachineInPoint: React.FC<Props> = ({
   const telemetryStatus = useCallback(
     (telemetryBoard: Telemetry | undefined) => {
       if (telemetryBoard) {
-        if (!telemetryBoard?.lastConnection) {
+        if (!machine.lastConnection) {
           return <VscDebugDisconnect color="#333" />;
         }
         if (
-          differenceInMinutes(
-            new Date(),
-            new Date(telemetryBoard.lastConnection),
-          ) > 10
+          differenceInMinutes(new Date(), new Date(machine.lastConnection)) > 10
         ) {
           return <RiWifiOffLine color="#f73164" />;
         }

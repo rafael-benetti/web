@@ -20,6 +20,7 @@ interface MachineContext {
   getMachines(
     offset: number | undefined,
     filter: FilterMachineDto | undefined,
+    withoutLimit?: boolean,
   ): Promise<ResponseGetMachine | undefined>;
   getSingleMachine(
     id: string,
@@ -107,9 +108,10 @@ const MachineProvider: React.FC = ({ children }) => {
     async (
       offset: number | undefined,
       filter: FilterMachineDto | undefined,
+      withoutLimit?: boolean,
     ) => {
       const params = [
-        `limit=${10}`,
+        withoutLimit ? '' : `limit=${10}`,
         offset ? `offset=${offset}` : '',
         filter?.isActive ? `isActive=${filter.isActive}` : '',
         filter?.groupId ? `groupId=${filter.groupId}` : '',

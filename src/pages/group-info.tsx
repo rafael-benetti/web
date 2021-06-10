@@ -253,7 +253,7 @@ const GroupInfoPage: React.FC = () => {
                     return (
                       <MachineWithoutCommunication
                         key={v4()}
-                        machine={point.pointOfSale.label}
+                        machine={point.pointOfSale?.label || '-'}
                         group={point.numberOfMachines}
                         machineId={point.pointOfSale.id}
                         time={point.income}
@@ -318,7 +318,7 @@ const GroupInfoPage: React.FC = () => {
                   <MachineWithoutCommunication
                     key={v4()}
                     machine={machine.serialNumber}
-                    group={machine.pointOfSale.label}
+                    group={machine.pointOfSale?.label || '-'}
                     machineId={machine.id}
                     time={machine.lastConnection}
                   />
@@ -341,7 +341,7 @@ const GroupInfoPage: React.FC = () => {
                   <MachineWithoutCommunication
                     key={v4()}
                     machine={machine.serialNumber}
-                    group={machine.pointOfSale.label}
+                    group={machine.pointOfSale.label || '-'}
                     machineId={machine.id}
                     time={machine.lastCollection}
                   />
