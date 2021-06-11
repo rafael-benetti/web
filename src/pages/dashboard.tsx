@@ -247,7 +247,7 @@ const Dashboard: React.FC = () => {
             <Link
               to={{
                 pathname: '/maquinas',
-                state: { value: 'ONLINE', label: 'Online' },
+                state: 'ONLINE',
               }}
             >
               <DashboardCard
@@ -260,7 +260,7 @@ const Dashboard: React.FC = () => {
             <Link
               to={{
                 pathname: '/maquinas',
-                state: { value: 'OFFLINE', label: 'Offline' },
+                state: 'OFFLINE',
               }}
             >
               <DashboardCard
@@ -273,7 +273,7 @@ const Dashboard: React.FC = () => {
             <Link
               to={{
                 pathname: '/maquinas',
-                state: { value: 'VIRGIN', label: 'Nunca conectada' },
+                state: 'VIRGIN',
               }}
             >
               <DashboardCard
@@ -286,7 +286,7 @@ const Dashboard: React.FC = () => {
             <Link
               to={{
                 pathname: '/maquinas',
-                state: { value: 'NO_TELEMETRY', label: 'Sem telemetria' },
+                state: 'NO_TELEMETRY',
               }}
             >
               <DashboardCard

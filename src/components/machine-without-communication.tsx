@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-duplicates
-import { differenceInDays } from 'date-fns';
+import { formatDistance } from 'date-fns';
+// eslint-disable-next-line import/no-duplicates
+import ptLocale from 'date-fns/locale/pt-BR';
 // eslint-disable-next-line import/no-duplicates
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
@@ -22,7 +24,9 @@ const MachineWithoutCommunication: React.FC<Props> = ({
 }) => {
   const timeRange = useCallback((timeData: Date | undefined) => {
     if (timeData) {
-      return differenceInDays(new Date(), new Date(timeData));
+      return formatDistance(new Date(), new Date(timeData), {
+        locale: ptLocale,
+      });
     }
     return 0;
   }, []);
@@ -54,9 +58,7 @@ const MachineWithoutCommunication: React.FC<Props> = ({
                 : `${time}`}
             </div>
           ) : (
-            <div className="right">
-              {`${timeRange(time)} ${timeRange(time) > 1 ? 'dias' : 'dia'}`}
-            </div>
+            <div className="right">{`${timeRange(time)} `}</div>
           )}
         </button>
       </Link>

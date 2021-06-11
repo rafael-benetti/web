@@ -480,7 +480,7 @@ const MachineInfoPage: React.FC = () => {
                     <Card>
                       <FiShoppingBag color="#dc3545" />
                       <div className="description">
-                        <h1>Prêmios Entreges</h1>
+                        <h1>Prêmios Entregues</h1>
                         <h2>{machineInfo?.givenPrizes}</h2>
                       </div>
                     </Card>

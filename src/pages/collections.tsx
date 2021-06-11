@@ -59,7 +59,7 @@ const CollectionsPage: React.FC = () => {
       await getCollections(pageSelected * 10 - 10, filter);
       setTableBusy(false);
     })();
-  }, [filterWasChanged]);
+  }, [filterWasChanged, pageSelected]);
 
   return (
     <Container active="collections" loading={busy}>
