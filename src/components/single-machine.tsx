@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import { differenceInMinutes } from 'date-fns';
 import React, { useCallback } from 'react';
@@ -63,7 +64,7 @@ const MachineInPoint: React.FC<Props> = ({
             {telemetryStatus(telemetry)}
             <p>{telemetry ? `STG-${telemetry.id}` : '-'}</p>
           </div>
-          <div className="category">{category?.label || ''}</div>
+          <div className="category">{machine.categoryLabel || ''}</div>
           {pointOfSale ? (
             <div className="location">{pointOfSale?.label || ''}</div>
           ) : (

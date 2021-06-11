@@ -32,6 +32,14 @@ import { Route } from '../entiti/route';
 import ModalTelemetry from '../components/modal-telemetry';
 
 const MachinesPage: React.FC = () => {
+  // location
+  const preFilter = useLocation().state as
+    | 'ONLINE'
+    | 'OFFLINE'
+    | 'VIRGIN'
+    | 'NO_TELEMETRY'
+    | undefined;
+
   // hooks
   const { getGroups, groups } = useGroup();
   const { getPointsOfSale, pointsOfSale } = usePointOfSale();
@@ -96,7 +104,31 @@ const MachinesPage: React.FC = () => {
     setBusy(true);
     toggleTelemetryModal(undefined);
     (async () => {
-      await getMachines(pageSelected * 10 - 10, filters);
+      if (preFilter === 'ONLINE') {
+        setTelemetryStatusSelected({ label: 'Online', value: 'ONLINE' });
+        setFilters({ telemetryStatus: 'ONLINE' });
+        setFilterWasChanged(1);
+      } else if (preFilter === 'OFFLINE') {
+        setTelemetryStatusSelected({ label: 'Offline', value: 'OFFLINE' });
+        setFilters({ telemetryStatus: 'OFFLINE' });
+        setFilterWasChanged(2);
+      } else if (preFilter === 'NO_TELEMETRY') {
+        setTelemetryStatusSelected({
+          label: 'Sem telemetria',
+          value: 'NO_TELEMETRY',
+        });
+        setFilters({ telemetryStatus: 'NO_TELEMETRY' });
+        setFilterWasChanged(3);
+      } else if (preFilter === 'VIRGIN') {
+        setTelemetryStatusSelected({
+          value: 'VIRGIN',
+          label: 'Nunca conectada',
+        });
+        setFilters({ telemetryStatus: 'VIRGIN' });
+        setFilterWasChanged(4);
+      } else if (!preFilter) {
+        await getMachines(pageSelected * 10 - 10, filters);
+      }
       await getGroups();
       await getPointsOfSale(undefined, undefined);
       await getCategories();
@@ -105,11 +137,12 @@ const MachinesPage: React.FC = () => {
       setRoutesFiltered(routes);
       setBusy(false);
     })();
-  }, []);
+  }, [preFilter]);
 
   useEffect(() => {
     (async () => {
       await getMachines(pageSelected * 10 - 10, filters);
+
       if (groupSelected?.value === 'none') {
         await getPointsOfSale(undefined, undefined);
         setRoutesFiltered(routes);
