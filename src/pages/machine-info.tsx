@@ -587,7 +587,7 @@ const MachineInfoPage: React.FC = () => {
               <div className="history-events">
                 <div className="title">
                   <h1 className="heading-secondary-font">
-                    Histórico de eventos
+                    Histórico de jogadas
                   </h1>
                   <Link
                     to={{
@@ -667,7 +667,7 @@ const MachineInfoPage: React.FC = () => {
                 <div className="history-remote">
                   <div className="title">
                     <h1 className="heading-secondary-font">
-                      Histórico de correções
+                      Histórico de eventos
                     </h1>
                     <Link
                       to={{

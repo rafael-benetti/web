@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line import/no-duplicates
-import { formatDistance } from 'date-fns';
+import { formatDistance, differenceInMinutes } from 'date-fns';
 // eslint-disable-next-line import/no-duplicates
 import ptLocale from 'date-fns/locale/pt-BR';
 // eslint-disable-next-line import/no-duplicates
@@ -23,12 +24,24 @@ const MachineWithoutCommunication: React.FC<Props> = ({
   isPoint,
 }) => {
   const timeRange = useCallback((timeData: Date | undefined) => {
+    let stringona = '';
     if (timeData) {
-      return formatDistance(new Date(), new Date(timeData), {
-        locale: ptLocale,
-      });
+      let totalMinutes = differenceInMinutes(new Date(), new Date(timeData));
+      const totalDays = Math.trunc(totalMinutes / 60 / 24);
+      totalMinutes -= totalDays * 60 * 24;
+      const totalHours = Math.trunc(totalMinutes / 60);
+      totalMinutes -= totalHours * 60;
+      if (totalDays > 0) {
+        stringona += `${totalDays} dias `;
+      }
+      if (totalHours > 0) {
+        stringona += `${totalHours} horas `;
+      }
+      if (totalMinutes > 0) {
+        stringona += `${totalMinutes} minutos`;
+      }
     }
-    return 0;
+    return stringona;
   }, []);
 
   return (
