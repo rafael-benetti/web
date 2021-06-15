@@ -314,7 +314,7 @@ const Dashboard: React.FC = () => {
                   <MachineWithoutCommunication
                     key={v4()}
                     machine={machine.serialNumber}
-                    group={machine.pointOfSale?.label || '-'}
+                    group={machine.pointOfSale ? machine.pointOfSale.label : ''}
                     machineId={machine.id}
                     time={machine.lastConnection}
                   />
@@ -337,7 +337,7 @@ const Dashboard: React.FC = () => {
                   <MachineWithoutCommunication
                     key={v4()}
                     machine={machine.serialNumber}
-                    group={machine.pointOfSale.label || ''}
+                    group={machine.pointOfSale ? machine.pointOfSale.label : ''}
                     machineId={machine.id}
                     time={machine.lastCollection}
                   />
