@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-indent-props */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -175,11 +178,15 @@ const TransferMachine: React.FC<Props> = ({ machineInfo }) => {
           <>
             <TransferToGroup>
               {machineInfo &&
-              machineInfo.boxesInfo.find(box => box.currentMoney > 0) ? (
+              (machineInfo.boxesInfo.find(box => box.currentMoney > 0) ||
+                machineInfo.boxesInfo.find(
+                  box => box.currentPrizeCount > 0,
+                )) ? (
                 <>
                   <h2 className="warning">
-                    Uma máquina não pode ser transferida com dinheiro em alguma
-                    das cabines. Para tranferi-la realize uma coleta.
+                    Uma máquina não pode ser transferida para outra parceria com
+                    dinheiro ou prêmio em alguma das cabines. Para tranferi-la
+                    realize uma coleta e esvazie o estoque da máquina.
                   </h2>
                   <div className="collect-btn">
                     <Button

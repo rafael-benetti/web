@@ -126,7 +126,7 @@ const MachineProvider: React.FC = ({ children }) => {
           : '',
         filter?.serialNumber ? `serialNumber=${filter.serialNumber}` : '',
         filter?.routeId ? `routeId=${filter.routeId}` : '',
-        filter?.lean ? true : undefined,
+        filter?.lean ? `lean=true` : undefined,
       ]
         .filter(value => value !== '')
         .join('&');

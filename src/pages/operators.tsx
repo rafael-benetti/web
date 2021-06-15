@@ -25,6 +25,7 @@ const OperatorsPage: React.FC = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [operatorsFiltered, setOperatorsFiltered] = useState<User[]>([]);
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState<string>();
 
   // hook
   const { getOperators, operators } = useOperator();
@@ -103,6 +104,7 @@ const OperatorsPage: React.FC = () => {
                     }}
                     id="operator-name"
                     onChange={e => {
+                      setFilter(e.target.value);
                       filterOperators(e.target.value);
                     }}
                   />
@@ -118,7 +120,7 @@ const OperatorsPage: React.FC = () => {
               <h1 className="table-title-font phone-name">Telefone</h1>
               <h1 className="table-title-font active-name">Ativo</h1>
             </div>
-            {operators && operatorsFiltered.length === 0
+            {operators && !filter
               ? operators.map((operator, index) => {
                   if ((page - 1) * 10 <= index && index < page * 10) {
                     return (

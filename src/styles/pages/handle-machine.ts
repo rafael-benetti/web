@@ -46,10 +46,9 @@ export const HandleMachineContent = styled.div`
       flex-direction: row;
       align-items: center;
       justify-content: flex-end;
-      button {
-        &:not(:last-child) {
-          margin-right: 2rem;
-        }
+      a {
+        text-decoration: none;
+        margin-right: 2rem;
       }
     }
   }

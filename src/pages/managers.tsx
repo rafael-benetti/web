@@ -25,6 +25,7 @@ const ManagersPage: React.FC = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [managersFiltered, setManagersFiltered] = useState<User[]>([]);
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState<string>();
 
   // hook
   const { getManagers, managers } = useManager();
@@ -103,6 +104,8 @@ const ManagersPage: React.FC = () => {
                     }}
                     id="manager-name"
                     onChange={e => {
+                      setFilter(e.target.value);
+
                       filterManagers(e.target.value);
                     }}
                   />
@@ -118,7 +121,7 @@ const ManagersPage: React.FC = () => {
               <h1 className="table-title-font phone-name">Telefone</h1>
               <h1 className="table-title-font active-name">Ativo</h1>
             </div>
-            {managers && managersFiltered.length === 0
+            {managers && !filter
               ? managers.map((manager, index) => {
                   if ((page - 1) * 10 <= index && index < page * 10) {
                     return (

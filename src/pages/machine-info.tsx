@@ -193,12 +193,11 @@ const MachineInfoPage: React.FC = () => {
                 <Card>
                   <FiPocket color="#17a2b8" />
                   <div className="description">
-                    {/* //TODO */}
                     <h1>Última Coleta</h1>
                     <h2>
-                      {machineInfo && machineInfo.machine.lastCollection
+                      {machineInfo && machineInfo.lastCollection
                         ? format(
-                            new Date(machineInfo.machine.lastCollection),
+                            new Date(machineInfo.lastCollection),
                             `dd'-'MM'-'yy 'às' H:mm`,
                             {
                               locale: ptLocale,

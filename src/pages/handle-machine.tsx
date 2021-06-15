@@ -5,7 +5,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import { Form } from '@unform/web';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { FormHandles, Scope } from '@unform/core';
 import { v4 } from 'uuid';
 import { FiXCircle, FiPlus } from 'react-icons/fi';
@@ -317,6 +317,8 @@ const HandleMachinePage: React.FC = () => {
         <HandleMachineContent>
           <Form ref={formRef} onSubmit={handleMachine}>
             <div className="form-grid">
+              <Input name="serialNumber" type="text" label="Número de série" />
+
               {initialData ? null : (
                 <>
                   {groups.length === 1 && groups[0].isPersonal ? null : (
@@ -445,7 +447,6 @@ const HandleMachinePage: React.FC = () => {
                   setTelemetrySelected({ value: e.value, label: e.label });
                 }}
               />
-              <Input name="serialNumber" type="text" label="Número de série" />
               <Input name="gameValue" label="Valor da jogada" type="number" />
               {initialData ? null : (
                 <Input
@@ -669,7 +670,24 @@ const HandleMachinePage: React.FC = () => {
               })}
             </div>
             <div className="submit-btn">
-              <Button color="tertiary" title="Cancelar" />
+              {initialData ? (
+                <Link
+                  to={{
+                    pathname: '/detalhes-da-maquina',
+                    state: initialData.id,
+                  }}
+                >
+                  <Button color="tertiary" title="Cancelar" />
+                </Link>
+              ) : (
+                <Link
+                  to={{
+                    pathname: '/maquinas',
+                  }}
+                >
+                  <Button color="tertiary" title="Cancelar" />
+                </Link>
+              )}
               <Button
                 isSubmit
                 color="primary"

@@ -52,7 +52,10 @@ const SingleTelemetry: React.FC<SingleTelemetryProps> = ({
           className="edit-btn"
           type="button"
           onClick={() => {
-            if (user?.role !== 'OPERATOR') {
+            if (
+              user?.permissions?.editGroups === true ||
+              user?.role === 'OWNER'
+            ) {
               if (telemetry.machineId) {
                 toggleTelemetryModal(telemetry.id);
                 return;

@@ -39,6 +39,7 @@ const TelemetriesPage: React.FC = () => {
     [],
   );
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState<string>();
 
   useEffect(() => {
     setBusy(true);
@@ -91,6 +92,7 @@ const TelemetriesPage: React.FC = () => {
                     }}
                     id="group-name"
                     onChange={e => {
+                      setFilter(e.target.value);
                       filterTelemetries(e.target.value);
                     }}
                   />
@@ -125,7 +127,7 @@ const TelemetriesPage: React.FC = () => {
               <div className="machine">Instalado à</div>
               <div className="last-conection center">Última conexão</div>
             </div>
-            {telemetries && telemetriesFiltered.length === 0
+            {telemetries && !filter
               ? telemetries.map((telemetry, index) => {
                   if ((page - 1) * 10 <= index && index < page * 10) {
                     return (

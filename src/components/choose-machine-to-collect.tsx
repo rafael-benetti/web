@@ -27,20 +27,24 @@ const ChooseMachineToCollect: React.FC = () => {
   useEffect(() => {
     setBusy(true);
     (async () => {
-      await getMachines(undefined, undefined);
-      setBusy(false);
-    })();
-  }, []);
+      await getMachines(undefined, undefined, true);
+        setBusy(false);
+      })();
+    }, [machineId]);
 
-  const machineToSelect: Machine[] = [];
-   machines.forEach(machine => {
-    if(machine.locationId !== undefined && differenceInMinutes(
-      new Date(),
-      new Date(machine.lastConnection),
-    ) < 10) {
-      machineToSelect.push(machine)
-    }
-  })
+
+    const machineToSelect: Machine[] = []
+    machines.forEach(machine => {
+      if(machine.locationId !== null && machine.locationId !== undefined && differenceInMinutes(
+        new Date(),
+        new Date(machine.lastConnection),
+        ) <= 10) {
+          machineToSelect.push(machine)
+
+        }
+      })
+
+
 
   return (
     <>
