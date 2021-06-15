@@ -150,6 +150,8 @@ const UserProvider: React.FC = ({ children }) => {
       setUser(response.data);
       return response.data;
     } catch (error) {
+      localStorage.removeItem('@sttigma:token');
+
       return undefined;
     }
   }, [token]);
