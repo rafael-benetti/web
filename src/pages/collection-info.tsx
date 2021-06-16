@@ -142,10 +142,17 @@ const CollectionInfo: React.FC = () => {
         <CollectionInfoContent>
           <ReviewCollection>
             {(collection?.reviewedData || reviwed) && (
-              <Button
-                title={`Coleta revisada por ${collection?.reviewedData?.reviewerName}`}
-                color="quinary"
-              />
+              <span>
+                {`Coleta revisada por ${
+                  collection?.reviewedData?.reviewerName
+                } em ${format(
+                  new Date(collection?.reviewedData?.date || 0),
+                  `dd'/'MM'/'yy 'às' H:mm`,
+                  {
+                    locale: ptLocale,
+                  },
+                )}`}
+              </span>
             )}
             {!collection?.reviewedData && !reviwed && (
               <Button

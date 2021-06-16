@@ -70,6 +70,12 @@ export const CollectionInfoContent = styled.div`
 
 export const ReviewCollection = styled.div`
   margin-bottom: 2rem;
+  span {
+    padding: 1rem;
+    background-color: #4b8b3b;
+    color: #fff;
+    border-radius: 3px;
+  }
 `;
 
 export const DateInfo = styled.div`

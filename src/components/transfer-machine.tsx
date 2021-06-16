@@ -3,7 +3,6 @@
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import ReactSelect from 'react-select';
 import { MachineInfo } from '../entiti/machine-info';
 import { useGroup } from '../hooks/group';
@@ -127,7 +126,8 @@ const TransferMachine: React.FC<Props> = ({ machineInfo }) => {
         {transferType === 'POINT_OF_SALE' ? (
           <TransferToLocation>
             {machineInfo &&
-            machineInfo.boxesInfo.find(box => box.currentMoney > 0) ? (
+            machineInfo.boxesInfo.find(box => box.currentMoney > 0) &&
+            machineInfo.machine.locationId !== undefined ? (
               <>
                 <h2 className="warning">
                   Uma máquina não pode ser transferida com dinheiro em alguma

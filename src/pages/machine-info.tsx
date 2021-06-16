@@ -107,6 +107,7 @@ const MachineInfoPage: React.FC = () => {
     if (machineInfo?.machine.lastConnection) {
       if (
         machineInfo?.machine.locationId !== null &&
+        machineInfo.machine.locationId !== undefined &&
         differenceInMinutes(
           new Date(),
           new Date(machineInfo.machine.lastConnection),

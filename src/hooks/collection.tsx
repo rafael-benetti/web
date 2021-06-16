@@ -1,11 +1,7 @@
 /* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { createContext, useCallback, useContext, useState } from 'react';
-import {
-  EditCollecionDto,
-  BaseData,
-  HandleCollectionDto,
-} from '../dto/handle-collection';
+import { EditCollecionDto, BaseData } from '../dto/handle-collection';
 import { Collection } from '../entiti/collection';
 import { GetCollections } from '../entiti/get-collections';
 import api from '../service/api';
@@ -195,7 +191,7 @@ const CollectionProvider: React.FC = ({ children }) => {
   const reviewCollection = useCallback(
     async (id: string, userId: string) => {
       try {
-        await api.put(
+        const response = await api.put(
           `collections/review/${id}`,
           {},
           {
@@ -211,7 +207,10 @@ const CollectionProvider: React.FC = ({ children }) => {
         if (collection) {
           setCollection({
             ...collection,
-            reviewedData: { date: new Date(Date.now()) },
+            reviewedData: {
+              reviewerName: response.data.reviewerName,
+              date: response.data.date,
+            },
           });
         }
         return true;
