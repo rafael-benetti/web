@@ -1,13 +1,13 @@
-import { Pagination } from '@material-ui/lab';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Pagination } from '@material-ui/lab';
 import { AiOutlineWifi } from 'react-icons/ai';
 import { RiWifiOffLine } from 'react-icons/ri';
 import { VscDebugDisconnect } from 'react-icons/vsc';
+import ReactSelect from 'react-select';
 import { v4 } from 'uuid';
 import Container from '../components/container';
 import CurrentPath from '../components/current-path';
 import SingleTelemetry from '../components/single-telemetry';
-import { Telemetry } from '../entiti/telemetry';
 import { useGroup } from '../hooks/group';
 import { useTelemetry } from '../hooks/telemetry';
 import { useUser } from '../hooks/user';
@@ -28,6 +28,7 @@ const TelemetriesPage: React.FC = () => {
     telemetries,
     toggleTelemetryModal,
     toggleTransferTelemetry,
+    telemetryCount,
   } = useTelemetry();
   const { getGroups, groups } = useGroup();
   const { getUser, user } = useUser();
@@ -35,36 +36,40 @@ const TelemetriesPage: React.FC = () => {
   // state
   const [busy, setBusy] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [telemetriesFiltered, setTelemetriesFiltered] = useState<Telemetry[]>(
-    [],
-  );
+
   const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState<string>();
+  const [filter, setFilter] = useState<{
+    groupId?: string;
+    telemetryBoardId?: string;
+  }>();
+  const [groupSelected, setGroupSelected] = useState<{
+    value: string;
+    label: string;
+  }>({
+    value: 'none',
+    label: 'Todas', // await login(data)
+  });
+  const numberOfPages = useCallback((num: number) => {
+    return Math.ceil(num / 10);
+  }, []);
 
   useEffect(() => {
     setBusy(true);
     toggleTelemetryModal(undefined);
     toggleTransferTelemetry(undefined);
     (async () => {
-      await getTelemetries();
+      await getTelemetries(page * 10 - 10, filter);
       await getGroups();
       await getUser();
       setBusy(false);
     })();
   }, []);
 
-  const filterTelemetries = useCallback(
-    (data: string) => {
-      const telemetriesData: Telemetry[] = [];
-      telemetries.forEach(telemetry => {
-        if (`STG-${telemetry.id}`.toString().toLowerCase().includes(data)) {
-          telemetriesData.push(telemetry);
-        }
-      });
-      setTelemetriesFiltered(telemetriesData);
-    },
-    [telemetries],
-  );
+  useEffect(() => {
+    (async () => {
+      await getTelemetries(page * 10 - 10, filter);
+    })();
+  }, [page, filter]);
 
   return (
     <Container active="telemetries" loading={busy}>
@@ -79,9 +84,36 @@ const TelemetriesPage: React.FC = () => {
         </PageTitle>
         <TelemetriesContent>
           <div className="filter">
+            <div className="filter-select">
+              <p style={{ marginBottom: '1rem' }}>Parceria</p>
+              <ReactSelect
+                name="groupId"
+                id="groupId"
+                defaultValue={groupSelected}
+                options={[
+                  {
+                    value: 'none',
+                    label: 'Todas',
+                  },
+                  ...(groups &&
+                    groups.map(group => {
+                      return {
+                        value: group.id,
+                        label: group.label ? group.label : 'Pessoal',
+                      };
+                    })),
+                ]}
+                onChange={e => {
+                  if (e) {
+                    setGroupSelected(e);
+                    setFilter({ ...filter, groupId: e?.value });
+                  }
+                }}
+              />
+            </div>
             <InputContainer isFocused={isFocused}>
               <label htmlFor="group-name">
-                <p>Pesquisar</p>
+                <p>Pesquisar pelo número da telemetria</p>
                 <div>
                   <input
                     onFocus={() => {
@@ -90,10 +122,15 @@ const TelemetriesPage: React.FC = () => {
                     onBlur={() => {
                       setIsFocused(false);
                     }}
+                    type="number"
                     id="group-name"
                     onChange={e => {
-                      setFilter(e.target.value);
-                      filterTelemetries(e.target.value);
+                      if (e) {
+                        setFilter({
+                          ...filter,
+                          telemetryBoardId: e.target.value,
+                        });
+                      }
                     }}
                   />
                 </div>
@@ -127,46 +164,22 @@ const TelemetriesPage: React.FC = () => {
               <div className="machine">Instalado à</div>
               <div className="last-conection center">Última conexão</div>
             </div>
-            {telemetries && !filter
-              ? telemetries.map((telemetry, index) => {
-                  if ((page - 1) * 10 <= index && index < page * 10) {
-                    return (
-                      <SingleTelemetry
-                        key={v4()}
-                        telemetry={telemetry}
-                        group={groups.find(
-                          group => group.id === telemetry.groupId,
-                        )}
-                        groups={groups}
-                        user={user}
-                      />
-                    );
-                  }
-                  return null;
-                })
-              : telemetriesFiltered.map((telemetry, index) => {
-                  if ((page - 1) * 10 <= index && index < page * 10) {
-                    return (
-                      <SingleTelemetry
-                        key={v4()}
-                        telemetry={telemetry}
-                        group={groups.find(
-                          group => group.id === telemetry.groupId,
-                        )}
-                        groups={groups}
-                      />
-                    );
-                  }
-                  return null;
-                })}
+            {telemetries &&
+              telemetries.map(telemetry => {
+                return (
+                  <SingleTelemetry
+                    key={v4()}
+                    telemetry={telemetry}
+                    group={groups.find(group => group.id === telemetry.groupId)}
+                    groups={groups}
+                    user={user}
+                  />
+                );
+              })}
           </Table>
           <PaginationContainer>
             <Pagination
-              count={
-                telemetriesFiltered.length === 0
-                  ? Math.ceil(telemetries.length / 10)
-                  : Math.ceil(telemetriesFiltered.length / 10)
-              }
+              count={numberOfPages(telemetryCount || 0)}
               color="primary"
               variant="outlined"
               page={page}

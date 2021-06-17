@@ -21,8 +21,13 @@ export const TelemetriesContent = styled.div`
   padding: 3rem 1.5rem;
 
   .filter {
-    width: 40%;
     margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    .filter-select {
+      margin-right: 2rem;
+      width: 100%;
+    }
   }
   .warning-personal-group {
     text-align: center;
@@ -30,7 +35,11 @@ export const TelemetriesContent = styled.div`
   }
   @media screen and (max-width: 37.5em) {
     .filter {
+      flex-direction: column;
       width: 100%;
+      .filter-select {
+        margin: 0;
+      }
     }
   }
 `;

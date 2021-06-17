@@ -9,7 +9,16 @@ import { useError } from './error';
 import { useToast } from './toast';
 
 interface TelemetryContext {
-  getTelemetries(): Promise<Telemetry[] | undefined>;
+  getTelemetries(
+    offset?: number,
+    filter?: { groupId?: string; telemetryBoardId?: string },
+  ): Promise<
+    | {
+        count: number;
+        telemetryBoards: Telemetry[];
+      }
+    | undefined
+  >;
   transferTelemetry(groupId: string, id: string): Promise<void>;
   toggleTransferTelemetry(id: string | undefined): void;
   toggleTelemetryModal(id: string | undefined): void;
@@ -37,6 +46,7 @@ interface TelemetryContext {
   telemetries: Telemetry[];
   count?: number;
   telemetryLogs: TelemetryLog[];
+  telemetryCount?: number;
 }
 
 const TelemetryContext = createContext({} as TelemetryContext);
@@ -57,7 +67,7 @@ const TelemetryProvider: React.FC = ({ children }) => {
   >();
   const [telemetryLogs, setTelemetryLogs] = useState<TelemetryLog[]>([]);
   const [machineLogs, setMachineLogs] = useState<MachineLog[]>([]);
-
+  const [telemetryCount, setTelemetryCount] = useState<number>();
   const [count, setCount] = useState<number>();
 
   const getTelemetryLogs = useCallback(
@@ -144,21 +154,43 @@ const TelemetryProvider: React.FC = ({ children }) => {
     setShowTelemetryModal(id);
   }, []);
 
-  const getTelemetries = useCallback(async () => {
-    try {
-      const response = await api.get<Telemetry[]>('/telemetry-boards', {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      if (response) {
-        setTelemetries(response.data);
+  const getTelemetries = useCallback(
+    async (
+      offset?: number,
+      filter?: { groupId?: string; telemetryBoardId?: string },
+    ) => {
+      try {
+        const response = await api.get<{
+          count: number;
+          telemetryBoards: Telemetry[];
+        }>('/telemetry-boards', {
+          params: {
+            limit: offset === undefined ? undefined : '10',
+            offset: offset === undefined ? undefined : offset,
+            groupId:
+              filter?.groupId && filter?.groupId !== 'none'
+                ? filter.groupId
+                : undefined,
+            telemetryBoardId: filter?.telemetryBoardId
+              ? filter.telemetryBoardId
+              : undefined,
+          },
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(response.data);
+        if (response) {
+          setTelemetries(response.data.telemetryBoards);
+          setTelemetryCount(response.data.count);
+        }
+        return response.data;
+      } catch (error) {
+        return undefined;
       }
-      return response.data;
-    } catch (error) {
-      return undefined;
-    }
-  }, [token]);
+    },
+    [token],
+  );
 
   const transferTelemetry = useCallback(
     async (groupId: string, id: string) => {
@@ -210,6 +242,7 @@ const TelemetryProvider: React.FC = ({ children }) => {
         count,
         showTransferTelemetry,
         telemetries,
+        telemetryCount,
       }}
     >
       {children}
