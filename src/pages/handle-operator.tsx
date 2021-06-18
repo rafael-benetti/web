@@ -102,6 +102,7 @@ const HandleOperatorPage: React.FC = () => {
           setRedirect(true);
           return;
         }
+
         const createOperatorData: HandleOperatorDto = {
           email: data.email,
           groupIds: groupsIds,
@@ -131,7 +132,7 @@ const HandleOperatorPage: React.FC = () => {
         }
       }
     },
-    [operatorPermissions, groupsIds, initialData],
+    [operatorPermissions, groupsIds],
   );
 
   useEffect(() => {
@@ -217,15 +218,17 @@ const HandleOperatorPage: React.FC = () => {
                   name="groupIds"
                   initialValues={groupsIds}
                   onChange={e => {
-                    setGroupsIds([...groupsIds, e.target.value.toString()]);
-                    if (
-                      groupsIds.find(id => id === e.target.value.toString())
-                    ) {
+                    if (e.target.checked) {
+                      if (!groupsIds.includes(e.target.value.toString()))
+                        setGroupsIds([...groupsIds, e.target.value.toString()]);
+                    } else {
                       const index = groupsIds.findIndex(
                         id => id === e.target.value.toString(),
                       );
-                      groupsIds.splice(index, 1);
-                      setGroupsIds([...groupsIds]);
+                      setGroupsIds(state => {
+                        state.splice(index, 1);
+                        return state;
+                      });
                     }
                   }}
                   options={groups.map(group => {

@@ -42,7 +42,14 @@ const AddMachineInPoint: React.FC<Props> = ({ pointOfSaleInfo }) => {
   useEffect(() => {
     setBusy(true);
     (async () => {
-      await getMachines(undefined, { pointOfSaleId: null, lean: true });
+      await getMachines(
+        undefined,
+        {
+          pointOfSaleId: null,
+          groupId: pointOfSaleInfo?.pointOfSale.groupId,
+        },
+        true,
+      );
       setBusy(false);
     })();
   }, []);

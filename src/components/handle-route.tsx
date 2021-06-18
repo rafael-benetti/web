@@ -80,7 +80,7 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
           await editRoute(data, initialData.id);
           setBusyBtn(false);
           toggleActions(true);
-          toggleEditRoute(undefined);
+          toggleEditRoute(false);
           return;
         }
         await createRoute(data);
@@ -247,7 +247,7 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
           if (!initialData) {
             toggleCreateRoute(false);
           } else {
-            toggleEditRoute(undefined);
+            toggleEditRoute(false);
           }
         }}
       />

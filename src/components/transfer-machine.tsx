@@ -51,7 +51,9 @@ const TransferMachine: React.FC<Props> = ({ machineInfo }) => {
   useEffect(() => {
     setBusy(true);
     (async () => {
-      await getPointsOfSale(undefined, undefined);
+      await getPointsOfSale(undefined, {
+        groupId: machineInfo?.machine.groupId,
+      });
       await getGroups();
       await setBusy(false);
     })();

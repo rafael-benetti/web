@@ -54,9 +54,11 @@ const RouteInfo: React.FC = () => {
     if (!routeId) {
       setRedirect(true);
     }
+    if (showEditRoute) {
+      toggleEditRoute(false);
+    }
     setBusy(true);
     toggleDeleteRoute(false);
-    toggleEditRoute(undefined);
     (async () => {
       await getSingleRoute(routeId, filter);
       await getUser();
@@ -112,7 +114,7 @@ const RouteInfo: React.FC = () => {
                   <Button
                     title="Editar rota"
                     color="secondary"
-                    callback={() => toggleEditRoute(routeInfo?.route.id)}
+                    callback={() => toggleEditRoute(true)}
                   />
                 </div>
               </div>
@@ -247,7 +249,7 @@ const RouteInfo: React.FC = () => {
           ) : null}
         </RouteInfoContent>
       </RouteInfoContainer>
-      {showEditRoute === routeInfo?.route.id ? (
+      {showEditRoute ? (
         <HandleRoute initialData={routeInfo?.route} operators={operators} />
       ) : null}
       {showDeleteRoute && <ModalDeleteRoute route={routeInfo?.route} />}

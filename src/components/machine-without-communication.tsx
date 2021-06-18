@@ -56,7 +56,7 @@ const MachineWithoutCommunication: React.FC<Props> = ({
         <button className="edit-btn" type="button">
           <div className="label">{`${machine || 'BT001'}`}</div>
           {typeof group === 'string' ? (
-            <div className="center">{`${group || 'Parceria pessoal'}`}</div>
+            <div className="center">{`${group || '-'}`}</div>
           ) : (
             <div className="center">{`${group || '-'}`}</div>
           )}

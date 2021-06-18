@@ -290,15 +290,17 @@ const HandleManagerPage: React.FC = () => {
                   name="groupIds"
                   initialValues={groupsIds}
                   onChange={e => {
-                    setGroupsIds([...groupsIds, e.target.value.toString()]);
-                    if (
-                      groupsIds.find(id => id === e.target.value.toString())
-                    ) {
+                    if (e.target.checked) {
+                      if (!groupsIds.includes(e.target.value.toString()))
+                        setGroupsIds([...groupsIds, e.target.value.toString()]);
+                    } else {
                       const index = groupsIds.findIndex(
                         id => id === e.target.value.toString(),
                       );
-                      groupsIds.splice(index, 1);
-                      setGroupsIds([...groupsIds]);
+                      setGroupsIds(state => {
+                        state.splice(index, 1);
+                        return state;
+                      });
                     }
                   }}
                   options={groups.map(group => {

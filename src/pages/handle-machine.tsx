@@ -89,7 +89,7 @@ const HandleMachinePage: React.FC = () => {
   const [redirect, setRedirect] = useState(false);
 
   // const
-  const telemetry: Options[] = [
+  const [telemetry, setTelemetry] = useState<Options[]>([
     { label: 'Pino 2', value: 'Pino 2' },
     { label: 'Pino 3', value: 'Pino 3' },
     { label: 'Pino 4', value: 'Pino 4' },
@@ -101,7 +101,8 @@ const HandleMachinePage: React.FC = () => {
     { label: 'Pino 10', value: 'Pino 10' },
     { label: 'Pino 11', value: 'Pino 11' },
     { label: 'Pino 12', value: 'Pino 12' },
-  ];
+    { label: 'Pino 13', value: 'Pino 13' },
+  ]);
 
   const handleMachine = useCallback(
     async (data: HandleMachineDto) => {
@@ -598,6 +599,11 @@ const HandleMachinePage: React.FC = () => {
                                           : {}
                                       }
                                       onChange={e => {
+                                        const i = telemetry.findIndex(
+                                          t => t.value === e!.value,
+                                        );
+                                        telemetry.splice(i, 1);
+                                        setTelemetry(telemetry);
                                         boxesCreater[index].counters[
                                           indx
                                         ].pin = e ? e.value : '';

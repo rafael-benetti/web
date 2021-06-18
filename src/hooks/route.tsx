@@ -13,7 +13,7 @@ interface RouteContext {
     period: 'DAILY' | 'WEEKLY' | 'MONTHLY',
   ): Promise<void>;
   toggleCreateRoute(bool: boolean): void;
-  toggleEditRoute(id: string | undefined): void;
+  toggleEditRoute(id: boolean): void;
   createRoute(data: Omit<Route, 'id'>): Promise<Route | undefined>;
   editRoute(data: Omit<Route, 'id'>, id: string): Promise<Route | undefined>;
   toggleActions(refresh?: boolean): void;
@@ -24,7 +24,7 @@ interface RouteContext {
   routes: Route[];
   routeInfo: RouteInfo | undefined;
   showCreateRoute: boolean;
-  showEditRoute: string | undefined;
+  showEditRoute: boolean;
 }
 
 const RouteContext = createContext({} as RouteContext);
@@ -38,7 +38,7 @@ const RouteProvider: React.FC = ({ children }) => {
   // state
   const [routes, setRoutes] = useState<Route[]>([]);
   const [showCreateRoute, setShowCreateRoute] = useState(false);
-  const [showEditRoute, setShowEditRoute] = useState<string | undefined>();
+  const [showEditRoute, setShowEditRoute] = useState<boolean>(false);
   const [routeInfo, setRouteInfo] = useState<RouteInfo>();
   const [shouldRefreshRoute, setShouldRefreshRoute] = useState<boolean>(false);
   const [showDeleteRoute, setShowDeleteRoute] = useState<boolean>(false);
@@ -86,7 +86,7 @@ const RouteProvider: React.FC = ({ children }) => {
   );
 
   const toggleEditRoute = useCallback(
-    (id: string | undefined) => {
+    (id: boolean) => {
       setShowEditRoute(id);
     },
     [showCreateRoute],

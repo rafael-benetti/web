@@ -157,7 +157,7 @@ const SideBar: React.FC<IProps> = ({ active }) => {
       menu: 'Relatório',
       icon: FiFileText,
       path: '/relatorio',
-      class: 'relatorio',
+      class: 'report',
     },
     {
       menu: 'Usuários',

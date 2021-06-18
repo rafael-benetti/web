@@ -263,7 +263,7 @@ const PointOfSaleInfo: React.FC = () => {
                 <div className="buttons">
                   {user?.role === 'OWNER' || user?.permissions?.editMachines ? (
                     <Button
-                      title="Incluir em uma máquina"
+                      title="Incluir uma máquina"
                       color="secondary"
                       callback={() => {
                         toggleActions('MACHINE');
