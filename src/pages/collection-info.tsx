@@ -170,7 +170,7 @@ const CollectionInfo: React.FC = () => {
                 Dados da coleta anterior
               </h1>
               <div className="grid">
-                {collection?.startTime && (
+                {collection?.previousCollection && (
                   <InputContainer isFocused={false}>
                     <label htmlFor="category-name">
                       <p>Data de início:</p>
@@ -179,9 +179,11 @@ const CollectionInfo: React.FC = () => {
                           id={v4()}
                           disabled
                           value={`${
-                            collection?.startTime
+                            collection?.previousCollection.startTime
                               ? format(
-                                  new Date(collection?.startTime),
+                                  new Date(
+                                    collection?.previousCollection.startTime,
+                                  ),
                                   `dd'-'MM'-'yy 'às' H:mm`,
                                   {
                                     locale: ptLocale,

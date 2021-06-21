@@ -154,7 +154,7 @@ const HandleMachinePage: React.FC = () => {
           }
           return;
         }
-        if (!data.groupId || !data.categoryId) {
+        if ((!data.groupId || !data.categoryId) && groups.length > 1) {
           addToast({
             title: 'Aviso',
             description:
