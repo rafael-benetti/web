@@ -311,7 +311,7 @@ const HandlePointOfSalePage: React.FC = () => {
                 <Input name="state" type="text" label="Estado" />
                 <Input name="city" type="text" label="Cidade" />
                 <Input name="street" type="text" label="Logradouro" />
-                <Input name="neighborhood" type="text" label="bairro" />
+                <Input name="neighborhood" type="text" label="Bairro" />
                 <Input
                   name="number"
                   type="text"
@@ -386,14 +386,7 @@ const HandlePointOfSalePage: React.FC = () => {
           }}
         />
       ) : null}
-      {redirect ? (
-        <Redirect
-          to={{
-            pathname: '/pontos-de-venda',
-            state: initialData.pointOfSale.id,
-          }}
-        />
-      ) : null}
+      {redirect ? <Redirect to="/pontos-de-venda" /> : null}
     </Container>
   );
 };

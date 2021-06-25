@@ -32,7 +32,9 @@ const Route: React.FC<IProps> = ({
   useEffect(() => {
     setBusy(true);
     (async () => {
-      await getUser();
+      if (token) {
+        await getUser();
+      }
       setBusy(false);
     })();
   }, [token]);
