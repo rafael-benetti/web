@@ -20,7 +20,10 @@ const SetMaintenanceMode: React.FC<Props> = ({ machineId }) => {
     <>
       <SetMaintenanceModeContainer>
         <h1>Ativar modo manutenção.</h1>
-        <p>lembre q blablalblalblalballba</p>
+        <p>
+          Ao ativaro modo manutenção as jogas não serão contabilizadas como
+          dados de faturamento pelo sistema, e sim como jogadas de teste.
+        </p>
         <div className="btn">
           <Button
             color="tertiary"
