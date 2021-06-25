@@ -57,6 +57,7 @@ const HandlePointOfSalePage: React.FC = () => {
     return false;
   });
   const [selectValue, setSelectValue] = useState<unknown>();
+  const [redirectEdit, setRedirectEdit] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [type, setType] = useState<string>(() => {
     if (Object.keys(initialData).length > 0) {
@@ -136,6 +137,12 @@ const HandlePointOfSalePage: React.FC = () => {
           ),
           address: Yup.object().shape({
             zipCode: Yup.string().required('Insira o cep do ponto de venda'),
+            street: Yup.string().required(
+              'Insira o nome da rua do ponto de venda.',
+            ),
+            neighborhood: Yup.string().required(
+              'Insira o nome do bairro do ponto de venda.',
+            ),
             number: Yup.string().required('Insira um número'),
           }),
         });
@@ -154,7 +161,7 @@ const HandlePointOfSalePage: React.FC = () => {
         }
         if (initialData.group) {
           await editPointOfSale(data, initialData.pointOfSale.id);
-          setRedirect(true);
+          setRedirectEdit(true);
           setBusyBtn(false);
         } else {
           const createData: HandlePointOfSaleDto = {
@@ -301,18 +308,8 @@ const HandlePointOfSalePage: React.FC = () => {
                 )}
                 <Input name="state" isDisabled type="text" label="Estado" />
                 <Input name="city" isDisabled type="text" label="Cidade" />
-                <Input
-                  name="street"
-                  isDisabled
-                  type="text"
-                  label="Logradouro"
-                />
-                <Input
-                  name="neighborhood"
-                  isDisabled
-                  type="text"
-                  label="bairro"
-                />
+                <Input name="street" type="text" label="Logradouro" />
+                <Input name="neighborhood" type="text" label="bairro" />
                 <Input
                   name="number"
                   type="text"
@@ -379,10 +376,18 @@ const HandlePointOfSalePage: React.FC = () => {
         </HandlePointOfSalePageContent>
       </HandlePointOfSalePageContainer>
       {loadingCepResponse ? <AbsoluteLoading /> : null}
-      {redirect ? (
+      {redirectEdit ? (
         <Redirect
           to={{
             pathname: '/detalhes-do-ponto-de-venda',
+            state: initialData.pointOfSale.id,
+          }}
+        />
+      ) : null}
+      {redirect ? (
+        <Redirect
+          to={{
+            pathname: '/pontos-de-venda',
             state: initialData.pointOfSale.id,
           }}
         />
