@@ -143,6 +143,8 @@ const HandlePointOfSalePage: React.FC = () => {
             neighborhood: Yup.string().required(
               'Insira o nome do bairro do ponto de venda.',
             ),
+            state: Yup.string().required('Insira o estado do ponto de venda'),
+            city: Yup.string().required('Insira a cidade do ponto de venda'),
             number: Yup.string().required('Insira um número'),
           }),
         });
@@ -306,8 +308,8 @@ const HandlePointOfSalePage: React.FC = () => {
                     }}
                   />
                 )}
-                <Input name="state" isDisabled type="text" label="Estado" />
-                <Input name="city" isDisabled type="text" label="Cidade" />
+                <Input name="state" type="text" label="Estado" />
+                <Input name="city" type="text" label="Cidade" />
                 <Input name="street" type="text" label="Logradouro" />
                 <Input name="neighborhood" type="text" label="bairro" />
                 <Input
