@@ -32,14 +32,10 @@ const Route: React.FC<IProps> = ({
   useEffect(() => {
     setBusy(true);
     (async () => {
-      const response = await getUser();
-      if (!response) {
-        localStorage.removeItem('@sttigma:token');
-        setBusy(false);
-      }
+      await getUser();
       setBusy(false);
     })();
-  }, []);
+  }, [token]);
 
   return (
     <>

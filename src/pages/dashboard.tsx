@@ -61,7 +61,6 @@ const Dashboard: React.FC = () => {
     setBusy(true);
     (async () => {
       await getUnreadNotifications();
-      await getDashboardData(filter);
       await getUser();
       setBusy(false);
     })();
@@ -70,9 +69,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     setBusyChart(true);
     (async () => {
-      if (filter.endDate || filter.startDate || filter.period) {
-        await getDashboardData(filter);
-      }
+      await getDashboardData(filter);
       setBusyChart(false);
     })();
   }, [filter]);

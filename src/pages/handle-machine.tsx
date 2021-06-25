@@ -182,7 +182,6 @@ const HandleMachinePage: React.FC = () => {
             ? undefined
             : data.incomePerPrizeGoal,
         };
-        // console.log(createData);
         const responseCreate = await createMachine(createData);
         if (responseCreate) {
           setMachineId(responseCreate.id);

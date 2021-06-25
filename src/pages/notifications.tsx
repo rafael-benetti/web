@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 // eslint-disable-next-line import/no-duplicates
 import ptLocale from 'date-fns/locale/pt-BR';
 import { Link } from 'react-router-dom';
+import { v4 } from 'uuid';
 import Container from '../components/container';
 import CurrentPath from '../components/current-path';
 import { useUser } from '../hooks/user';
@@ -63,7 +64,7 @@ const NotificationsPage: React.FC = () => {
             </div>
             {notifications.map(notification => {
               return (
-                <SingleNotifications>
+                <SingleNotifications key={v4()}>
                   <Link
                     to={{
                       pathname: 'detalhes-da-maquina',

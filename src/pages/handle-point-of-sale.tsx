@@ -47,7 +47,15 @@ const HandlePointOfSalePage: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
   const [busyBtn, setBusyBtn] = useState<boolean>(false);
   const [loadingCepResponse, setLoadingCepResponse] = useState<boolean>(false);
-  const [isPercentage, setIsPercentage] = useState<boolean>(false);
+  const [isPercentage, setIsPercentage] = useState<boolean>(() => {
+    if (Object.keys(initialData).length > 0) {
+      if (initialData.pointOfSale.isPercentage) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  });
   const [selectValue, setSelectValue] = useState<unknown>();
   const [redirect, setRedirect] = useState(false);
   const [type, setType] = useState<string>(() => {
@@ -122,7 +130,7 @@ const HandlePointOfSalePage: React.FC = () => {
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
           label: Yup.string().required('Insira o nome do seu ponto de venda'),
-          contactName: Yup.string().required('Insira o nome do gerente'),
+          contactName: Yup.string().required('Insira o nome do contato'),
           primaryPhoneNumber: Yup.string().required(
             'Insira um telefone para contato',
           ),
@@ -253,7 +261,7 @@ const HandlePointOfSalePage: React.FC = () => {
                 </>
               )}
               <Input name="label" type="text" label="Nome" />
-              <Input name="contactName" type="text" label="Gerente" />
+              <Input name="contactName" type="text" label="Contato" />
               <Input
                 name="primaryPhoneNumber"
                 type="text"
@@ -358,7 +366,11 @@ const HandlePointOfSalePage: React.FC = () => {
               />
               <Button
                 color="primary"
-                title={initialData ? 'Editar' : 'Cadastrar'}
+                title={
+                  initialData && Object.keys(initialData).length > 0
+                    ? 'Editar'
+                    : 'Cadastrar'
+                }
                 isSubmit
                 busy={busyBtn}
               />
@@ -367,7 +379,14 @@ const HandlePointOfSalePage: React.FC = () => {
         </HandlePointOfSalePageContent>
       </HandlePointOfSalePageContainer>
       {loadingCepResponse ? <AbsoluteLoading /> : null}
-      {redirect ? <Redirect to="/pontos-de-venda" /> : null}
+      {redirect ? (
+        <Redirect
+          to={{
+            pathname: '/detalhes-do-ponto-de-venda',
+            state: initialData.pointOfSale.id,
+          }}
+        />
+      ) : null}
     </Container>
   );
 };

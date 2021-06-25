@@ -96,6 +96,7 @@ const UserProvider: React.FC = ({ children }) => {
             authorization: `Bearer ${token}`,
           },
         });
+        console.log(response.data);
         setDashboardData(response.data);
       } catch (error) {
         console.log(error);

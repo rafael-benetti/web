@@ -179,7 +179,6 @@ const TelemetryProvider: React.FC = ({ children }) => {
             authorization: `Bearer ${token}`,
           },
         });
-        console.log(response.data);
         if (response) {
           setTelemetries(response.data.telemetryBoards);
           setTelemetryCount(response.data.count);

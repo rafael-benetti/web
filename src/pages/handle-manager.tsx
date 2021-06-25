@@ -238,7 +238,7 @@ const HandleManagerPage: React.FC = () => {
             <CurrentPath
               path={[
                 { name: 'home', url: '/dashboard' },
-                { name: 'Colaboradores', url: 'managers' },
+                { name: 'Colaboradores', url: 'colaboradores' },
                 {
                   name: `${
                     initialData ? 'Editar Colaborador' : 'Criar Colaborador'
