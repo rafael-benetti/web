@@ -302,7 +302,7 @@ const Dashboard: React.FC = () => {
                 </h1>
               </div>
               <div className="primary-row table-title-font">
-                <div className="label">Número de série</div>
+                <div className="label">Máquina</div>
                 <div className="center">Ponto de venda</div>
                 <div className="right">Tempo</div>
               </div>
@@ -310,7 +310,7 @@ const Dashboard: React.FC = () => {
                 return (
                   <MachineWithoutCommunication
                     key={v4()}
-                    machine={machine.serialNumber}
+                    machine={`${machine.serialNumber} (${machine.categoryLabel})`}
                     group={machine.pointOfSale ? machine.pointOfSale.label : ''}
                     machineId={machine.id}
                     time={machine.lastConnection}
@@ -325,7 +325,7 @@ const Dashboard: React.FC = () => {
                 </h1>
               </div>
               <div className="primary-row table-title-font">
-                <div className="label">Número de série</div>
+                <div className="label">Máquina</div>
                 <div className="center">Ponto de venda</div>
                 <div className="right">Tempo</div>
               </div>
@@ -333,7 +333,7 @@ const Dashboard: React.FC = () => {
                 return (
                   <MachineWithoutCommunication
                     key={v4()}
-                    machine={machine.serialNumber}
+                    machine={`${machine.serialNumber} (${machine.categoryLabel})`}
                     group={machine.pointOfSale ? machine.pointOfSale.label : ''}
                     machineId={machine.id}
                     time={machine.lastCollection}
@@ -348,7 +348,7 @@ const Dashboard: React.FC = () => {
                 </h1>
               </div>
               <div className="primary-row table-title-font">
-                <div className="label">Número de série</div>
+                <div className="label">Máquina</div>
                 <div className="center">Mínimo</div>
                 <div className="right">Atual</div>
               </div>
@@ -356,7 +356,7 @@ const Dashboard: React.FC = () => {
                 return (
                   <MachineWithoutCommunication
                     key={v4()}
-                    machine={machine.serialNumber}
+                    machine={`${machine.serialNumber} (${machine.categoryLabel})`}
                     group={machine.minimumPrizeCount}
                     machineId={machine.id}
                     time={machine.total}

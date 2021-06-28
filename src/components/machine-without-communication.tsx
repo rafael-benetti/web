@@ -32,13 +32,25 @@ const MachineWithoutCommunication: React.FC<Props> = ({
       const totalHours = Math.trunc(totalMinutes / 60);
       totalMinutes -= totalHours * 60;
       if (totalDays > 0) {
-        stringona += `${totalDays} dias `;
+        if (totalDays === 1) {
+          stringona += `${totalDays} dia `;
+        } else {
+          stringona += `${totalDays} dias `;
+        }
       }
       if (totalHours > 0) {
-        stringona += `${totalHours} horas `;
+        if (totalHours === 1) {
+          stringona += `${totalHours} hora `;
+        } else {
+          stringona += `${totalHours} horas `;
+        }
       }
       if (totalMinutes > 0) {
-        stringona += `${totalMinutes} minutos`;
+        if (totalMinutes === 1) {
+          stringona += `${totalMinutes} minuto`;
+        } else {
+          stringona += `${totalMinutes} minutos`;
+        }
       }
     }
     return stringona;

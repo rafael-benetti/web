@@ -18,6 +18,7 @@ export interface DashboardData {
     pointOfSale: PointOfSale;
     lastConnection: Date;
     lastCollection: Date;
+    categoryLabel: string;
   }[];
   machinesSortedByLastConnection: {
     id: string;
@@ -25,6 +26,7 @@ export interface DashboardData {
     pointOfSale: PointOfSale;
     lastCollection: Date;
     lastConnection: Date;
+    categoryLabel: string;
   }[];
   machinesSortedByStock: {
     id: string;
@@ -33,6 +35,7 @@ export interface DashboardData {
     minimumPrizeCount: number;
     serialNumber: string;
     total: number;
+    categoryLabel: string;
   }[];
   machinesWithoutTelemetryBoard: number;
   offlineMachines: number;
