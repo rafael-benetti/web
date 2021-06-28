@@ -380,7 +380,14 @@ const MachineInfoPage: React.FC = () => {
                 <div className="spacer" />
                 <h2>
                   {machineInfo?.machine.gameValue
-                    ? `R$ ${machineInfo?.machine.gameValue}`
+                    ? `R$ ${
+                        Number(machineInfo?.machine.gameValue).toLocaleString(
+                          'pt-BR',
+                          {
+                            minimumFractionDigits: 2,
+                          },
+                        ) || '0,00'
+                      }`
                     : '-'}
                 </h2>
               </div>
@@ -639,11 +646,17 @@ const MachineInfoPage: React.FC = () => {
                                     ) || '0,00'
                                   }`}
                                 </p>
+                                {history.offline && (
+                                  <p style={{ color: 'red' }}>Offline</p>
+                                )}
                               </>
                             ) : (
                               <>
                                 <h1 className="table-title-font">Prêmio</h1>
                                 {history.value}
+                                {history.offline && (
+                                  <p style={{ color: 'red' }}>Offline</p>
+                                )}
                               </>
                             )}
                           </div>

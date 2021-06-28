@@ -16,9 +16,16 @@ const SingleGroup: React.FC<Props> = ({ data, user }) => {
     <SingleGroupContainer>
       <Link to={{ pathname: '/detalhes-da-parceria', state: data.id }}>
         <button type="button" className="edit-btn">
-          <h1 className="groups-name" style={{ textAlign: 'start' }}>
-            {data.isPersonal ? 'Parceria Pessoal' : data.label}
-          </h1>
+          <div>
+            <h1 className="groups-name" style={{ textAlign: 'start' }}>
+              {data.isPersonal ? 'Parceria Pessoal' : data.label}
+            </h1>
+          </div>
+          <div>
+            <h1 className="groups-name" style={{ textAlign: 'start' }}>
+              {data.numberOfMachines ? data.numberOfMachines : '0'}
+            </h1>
+          </div>
         </button>
       </Link>
     </SingleGroupContainer>

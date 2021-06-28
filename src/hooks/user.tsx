@@ -152,10 +152,10 @@ const UserProvider: React.FC = ({ children }) => {
       return response.data;
     } catch (error) {
       localStorage.removeItem('@sttigma:token');
-
+      window.location.reload();
       return undefined;
     }
-  }, [token]);
+  }, [token, user]);
 
   const editProfile = useCallback(
     async (data: EditProfileDto, file?: File) => {

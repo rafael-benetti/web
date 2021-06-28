@@ -34,10 +34,19 @@ export const GroupsContent = styled.div`
 
 export const Table = styled.div`
   width: 100%;
-  display: grid;
-  grid-column: 1fr;
   .table-title {
     background: rgba(115, 102, 255, 0.1);
+  }
+  .start {
+    text-align: start;
+  }
+  .primary-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    grid-template-rows: min-content;
+    text-align: start;
     padding: 1rem;
+    border-bottom: 1px solid #9999;
   }
 `;

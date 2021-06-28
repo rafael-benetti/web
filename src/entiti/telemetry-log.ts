@@ -10,4 +10,5 @@ export interface TelemetryLog {
   pin: string;
   type: 'IN' | 'OUT';
   maintenance: boolean;
+  offline: boolean;
 }

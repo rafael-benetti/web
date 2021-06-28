@@ -149,6 +149,9 @@ const TelemetryLogsPage: React.FC = () => {
                 <SingleTelemetryBoard key={v4()}>
                   <div className="label">
                     {log.type === 'IN' ? 'Entrada' : 'Saída'}
+                    {log.offline && (
+                      <span style={{ color: 'red' }}> (Offline)</span>
+                    )}
                   </div>
                   <div className="contact-name">{log.pin}</div>
                   <div className="contact-name">{log.value}</div>

@@ -6,4 +6,5 @@ export interface Group {
   label: string;
   isPersonal?: boolean;
   stock: Stock;
+  numberOfMachines?: number;
 }

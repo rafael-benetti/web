@@ -447,7 +447,13 @@ const HandleMachinePage: React.FC = () => {
                   setTelemetrySelected({ value: e.value, label: e.label });
                 }}
               />
-              <Input name="gameValue" label="Valor da jogada" type="number" />
+              <Input
+                name="gameValue"
+                label="Valor da jogada"
+                type="number"
+                min={0}
+                step=".01"
+              />
               {initialData ? null : (
                 <Input
                   name="minimumPrizeCount"

@@ -73,8 +73,11 @@ const GroupsPage: React.FC = () => {
             </InputContainer>
           </div>
           <Table>
-            <div className="table-title">
-              <h1 className="table-title-font partnerships-name">Nome</h1>
+            <div className="table-title primary-row">
+              <h1 className="table-title-font manager-name start">Nome</h1>
+              <h1 className="table-title-font active-name">
+                Número de máquinas
+              </h1>
             </div>
             {groups &&
               groups.map(group => {

@@ -450,7 +450,7 @@ const MachineProvider: React.FC = ({ children }) => {
         return undefined;
       }
     },
-    [],
+    [token],
   );
 
   const toggleTransferMachine = useCallback(
