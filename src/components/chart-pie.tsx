@@ -62,11 +62,16 @@ const ChartPie: React.FC<Props> = ({ data }) => {
     '#DBCFB0',
     '#545775',
   ];
-
+  const customLabels = data?.map(
+    (label, index) =>
+      `${label.label}: ${`R$ ${
+        data[index].value.toLocaleString('pt-BR', {
+          minimumFractionDigits: 2,
+        }) || '0,00'
+      }`}`,
+  );
   const pieData = {
-    maintainAspectRatio: false,
-    responsive: true,
-    labels: data?.map(d => d.label),
+    labels: customLabels,
     datasets: [
       {
         data: data?.map(d => d.value),
@@ -77,7 +82,11 @@ const ChartPie: React.FC<Props> = ({ data }) => {
   };
   const pieOptions = {
     maintainAspectRatio: false,
-
+    plugins: {
+      legend: {
+        position: 'left',
+      },
+    },
     elements: {
       arc: {
         borderWidth: 0,

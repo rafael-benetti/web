@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
 export const ChartPieContainer = styled.div`
-  height: 30rem;
   position: relative;
+  min-height: 30rem;
+  margin: 0 auto;
+  max-width: 60rem;
   .chart-container {
-    width: 80%;
-    height: 80%;
+    padding: 2rem 0;
+    width: 100%;
+    height: 100%;
     top: 50%;
     left: 50%;
     position: absolute;
