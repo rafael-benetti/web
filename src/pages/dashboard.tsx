@@ -310,7 +310,8 @@ const Dashboard: React.FC = () => {
                 return (
                   <MachineWithoutCommunication
                     key={v4()}
-                    machine={`${machine.serialNumber} (${machine.categoryLabel})`}
+                    machine={`${machine.serialNumber}`}
+                    category={`(${machine.categoryLabel})`}
                     group={machine.pointOfSale ? machine.pointOfSale.label : ''}
                     machineId={machine.id}
                     time={machine.lastConnection}
@@ -333,7 +334,8 @@ const Dashboard: React.FC = () => {
                 return (
                   <MachineWithoutCommunication
                     key={v4()}
-                    machine={`${machine.serialNumber} (${machine.categoryLabel})`}
+                    machine={`${machine.serialNumber}`}
+                    category={`(${machine.categoryLabel})`}
                     group={machine.pointOfSale ? machine.pointOfSale.label : ''}
                     machineId={machine.id}
                     time={machine.lastCollection}
@@ -356,7 +358,8 @@ const Dashboard: React.FC = () => {
                 return (
                   <MachineWithoutCommunication
                     key={v4()}
-                    machine={`${machine.serialNumber} (${machine.categoryLabel})`}
+                    machine={`${machine.serialNumber}`}
+                    category={`(${machine.categoryLabel})`}
                     group={machine.minimumPrizeCount}
                     machineId={machine.id}
                     time={machine.total}

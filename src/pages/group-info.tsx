@@ -256,7 +256,7 @@ const GroupInfoPage: React.FC = () => {
                         machine={
                           point.pointOfSale ? point.pointOfSale.label : '-'
                         }
-                        group={point.pointOfSale ? point.pointOfSale.label : ''}
+                        group={point.numberOfMachines || 0}
                         machineId={point.pointOfSale.id}
                         time={point.income}
                         isPoint
@@ -320,6 +320,7 @@ const GroupInfoPage: React.FC = () => {
                   <MachineWithoutCommunication
                     key={v4()}
                     machine={machine.serialNumber}
+                    category={`(${machine.categoryLabel})`}
                     group={machine.pointOfSale ? machine.pointOfSale.label : ''}
                     machineId={machine.id}
                     time={machine.lastConnection}
@@ -343,6 +344,7 @@ const GroupInfoPage: React.FC = () => {
                   <MachineWithoutCommunication
                     key={v4()}
                     machine={machine.serialNumber}
+                    category={`(${machine.categoryLabel})`}
                     group={machine.pointOfSale ? machine.pointOfSale.label : ''}
                     machineId={machine.id}
                     time={machine.lastCollection}
@@ -366,6 +368,7 @@ const GroupInfoPage: React.FC = () => {
                   <MachineWithoutCommunication
                     key={v4()}
                     machine={machine.serialNumber}
+                    category={`(${machine.categoryLabel})`}
                     group={machine.minimumPrizeCount}
                     machineId={machine.id}
                     time={machine.total}

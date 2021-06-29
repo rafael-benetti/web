@@ -14,6 +14,7 @@ interface Props {
   time?: Date | number;
   machineId?: string;
   isPoint?: boolean;
+  category?: string;
 }
 
 const MachineWithoutCommunication: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const MachineWithoutCommunication: React.FC<Props> = ({
   time,
   machineId,
   isPoint,
+  category,
 }) => {
   const timeRange = useCallback((timeData: Date | undefined) => {
     let stringona = '';
@@ -66,7 +68,15 @@ const MachineWithoutCommunication: React.FC<Props> = ({
         }
       >
         <button className="edit-btn" type="button">
-          <div className="label">{`${machine || 'BT001'}`}</div>
+          <div className="label">
+            {`${machine || 'BT001'}`}
+            {!isPoint && (
+              <>
+                <br />
+                {`${category || '(a)'}`}
+              </>
+            )}
+          </div>
           {typeof group === 'string' ? (
             <div className="center">{`${group || '-'}`}</div>
           ) : (

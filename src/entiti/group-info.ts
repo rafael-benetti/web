@@ -21,6 +21,7 @@ export interface GroupInfo {
     pointOfSale: PointOfSale;
     lastConnection: Date;
     lastCollection: Date;
+    categoryLabel: string;
   }[];
   machinesSortedByLastConnection: {
     id: string;
@@ -28,6 +29,7 @@ export interface GroupInfo {
     pointOfSale: PointOfSale;
     lastCollection: Date;
     lastConnection: Date;
+    categoryLabel: string;
   }[];
   machinesSortedByStock: {
     id: string;
@@ -36,6 +38,7 @@ export interface GroupInfo {
     minimumPrizeCount: number;
     serialNumber: string;
     total: number;
+    categoryLabel: string;
   }[];
   machinesWithoutTelemetryBoard: number;
   offlineMachines: number;
