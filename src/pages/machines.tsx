@@ -417,7 +417,7 @@ const MachinesPage: React.FC = () => {
             <div className="filters">
               <InputContainer>
                 <label htmlFor="serial-number-name">
-                  <p>Serial Number</p>
+                  <p>Número de série</p>
                   <div>
                     <input
                       onFocus={() => {

@@ -116,7 +116,7 @@ const CollectionInfo: React.FC = () => {
       <CollectionInfoContainer>
         <PageTitle>
           <div className="title-nav">
-            <h1 className="heading-font">Informações da coleta</h1>
+            <h1 className="heading-font">{`Informações da coleta - ${collection?.machine.serialNumber} (${collection?.machine.categoryLabel})`}</h1>
             <CurrentPath
               path={[
                 { name: 'home', url: '/' },
@@ -125,7 +125,9 @@ const CollectionInfo: React.FC = () => {
               ]}
             />
           </div>
-          {user?.permissions?.editCollections || user?.role === 'OWNER' ? (
+          {user?.permissions?.editCollections ||
+          user?.role === 'OWNER' ||
+          user?.role === 'MANAGER' ? (
             <Link
               to={{
                 pathname: '/criar-coleta',
@@ -402,26 +404,11 @@ const CollectionInfo: React.FC = () => {
                             ) : null}
                             <div className="row">
                               <div>Telemetria</div>
-                              <div className="collected center">
-                                {findValues(
-                                  'TELEMETRY',
-                                  collect.counterId,
-                                  box.boxId,
-                                )}
-                              </div>
+                              <div className="collected center" />
                               <div className="collect center">
                                 {collect.telemetryCount}
                               </div>
-                              <div className="difference center">
-                                {collect.telemetryCount -
-                                  parseFloat(
-                                    findValues(
-                                      'TELEMETRY',
-                                      collect.counterId,
-                                      box.boxId,
-                                    ) || '0',
-                                  ) || '-'}
-                              </div>
+                              <div className="difference center" />
                             </div>
                           </div>
                         </SingleCollectionInfo>
