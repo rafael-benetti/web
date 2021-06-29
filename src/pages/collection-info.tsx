@@ -108,7 +108,7 @@ const CollectionInfo: React.FC = () => {
       }
       return value;
     },
-    [],
+    [collection],
   );
 
   return (
