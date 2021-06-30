@@ -133,44 +133,45 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
   );
 
   useEffect(() => {
+    obteinOperatorsToRender(pointsOfSaleChecked);
+  }, [pointsOfSaleChecked]);
+
+  useEffect(() => {
     setBusy(true);
     (async () => {
       await getPointsOfSale(undefined, undefined);
-    })();
-    const availablePoints: PointOfSale[] = [];
-    pointsOfSale?.forEach(pointOfSale => {
-      if (!pointOfSale.routeId) {
-        availablePoints.push(pointOfSale);
-      }
-    });
-    if (initialData) {
-      if (initialData.operatorId) {
-        setOperatorSelected({
-          label:
-            operators.find(operator => operator.id === initialData.operatorId)
-              ?.name || '',
-          value: initialData.operatorId,
-        });
-      }
-      setPointsOfSaleChecked(initialData.pointsOfSaleIds);
+      const availablePoints: PointOfSale[] = [];
       pointsOfSale?.forEach(pointOfSale => {
-        initialData.pointsOfSaleIds.forEach(initialPointId => {
-          if (pointOfSale.id === initialPointId) {
-            availablePoints.push(pointOfSale);
-          }
+        if (!pointOfSale.routeId) {
+          availablePoints.push(pointOfSale);
+        }
+      });
+      setPointsOfSaleToRender(availablePoints);
+      setBusy(false);
+      if (initialData) {
+        if (initialData.operatorId) {
+          setOperatorSelected({
+            label:
+              operators.find(operator => operator.id === initialData.operatorId)
+                ?.name || '',
+            value: initialData.operatorId,
+          });
+        }
+        setPointsOfSaleChecked([...initialData.pointsOfSaleIds]);
+        formRef.current?.setData({
+          label: initialData.label,
+          pointsOfSaleIds: [''],
         });
-      });
-      formRef.current?.setData({
-        label: initialData.label,
-      });
-    }
-    setPointsOfSaleToRender(availablePoints);
-    setBusy(false);
-  }, []);
-
-  useEffect(() => {
-    obteinOperatorsToRender(pointsOfSaleChecked);
-  }, [pointsOfSaleChecked]);
+        // pointsOfSale?.forEach(pointOfSale => {
+        //   initialData.pointsOfSaleIds.forEach(initialPointId => {
+        //     if (pointOfSale.id === initialPointId) {
+        //       availablePoints.push(pointOfSale);
+        //     }
+        //   });
+        // });
+      }
+    })();
+  }, [toggleEditRoute, editRoute, initialData]);
 
   return (
     <>
@@ -181,33 +182,35 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
             <Input name="label" type="text" label="Nome" />
             <div className="locations">
               <p className="label-font">Pontos de venda</p>
-              <GroupsCheckboxList
-                name="pointsOfSaleIds"
-                initialValues={pointsOfSaleChecked}
-                options={pointsOfSaleToRender.map(pointOfSaleToRender => {
-                  return {
-                    id: pointOfSaleToRender.id,
-                    label: pointOfSaleToRender.label,
-                    value: pointOfSaleToRender.id,
-                  };
-                })}
-                onChange={e => {
-                  if (e.target.checked) {
-                    pointsOfSaleChecked.push(e.target.value.toString());
-                    setPointsOfSaleChecked([...pointsOfSaleChecked]);
-                  }
-                  if (!e.target.checked) {
-                    const index = pointsOfSaleChecked.findIndex(
-                      pointOfSaleChecked =>
-                        pointOfSaleChecked === e.target.value,
-                    );
-                    pointsOfSaleChecked.splice(index, 1);
-                    setPointsOfSaleChecked(pointsOfSaleChecked);
-                  }
-                  obteinOperatorsToRender(pointsOfSaleChecked);
-                  setOperatorSelected({ value: '', label: '' });
-                }}
-              />
+              <div className="scroll">
+                <GroupsCheckboxList
+                  name="pointsOfSaleIds"
+                  initialValues={pointsOfSaleChecked}
+                  options={pointsOfSale.map(pointOfSaleToRender => {
+                    return {
+                      id: pointOfSaleToRender.id,
+                      label: pointOfSaleToRender.label,
+                      value: pointOfSaleToRender.id,
+                    };
+                  })}
+                  onChange={e => {
+                    if (e.target.checked) {
+                      pointsOfSaleChecked.push(e.target.value.toString());
+                      setPointsOfSaleChecked([...pointsOfSaleChecked]);
+                    }
+                    if (!e.target.checked) {
+                      const index = pointsOfSaleChecked.findIndex(
+                        pointOfSaleChecked =>
+                          pointOfSaleChecked === e.target.value,
+                      );
+                      pointsOfSaleChecked.splice(index, 1);
+                      setPointsOfSaleChecked(pointsOfSaleChecked);
+                    }
+                    obteinOperatorsToRender(pointsOfSaleChecked);
+                    setOperatorSelected({ value: '', label: '' });
+                  }}
+                />
+              </div>
               {pointsOfSaleToRender.length === 0 ? (
                 <div className="no">
                   Não há nenhum ponto de venda disponível

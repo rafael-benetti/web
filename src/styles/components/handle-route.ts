@@ -14,7 +14,7 @@ export const HandleRouteContainer = styled.div`
   background: #fff;
   border-radius: 0.5rem;
   padding: 3rem;
-  width: 550px;
+  min-width: 550px;
   h1 {
     font-size: 2.2rem;
     margin-bottom: 2rem;
@@ -28,7 +28,7 @@ export const HandleRouteContainer = styled.div`
     height: 80%;
     width: 100%;
     .locations {
-      margin-top: 2rem;
+      margin: 2rem 0;
       p {
         margin-bottom: 1.5rem;
       }
