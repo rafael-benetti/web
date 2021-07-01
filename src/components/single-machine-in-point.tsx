@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-nested-ternary */
 import React, { useCallback } from 'react';
 // eslint-disable-next-line import/no-duplicates
@@ -65,11 +66,10 @@ const SingleMachineInPoint: React.FC<Props> = ({ machineInfo }) => {
           <div className="value">
             R$
             {` ${
-              (machineInfo?.machine.boxes &&
-                machineInfo?.machine.boxes
-                  .map(box => box.currentMoney)
-                  .reduce((acc, cur) => cur || 0 + (acc || 0), 0)) ||
-              0
+              machineInfo?.machine.boxes &&
+              machineInfo?.machine.boxes
+                .map(box => box.currentMoney)
+                .reduce((acc, cur) => acc! + cur!, 0)
             } `}
           </div>
         </button>

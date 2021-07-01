@@ -311,7 +311,7 @@ const GroupInfoPage: React.FC = () => {
                 </h1>
               </div>
               <div className="primary-row table-title-font">
-                <div className="label">Número de série</div>
+                <div className="label">Máquinas</div>
                 <div className="center">Ponto de venda</div>
                 <div className="right">Tempo</div>
               </div>
@@ -335,7 +335,7 @@ const GroupInfoPage: React.FC = () => {
                 </h1>
               </div>
               <div className="primary-row table-title-font">
-                <div className="label">Número de série</div>
+                <div className="label">Máquinas</div>
                 <div className="center">Ponto de venda</div>
                 <div className="right">Tempo</div>
               </div>
@@ -359,7 +359,7 @@ const GroupInfoPage: React.FC = () => {
                 </h1>
               </div>
               <div className="primary-row table-title-font">
-                <div className="label">Número de série</div>
+                <div className="label">Máquinas</div>
                 <div className="center">Mínimo</div>
                 <div className="right">Atual</div>
               </div>

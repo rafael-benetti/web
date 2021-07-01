@@ -544,12 +544,10 @@ const MachineInfoPage: React.FC = () => {
                           {` ${
                             machineInfo?.boxesInfo
                               .map(box => box.currentMoney)
-                              .reduce((acc, cur) => cur + acc, 0) ||
-                            0 /
-                              (machineInfo?.boxesInfo
-                                .map(box => box.givenPrizes)
-                                .reduce((acc, cur) => cur + acc, 0) || 0) ||
-                            0
+                              .reduce((acc, cur) => cur + acc, 0) /
+                            (machineInfo?.boxesInfo
+                              .map(box => box.givenPrizes)
+                              .reduce((acc, cur) => cur + acc, 0) || 0)
                           }`}
                         </h3>
                       </div>
@@ -704,7 +702,7 @@ const MachineInfoPage: React.FC = () => {
                                 backgroundColor: `${
                                   history.type === 'REMOTE_CREDIT'
                                     ? 'green'
-                                    : 'red'
+                                    : 'orange'
                                 }`,
                               }}
                             >
@@ -717,8 +715,10 @@ const MachineInfoPage: React.FC = () => {
                             <div>
                               {history.type === 'REMOTE_CREDIT' ? (
                                 <>
-                                  <h1 className="table-title-font">Crédito</h1>
-                                  {history.observations}
+                                  <h1 className="table-title-font">
+                                    Crédito remóto
+                                  </h1>
+                                  <p>{`Observação: ${history.observations}`}</p>
                                   <p style={{ color: 'green' }}>
                                     {`R$ ${
                                       Number(history.quantity).toLocaleString(
@@ -732,8 +732,10 @@ const MachineInfoPage: React.FC = () => {
                                 </>
                               ) : (
                                 <>
-                                  <h1 className="table-title-font">Prêmio</h1>
-                                  {history.observations}
+                                  <h1 className="table-title-font">
+                                    Correção de estoque
+                                  </h1>
+                                  <p>{`Observação: ${history.observations}`}</p>
                                   <p>{history.quantity}</p>
                                 </>
                               )}
