@@ -314,7 +314,7 @@ const HandlePointOfSalePage: React.FC = () => {
                 <Input name="neighborhood" type="text" label="Bairro" />
                 <Input
                   name="number"
-                  type="text"
+                  type="number"
                   label="Número"
                   inputMode="numeric"
                   isDisabled={Object.keys(initialData).length > 0}

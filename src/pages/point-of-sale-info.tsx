@@ -230,7 +230,7 @@ const PointOfSaleInfo: React.FC = () => {
               <div className="general-info">
                 <div className="title">
                   <BsPerson color="#7366ff" size={15} />
-                  <h2>Gerente</h2>
+                  <h2>Contato</h2>
                 </div>
                 <div className="spacer" />
                 <h2>{pointOfSaleInfo?.pointOfSale.contactName}</h2>

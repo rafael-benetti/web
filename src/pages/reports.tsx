@@ -855,26 +855,30 @@ const ReportPage: React.FC = () => {
                                   }`}
                                 </div>
                                 <div className="phone">
-                                  {data.playsPerPrize}
+                                  {data.playsPerPrize.toFixed(2)}
                                 </div>
                                 <div className="phone">
                                   {`R$ ${
-                                    data.incomePerPrizeGoal.toLocaleString(
-                                      'pt-BR',
-                                      {
-                                        minimumFractionDigits: 2,
-                                      },
-                                    ) || '-'
+                                    data.incomePerPrizeGoal
+                                      ? data.incomePerPrizeGoal.toLocaleString(
+                                          'pt-BR',
+                                          {
+                                            minimumFractionDigits: 2,
+                                          },
+                                        ) || '-'
+                                      : '-'
                                   }`}
                                 </div>
                                 <div className="phone">
                                   {`R$ ${
-                                    data.incomePerMonthGoal.toLocaleString(
-                                      'pt-BR',
-                                      {
-                                        minimumFractionDigits: 2,
-                                      },
-                                    ) || '-'
+                                    data.incomePerMonthGoal
+                                      ? data.incomePerMonthGoal.toLocaleString(
+                                          'pt-BR',
+                                          {
+                                            minimumFractionDigits: 2,
+                                          },
+                                        ) || '-'
+                                      : '-'
                                   }`}
                                 </div>
                                 <div className="phone">
@@ -924,12 +928,13 @@ const ReportPage: React.FC = () => {
                             <div>
                               {point.machineAnalytics
                                 .map(data => data.playsPerPrize)
-                                .reduce((acc, cur) => cur + acc, 0) || '0'}
+                                .reduce((acc, cur) => cur + acc, 0)
+                                .toFixed(2) || '0'}
                             </div>
                             <div>
                               {`R$ ${
                                 point.machineAnalytics
-                                  .map(data => data.incomePerPrizeGoal)
+                                  .map(data => data.incomePerPrizeGoal || 0)
                                   .reduce((acc, cur) => cur + acc, 0)
                                   .toLocaleString('pt-BR', {
                                     minimumFractionDigits: 2,
@@ -939,7 +944,7 @@ const ReportPage: React.FC = () => {
                             <div>
                               {`R$ ${
                                 point.machineAnalytics
-                                  .map(data => data.incomePerMonthGoal)
+                                  .map(data => data.incomePerMonthGoal || 0)
                                   .reduce((acc, cur) => cur + acc, 0)
                                   .toLocaleString('pt-BR', {
                                     minimumFractionDigits: 2,
