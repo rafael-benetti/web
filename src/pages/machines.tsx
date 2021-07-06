@@ -7,6 +7,8 @@ import ReactSelect from 'react-select';
 import { VscDebugDisconnect } from 'react-icons/vsc';
 import { AiOutlineWifi } from 'react-icons/ai';
 import { RiWifiOffLine } from 'react-icons/ri';
+import { Tooltip } from '@material-ui/core';
+import { FiInfo } from 'react-icons/fi';
 import Button from '../components/button';
 import Container from '../components/container';
 import CurrentPath from '../components/current-path';
@@ -463,13 +465,18 @@ const MachinesPage: React.FC = () => {
 
           <Table>
             <div className="table-title">
-              <h1 className="table-title-font partnerships-name">Máquinas</h1>
+              <h1 className="table-title-font partnerships-name">{`Máquinas (${count})`}</h1>
             </div>
             <div className="primary-row table-title-font">
               <div className="serial-number">Núm. série</div>
               {groups.length === 1 ? null : (
                 <div className="group">Parceria</div>
               )}
+              <div className="operator">Operador</div>
+              <div className="given-prizes">
+                Prêmios entregues
+                <FiInfo />
+              </div>
               <div className="category">Telemetria</div>
               <div className="category">Categoria</div>
               <div className="location">Localização</div>

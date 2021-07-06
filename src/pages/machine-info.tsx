@@ -716,7 +716,7 @@ const MachineInfoPage: React.FC = () => {
                               {history.type === 'REMOTE_CREDIT' ? (
                                 <>
                                   <h1 className="table-title-font">
-                                    Crédito remóto
+                                    {`Crédito remóto por ${history.user.name}`}
                                   </h1>
                                   <p>{`Observação: ${history.observations}`}</p>
                                   <p style={{ color: 'green' }}>
@@ -733,7 +733,7 @@ const MachineInfoPage: React.FC = () => {
                               ) : (
                                 <>
                                   <h1 className="table-title-font">
-                                    Correção de estoque
+                                    {`Correção de estoque por ${history.user.name}`}
                                   </h1>
                                   <p>{`Observação: ${history.observations}`}</p>
                                   <p>{history.quantity}</p>

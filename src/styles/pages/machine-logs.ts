@@ -57,7 +57,7 @@ export const Table = styled.div`
   .primary-row {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, minmax(100px, 1fr));
+    grid-template-columns: repeat(5, minmax(100px, 1fr));
     grid-template-rows: min-content;
     text-align: start;
     padding: 1rem;
@@ -84,7 +84,7 @@ export const SingleTelemetryBoard = styled.div`
   }
   text-decoration: none;
   display: grid;
-  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  grid-template-columns: repeat(5, minmax(100px, 1fr));
   grid-template-rows: min-content;
   grid-auto-rows: min-content;
   text-align: start;

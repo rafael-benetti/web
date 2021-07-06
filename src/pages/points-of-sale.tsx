@@ -156,7 +156,7 @@ const PointsOfSalePage: React.FC = () => {
           <Table>
             <div className="table-title">
               <h1 className="table-title-font partnerships-name">
-                Pontos de vendas
+                {`Pontos de vendas (${count})`}
               </h1>
             </div>
             <div className="primary-row table-title-font">

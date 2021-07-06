@@ -139,6 +139,7 @@ const MachineEventsLogs: React.FC = () => {
             </div>
             <div className="primary-row table-title-font">
               <div className="label">Tipo</div>
+              <div className="label">Realizado por</div>
               <div className="route">Quantidade</div>
               <div className="contact-name">Observação</div>
               <div className="phone">Data</div>
@@ -151,6 +152,7 @@ const MachineEventsLogs: React.FC = () => {
                       ? 'Crédito remoto'
                       : 'Correção de estoque'}
                   </div>
+                  <div className="contact-name">{log.user.name}</div>
                   <div className="contact-name">{log.quantity}</div>
                   <div className="contact-name">{log.observations}</div>
                   <div className="phone">

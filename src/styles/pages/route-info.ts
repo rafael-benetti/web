@@ -143,6 +143,20 @@ export const Table = styled.div`
   }
 `;
 
+export const MachinesLastCollection = styled.div`
+  margin-top: 2rem;
+  border-radius: 1.5rem;
+  padding: 3rem;
+  -webkit-box-shadow: 0 0 0.5rem rgba(115, 102, 255, 0.1);
+  box-shadow: 0 0 0.5rem rgba(115, 102, 255, 0.1);
+  max-height: 60vh;
+  overflow-y: scroll;
+  @media screen and (max-width: 37.5em) {
+    padding: 3rem 2rem;
+    margin-top: 1.5rem;
+  }
+`;
+
 export const PointOfSaleRate = styled.div`
   margin-top: 2rem;
   border-radius: 1.5rem;

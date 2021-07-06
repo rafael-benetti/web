@@ -11,6 +11,7 @@ import CurrentPath from '../components/current-path';
 import HandleRoute from '../components/handle-route';
 import ModalDeleteRoute from '../components/modal-delete-route';
 import SingleMachineChart from '../components/single-machine-chart';
+import SingleMachineInRoute from '../components/single-machine-in-route';
 import SinglePointInRoute from '../components/single-point-in-route';
 import { useOperator } from '../hooks/operator';
 import { useRoute } from '../hooks/route';
@@ -23,6 +24,7 @@ import {
   PointInRoute,
   Table,
   PointOfSaleRate,
+  MachinesLastCollection,
 } from '../styles/pages/route-info';
 import { PageTitle } from '../utils/page-title';
 
@@ -141,6 +143,25 @@ const RouteInfo: React.FC = () => {
                 })}
             </Table>
           </PointInRoute>
+          <MachinesLastCollection>
+            <Table>
+              <div className="table-title">
+                <h1 className="table-title-font history-title">
+                  Máquinas - última coleta
+                </h1>
+              </div>
+              <div className="primary-row table-title-font">
+                <div className="serial-number">Número de série</div>
+                <div className="phone">Categoria</div>
+                <div className="phone">Ponto de venda</div>
+                <div className="phone">Última coleta</div>
+              </div>
+              {routeInfo &&
+                routeInfo.machines.map(machine => {
+                  return <SingleMachineInRoute key={v4()} machine={machine} />;
+                })}
+            </Table>
+          </MachinesLastCollection>
           {user?.role !== 'OPERATOR' ? (
             <>
               <ManagementInfo>

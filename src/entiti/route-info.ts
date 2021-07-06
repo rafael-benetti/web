@@ -1,3 +1,4 @@
+import { Machine } from './machine';
 import { ChartData } from './machine-info';
 import { PointOfSale } from './point-of-sales';
 import { Route } from './route';
@@ -16,4 +17,5 @@ export interface RouteInfo {
   income: number;
   pointsOfSale: PointOfSale[];
   route: Route;
+  machines: Machine[];
 }

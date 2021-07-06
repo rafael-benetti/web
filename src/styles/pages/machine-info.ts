@@ -439,7 +439,7 @@ export const HistoryCard = styled.div`
 `;
 export const RemoteCard = styled.div`
   display: grid;
-  grid-template-columns: 7rem repeat(2, 1fr);
+  grid-template-columns: 7rem 1fr 7rem;
   padding: 2rem 0;
   &:not(:last-child) {
     border-bottom: 1px solid rgba(115, 102, 255, 0.1);

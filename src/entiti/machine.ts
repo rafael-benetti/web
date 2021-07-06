@@ -26,4 +26,5 @@ export interface Machine {
   maintenance: boolean;
   incomePerPrizeGoal?: string;
   incomePerMonthGoal?: string;
+  givenPrizes?: number;
 }

@@ -80,7 +80,9 @@ const MachineWithoutCommunication: React.FC<Props> = ({
           {typeof group === 'string' ? (
             <div className="center">{`${group || '-'}`}</div>
           ) : (
-            <div className="center">{`${group || '-'}`}</div>
+            <div className="center">
+              {`${group === undefined ? '-' : group}`}
+            </div>
           )}
           {typeof time === 'number' ? (
             <div className="right">

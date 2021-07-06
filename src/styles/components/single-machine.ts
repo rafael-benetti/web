@@ -12,7 +12,7 @@ export const SingleMachineContainer = styled.div`
     text-decoration: none;
     .edit-btn {
       display: grid;
-      grid-template-columns: repeat(5, minmax(100px, 1fr));
+      grid-template-columns: repeat(7, minmax(100px, 1fr));
       grid-template-rows: min-content;
       grid-auto-rows: min-content;
       text-align: start;
@@ -26,6 +26,12 @@ export const SingleMachineContainer = styled.div`
       border-bottom: 1px solid #dee2e6;
       div {
         padding: 0.3rem;
+      }
+      .given-prizes {
+        text-align: center;
+      }
+      .operator {
+        text-align: center;
       }
       .telemetry {
         display: flex;

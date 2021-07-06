@@ -41,11 +41,39 @@ export const Table = styled.div`
   .primary-row {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(5, minmax(100px, 1fr));
+    grid-template-columns: repeat(7, minmax(100px, 1fr));
     grid-template-rows: min-content;
     text-align: start;
     padding: 1rem;
     border-bottom: 1px solid #9999;
+  }
+  .operator {
+    text-align: center;
+  }
+  .given-prizes {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    svg {
+      margin-left: 1rem;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    &:hover::before {
+      content: 'Prêmios entregues desde a última coleta';
+      position: absolute;
+      bottom: 3rem;
+      left: 0;
+      border-radius: 2rem;
+      padding: 1rem;
+      background-color: #ccc;
+      color: #333;
+      font-weight: 400;
+      transition: all ease 0.4s;
+    }
   }
 `;
 

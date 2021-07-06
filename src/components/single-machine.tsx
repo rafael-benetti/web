@@ -60,6 +60,8 @@ const MachineInPoint: React.FC<Props> = ({
           ) : (
             <div className="group">{group?.label || ''}</div>
           )}
+          <div className="operator">{machine.operator.name || '-'}</div>
+          <div className="operator">{machine.givenPrizes || '0'}</div>
           <div className="telemetry">
             {telemetryStatus(telemetry)}
             <p>{telemetry ? `STG-${telemetry.id}` : '-'}</p>

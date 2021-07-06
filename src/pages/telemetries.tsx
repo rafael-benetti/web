@@ -154,7 +154,7 @@ const TelemetriesPage: React.FC = () => {
           <Table>
             <div className="table-title">
               <h1 className="table-title-font partnerships-name">
-                Telemetrias
+                {`Telemetrias (${telemetryCount})`}
               </h1>
             </div>
             <div className="primary-row table-title-font">
