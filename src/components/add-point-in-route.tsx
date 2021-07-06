@@ -46,7 +46,7 @@ const AddPointInRoute: React.FC<Props> = ({ pointOfSaleId }) => {
   useEffect(() => {
     setBusy(true);
     (async () => {
-      await getRoutes();
+      await getRoutes(undefined, undefined);
       setBusy(false);
     })();
   }, []);

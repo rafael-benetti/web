@@ -53,7 +53,7 @@ const StockPage: React.FC = () => {
   const [stockItem, setStockItem] = useState<
     'PRIZES' | 'MACHINES' | 'SUPPLIES'
   >('PRIZES');
-  const [isGridView, setIsGridView] = useState(true);
+  const [isGridView, setIsGridView] = useState(false);
 
   useEffect(() => {
     setBusy(true);

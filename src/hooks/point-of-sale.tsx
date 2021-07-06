@@ -84,8 +84,8 @@ const PointOfSaleProvider: React.FC = ({ children }) => {
       filter: FilterPointsOfSaleDto | undefined,
     ) => {
       const params = [
-        offset ? `limit=${10}` : '',
-        offset ? `offset=${offset}` : '',
+        offset !== undefined ? `limit=${10}` : '',
+        offset !== undefined ? `offset=${offset}` : '',
         filter?.groupId ? `groupId=${filter.groupId}` : '',
 
         filter?.label ? `label=${filter.label}` : '',

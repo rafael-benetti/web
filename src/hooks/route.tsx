@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { Route } from '../entiti/route';
+import { RouteFilter } from '../entiti/route-filter';
 import { RouteInfo } from '../entiti/route-info';
 import api from '../service/api';
 import { useAuth } from './auth';
@@ -7,7 +8,10 @@ import { useError } from './error';
 import { useToast } from './toast';
 
 interface RouteContext {
-  getRoutes(): Promise<Route[] | undefined>;
+  getRoutes(
+    offset: number | undefined,
+    filters: RouteFilter | undefined,
+  ): Promise<{ routes: Route[]; count: number } | undefined>;
   getSingleRoute(
     id: string,
     period: 'DAILY' | 'WEEKLY' | 'MONTHLY',
@@ -25,6 +29,7 @@ interface RouteContext {
   routeInfo: RouteInfo | undefined;
   showCreateRoute: boolean;
   showEditRoute: boolean;
+  count?: number;
 }
 
 const RouteContext = createContext({} as RouteContext);
@@ -42,22 +47,45 @@ const RouteProvider: React.FC = ({ children }) => {
   const [routeInfo, setRouteInfo] = useState<RouteInfo>();
   const [shouldRefreshRoute, setShouldRefreshRoute] = useState<boolean>(false);
   const [showDeleteRoute, setShowDeleteRoute] = useState<boolean>(false);
+  const [count, setCount] = useState<number>();
 
-  const getRoutes = useCallback(async () => {
-    try {
-      const response = await api.get<Route[]>('/routes', {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      if (response) {
-        setRoutes(response.data);
+  const getRoutes = useCallback(
+    async (offset: number | undefined, filters: RouteFilter | undefined) => {
+      try {
+        const response = await api.get<{ routes: Route[]; count: number }>(
+          '/v2/routes',
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+            params: {
+              limit: offset ? 10 : undefined,
+              offset: offset === undefined ? '' : offset,
+              operatorId:
+                filters?.operatorId === 'none'
+                  ? undefined
+                  : filters?.operatorId,
+              groupId:
+                filters?.groupId === 'none' ? undefined : filters?.groupId,
+              pointOfSaleId:
+                filters?.pointOfSaleId === 'none'
+                  ? undefined
+                  : filters?.pointOfSaleId,
+              label: filters?.label || undefined,
+            },
+          },
+        );
+        if (response) {
+          setRoutes(response.data.routes);
+          setCount(response.data.count);
+        }
+        return response.data;
+      } catch (error) {
+        return undefined;
       }
-      return response.data;
-    } catch (error) {
-      return undefined;
-    }
-  }, [token]);
+    },
+    [token],
+  );
 
   const getSingleRoute = useCallback(
     async (id: string, period: 'DAILY' | 'WEEKLY' | 'MONTHLY') => {
@@ -190,6 +218,7 @@ const RouteProvider: React.FC = ({ children }) => {
         showEditRoute,
         routes,
         routeInfo,
+        count,
       }}
     >
       {children}

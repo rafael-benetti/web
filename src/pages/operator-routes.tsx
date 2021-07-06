@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { Pagination } from '@material-ui/lab';
+import ReactSelect from 'react-select';
 import Button from '../components/button';
 import Container from '../components/container';
 import CurrentPath from '../components/current-path';
@@ -17,43 +18,65 @@ import {
   Table,
 } from '../styles/pages/operator-routes';
 import { PageTitle } from '../utils/page-title';
-import { Route } from '../entiti/route';
+import { RouteFilter } from '../entiti/route-filter';
+import { useGroup } from '../hooks/group';
 
 const OperatorRoutesPages: React.FC = () => {
   // hooks
-  const { getRoutes, routes, showCreateRoute, toggleCreateRoute } = useRoute();
+  const {
+    getRoutes,
+    routes,
+    showCreateRoute,
+    toggleCreateRoute,
+    count,
+  } = useRoute();
   const { getOperators, operators } = useUser();
   const { getPointsOfSale, pointsOfSale } = usePointOfSale();
+  const { getGroups, groups } = useGroup();
   const { user } = useUser();
 
   // state
   const [busy, setBusy] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [pageSelected, setPageSelected] = useState<number>(1);
-  const [routersFiltered, setRoutesFiltered] = useState<Route[]>([]);
+  const [filterRouter, setFilterRouter] = useState<RouteFilter>();
+  const [pointSelected, setPointSelected] = useState<{
+    label: string;
+    value: string;
+  }>({ label: 'Todas', value: 'none' });
+  const [groupSelected, setGroupSelected] = useState<{
+    label: string;
+    value: string;
+  }>({ label: 'Todas', value: 'none' });
+  const [operatorSelected, setOperatorSelected] = useState<{
+    label: string;
+    value: string;
+  }>({ label: 'Todos', value: 'none' });
 
   useEffect(() => {
     setBusy(true);
     (async () => {
-      await getRoutes();
+      await getRoutes(pageSelected * 10 - 10, undefined);
       await getPointsOfSale(undefined, undefined);
+      await getGroups();
       await getOperators();
       setBusy(false);
     })();
   }, []);
 
-  const filterRoutes = useCallback(
-    (data: string) => {
-      const routesData: Route[] = [];
-      routes.forEach(route => {
-        if (route.label.toString().toLowerCase().includes(data)) {
-          routesData.push(route);
-        }
+  useEffect(() => {
+    (async () => {
+      await getRoutes(pageSelected * 10 - 10, filterRouter);
+      await getPointsOfSale(undefined, {
+        groupId:
+          groupSelected.value === 'none' ? undefined : groupSelected.value,
       });
-      setRoutesFiltered(routesData);
-    },
-    [routersFiltered],
-  );
+    })();
+  }, [pageSelected, filterRouter]);
+
+  const numberOfPages = useCallback((num: number) => {
+    return Math.ceil(num / 10);
+  }, []);
 
   return (
     <Container active="routes" loading={busy}>
@@ -86,14 +109,101 @@ const OperatorRoutesPages: React.FC = () => {
                     onBlur={() => {
                       setIsFocused(false);
                     }}
-                    id="route-name"
                     onChange={e => {
-                      filterRoutes(e.target.value);
+                      setFilterRouter({
+                        ...filterRouter,
+                        label: e.target.value,
+                      });
                     }}
+                    id="route-name"
                   />
                 </div>
               </label>
             </InputContainer>
+            {user?.role !== 'OPERATOR' && (
+              <>
+                <div className="filters label-filter">
+                  <p style={{ marginBottom: '1rem' }}>Parceria</p>
+                  <ReactSelect
+                    name="groupId"
+                    value={groupSelected}
+                    options={[
+                      {
+                        value: 'none',
+                        label: 'Todas',
+                      },
+                      ...(groups &&
+                        groups.map(group => {
+                          return {
+                            value: group.id,
+                            label: group.label ? group.label : 'Pessoal',
+                          };
+                        })),
+                    ]}
+                    onChange={e => {
+                      if (e) {
+                        setGroupSelected(e);
+                        setFilterRouter({
+                          groupId: e.value,
+                        });
+                        setOperatorSelected({ label: 'Todos', value: 'none' });
+                        setPointSelected({ label: 'Todas', value: 'none' });
+                      }
+                    }}
+                  />
+                </div>
+                <div className="filters label-filter">
+                  <p style={{ marginBottom: '1rem' }}>Localização</p>
+                  <ReactSelect
+                    name="pointOfSaleId"
+                    value={pointSelected}
+                    options={[
+                      { value: 'none', label: 'Todas' },
+                      ...pointsOfSale.map(pointOfSale => {
+                        return {
+                          value: pointOfSale.id,
+                          label: pointOfSale.label,
+                        };
+                      }),
+                    ]}
+                    onChange={e => {
+                      if (e) {
+                        setPointSelected(e);
+                        setFilterRouter({
+                          ...filterRouter,
+                          pointOfSaleId: e.value,
+                        });
+                      }
+                    }}
+                  />
+                </div>
+                <div className="filters label-filter">
+                  <p style={{ marginBottom: '1rem' }}>Operador</p>
+                  <ReactSelect
+                    name="pointOfSaleId"
+                    value={operatorSelected}
+                    options={[
+                      { value: 'none', label: 'Todos' },
+                      ...operators.map(operator => {
+                        return {
+                          value: operator.id,
+                          label: operator.name,
+                        };
+                      }),
+                    ]}
+                    onChange={e => {
+                      if (e) {
+                        setOperatorSelected(e);
+                        setFilterRouter({
+                          ...filterRouter,
+                          operatorId: e.value,
+                        });
+                      }
+                    }}
+                  />
+                </div>
+              </>
+            )}
           </div>
           <Table>
             <div className="table-title">
@@ -104,55 +214,25 @@ const OperatorRoutesPages: React.FC = () => {
               <div className="operator">Operador</div>
               <div className="locations">Locais</div>
             </div>
-            {routes && routersFiltered.length === 0
-              ? routes.map((route, index) => {
-                  if (
-                    (pageSelected - 1) * 10 <= index &&
-                    index < pageSelected * 10
-                  ) {
-                    return (
-                      <SingleRoute
-                        key={v4()}
-                        user={user}
-                        route={route}
-                        operator={operators.find(
-                          operator => operator.id === route.operatorId,
-                        )}
-                        operators={operators}
-                        locations={pointsOfSale}
-                      />
-                    );
-                  }
-                  return null;
-                })
-              : routersFiltered.map((route, index) => {
-                  if (
-                    (pageSelected - 1) * 10 <= index &&
-                    index < pageSelected * 10
-                  ) {
-                    return (
-                      <SingleRoute
-                        key={v4()}
-                        user={user}
-                        route={route}
-                        operator={operators.find(
-                          operator => operator.id === route.operatorId,
-                        )}
-                        operators={operators}
-                        locations={pointsOfSale}
-                      />
-                    );
-                  }
-                  return null;
-                })}
+            {routes &&
+              routes.map(route => {
+                return (
+                  <SingleRoute
+                    key={v4()}
+                    user={user}
+                    route={route}
+                    operator={operators.find(
+                      operator => operator.id === route.operatorId,
+                    )}
+                    operators={operators}
+                    locations={pointsOfSale}
+                  />
+                );
+              })}
           </Table>
           <PaginationContainer>
             <Pagination
-              count={
-                routersFiltered.length === 0
-                  ? Math.ceil(routes.length / 10)
-                  : Math.ceil(routersFiltered.length / 10)
-              }
+              count={numberOfPages(count || 0)}
               color="primary"
               variant="outlined"
               page={pageSelected}

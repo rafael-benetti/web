@@ -46,7 +46,7 @@ const PointsOfSalePage: React.FC = () => {
     (async () => {
       await getPointsOfSale(pageSelected * 10 - 10, filters);
       await getGroups();
-      await getRoutes();
+      await getRoutes(undefined, undefined);
       setBusy(false);
     })();
   }, []);

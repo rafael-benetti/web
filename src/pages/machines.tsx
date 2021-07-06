@@ -7,7 +7,6 @@ import ReactSelect from 'react-select';
 import { VscDebugDisconnect } from 'react-icons/vsc';
 import { AiOutlineWifi } from 'react-icons/ai';
 import { RiWifiOffLine } from 'react-icons/ri';
-import { Tooltip } from '@material-ui/core';
 import { FiInfo } from 'react-icons/fi';
 import Button from '../components/button';
 import Container from '../components/container';
@@ -135,7 +134,7 @@ const MachinesPage: React.FC = () => {
       await getPointsOfSale(undefined, undefined);
       await getCategories();
       await getTelemetries();
-      await getRoutes();
+      await getRoutes(undefined, undefined);
       setRoutesFiltered(routes);
       setBusy(false);
     })();
