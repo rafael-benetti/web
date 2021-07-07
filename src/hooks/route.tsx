@@ -59,7 +59,7 @@ const RouteProvider: React.FC = ({ children }) => {
               authorization: `Bearer ${token}`,
             },
             params: {
-              limit: offset ? 10 : undefined,
+              limit: offset === undefined ? undefined : 10,
               offset: offset === undefined ? '' : offset,
               operatorId:
                 filters?.operatorId === 'none'
