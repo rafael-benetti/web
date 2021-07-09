@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const TransferMachineContainer = styled.div`
   position: fixed;
-  top: 50%;
+  top: 30%;
   left: 50%;
   display: flex;
   flex-direction: column;

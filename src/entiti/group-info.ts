@@ -4,12 +4,7 @@ import { PointOfSale } from './point-of-sales';
 
 export interface GroupInfo {
   chartData1: ChartData[];
-  chartData2: {
-    cashIncome: 2186;
-    coinIncome: 0;
-    creditCardIncome: 0;
-    others: 0;
-  };
+  chartData2: { total: number; counterLabel: string }[];
   givenPrizesCount: number;
   group: Group;
   income: number;

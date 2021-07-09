@@ -99,7 +99,7 @@ const GroupProvider: React.FC = ({ children }) => {
       },
     ) => {
       try {
-        const response = await api.get<GroupInfo>(`groups/${id}`, {
+        const response = await api.get<GroupInfo>(`v2/groups/${id}`, {
           params: {
             period: filter.period,
             startDate: filter.startDate

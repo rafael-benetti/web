@@ -383,21 +383,9 @@ const GroupInfoPage: React.FC = () => {
             <h1 className="heading-font">Analítico</h1>
           </div>
           <ChartPie
-            data={[
-              {
-                label: 'Dinheiro',
-                value: groupInfo?.chartData2.cashIncome || 0,
-              },
-              {
-                label: 'Cartão',
-                value: groupInfo?.chartData2.creditCardIncome || 0,
-              },
-              {
-                label: 'Moeda',
-                value: groupInfo?.chartData2.coinIncome || 0,
-              },
-              { label: 'Outros', value: groupInfo?.chartData2.others || 0 },
-            ]}
+            data={groupInfo?.chartData2.map(chart => {
+              return { label: chart.counterLabel, value: chart.total };
+            })}
           />
         </GroupAnalitycs>
       </GroupInfoContainer>

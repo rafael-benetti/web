@@ -5,6 +5,12 @@ export const DashboardContainer = styled.div`
   min-height: calc(100vh - 7rem);
   width: 100%;
   padding: 2.5rem;
+  .filters-container {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2rem;
+  }
   @media screen and (max-width: 37.5em) {
     padding: 2.5rem 0;
   }

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-nested-ternary */
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,6 +20,7 @@ const SinglePointOfSale: React.FC<IProps> = ({
   group,
   isSingleGroup,
   routeLabel,
+  user,
 }) => {
   const formatPhone = useCallback((value: string) => {
     const formattedString = value
@@ -34,24 +36,43 @@ const SinglePointOfSale: React.FC<IProps> = ({
 
   return (
     <PointOfSaleContainer>
-      <Link
-        to={{ pathname: 'detalhes-do-ponto-de-venda', state: pointOfSale.id }}
-      >
-        <button className="edit-btn" type="button">
-          <div className="label">{pointOfSale.label}</div>
-          {isSingleGroup ? null : group?.isPersonal ? (
-            'Parceria pessoal'
-          ) : (
-            <div className="group">{group?.label}</div>
-          )}
-          <div className="contact-name">{routeLabel || '-'}</div>
+      {user?.role === 'OPERATOR' ? (
+        <a>
+          <button className="edit-btn" type="button">
+            <div className="label">{pointOfSale.label}</div>
+            {isSingleGroup ? null : group?.isPersonal ? (
+              'Parceria pessoal'
+            ) : (
+              <div className="group">{group?.label}</div>
+            )}
+            <div className="contact-name">{routeLabel || '-'}</div>
 
-          <div className="contact-name">{pointOfSale.contactName}</div>
-          <div className="phone">
-            {formatPhone(pointOfSale.primaryPhoneNumber)}
-          </div>
-        </button>
-      </Link>
+            <div className="contact-name">{pointOfSale.contactName}</div>
+            <div className="phone">
+              {formatPhone(pointOfSale.primaryPhoneNumber)}
+            </div>
+          </button>
+        </a>
+      ) : (
+        <Link
+          to={{ pathname: 'detalhes-do-ponto-de-venda', state: pointOfSale.id }}
+        >
+          <button className="edit-btn" type="button">
+            <div className="label">{pointOfSale.label}</div>
+            {isSingleGroup ? null : group?.isPersonal ? (
+              'Parceria pessoal'
+            ) : (
+              <div className="group">{group?.label}</div>
+            )}
+            <div className="contact-name">{routeLabel || '-'}</div>
+
+            <div className="contact-name">{pointOfSale.contactName}</div>
+            <div className="phone">
+              {formatPhone(pointOfSale.primaryPhoneNumber)}
+            </div>
+          </button>
+        </Link>
+      )}
     </PointOfSaleContainer>
   );
 };

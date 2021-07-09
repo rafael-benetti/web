@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Pagination } from '@material-ui/lab';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Pagination } from '@material-ui/lab';
+import ReactSelect from 'react-select';
 import Button from '../components/button';
 import ChooseMachineToCollect from '../components/choose-machine-to-collect';
 import Container from '../components/container';
@@ -17,6 +18,8 @@ import {
 } from '../styles/pages/collections';
 import { PaginationContainer } from '../styles/pages/points-of-sale';
 import { PageTitle } from '../utils/page-title';
+import { useRoute } from '../hooks/route';
+import { useOperator } from '../hooks/operator';
 
 const CollectionsPage: React.FC = () => {
   // hooks
@@ -29,14 +32,27 @@ const CollectionsPage: React.FC = () => {
   } = useCollection();
   const { getCounterType, counterTypes } = useCategory();
   const { getUser, user } = useUser();
+  const { getRoutes, routes } = useRoute();
+  const { getOperators, operators } = useOperator();
 
   // state
   const [busy, setBusy] = useState<boolean>(false);
   const [tableBusy, setTableBusy] = useState<boolean>(false);
-  const [filterWasChanged, setFilterWasChanged] = useState(0);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [filter, setFilter] = useState<string>('');
+  const [filter, setFilter] = useState<{
+    label?: string;
+    operatorId?: string;
+    routeId?: string;
+  }>();
   const [pageSelected, setPageSelected] = useState<number>(1);
+  const [operatorSelected, setOperatorSelected] = useState<{
+    label: string;
+    value: string;
+  }>({ label: 'Todos', value: 'none' });
+  const [routeSelected, setRouteSelected] = useState<{
+    label: string;
+    value: string;
+  }>({ label: 'Todas', value: 'none' });
 
   const numberOfPages = useCallback((num: number) => {
     return Math.ceil(num / 10);
@@ -45,10 +61,13 @@ const CollectionsPage: React.FC = () => {
   useEffect(() => {
     setBusy(true);
     toggleNewCollection(false);
+
     (async () => {
       await getCollections(pageSelected * 10 - 10, filter);
       await getUser();
       await getCounterType();
+      await getRoutes(undefined, undefined);
+      await getOperators();
       setBusy(false);
     })();
   }, []);
@@ -59,7 +78,7 @@ const CollectionsPage: React.FC = () => {
       await getCollections(pageSelected * 10 - 10, filter);
       setTableBusy(false);
     })();
-  }, [filterWasChanged, pageSelected]);
+  }, [filter, pageSelected]);
 
   return (
     <Container active="collections" loading={busy}>
@@ -78,7 +97,7 @@ const CollectionsPage: React.FC = () => {
           />
         </PageTitle>
         <CollectionsContent>
-          <div className="filter">
+          <div className="filters-container">
             <InputContainer isFocused={isFocused}>
               <label htmlFor="group-name">
                 <p>Pesquisar</p>
@@ -92,13 +111,75 @@ const CollectionsPage: React.FC = () => {
                     }}
                     id="group-name"
                     onChange={e => {
-                      setFilter(e.target.value);
-                      setFilterWasChanged(filterWasChanged + 1);
+                      if (e) {
+                        setFilter({ ...filter, label: e.target.value });
+                        setPageSelected(1);
+                      }
                     }}
                   />
                 </div>
               </label>
             </InputContainer>
+            {user?.role !== 'OPERATOR' && (
+              <>
+                <div className="filters label-filter">
+                  <p style={{ marginBottom: '1rem' }}>Rota</p>
+                  <ReactSelect
+                    name="routeId"
+                    id="routeId"
+                    value={routeSelected}
+                    options={[
+                      {
+                        value: 'none',
+                        label: 'Todas',
+                      },
+                      ...(routes &&
+                        routes.map(operator => {
+                          return {
+                            value: operator.id,
+                            label: operator.label,
+                          };
+                        })),
+                    ]}
+                    onChange={e => {
+                      if (e) {
+                        setRouteSelected(e);
+                        setFilter({ ...filter, routeId: e.value });
+                        setPageSelected(1);
+                      }
+                    }}
+                  />
+                </div>
+                <div className="filters label-filter">
+                  <p style={{ marginBottom: '1rem' }}>Operador</p>
+                  <ReactSelect
+                    name="operatorId"
+                    id="operatorId"
+                    value={operatorSelected}
+                    options={[
+                      {
+                        value: 'none',
+                        label: 'Todos',
+                      },
+                      ...(operators &&
+                        operators.map(operator => {
+                          return {
+                            value: operator.id,
+                            label: operator.name,
+                          };
+                        })),
+                    ]}
+                    onChange={e => {
+                      if (e) {
+                        setOperatorSelected(e);
+                        setFilter({ ...filter, operatorId: e.value });
+                        setPageSelected(1);
+                      }
+                    }}
+                  />
+                </div>
+              </>
+            )}
           </div>
           <Table>
             <div className="table-title">

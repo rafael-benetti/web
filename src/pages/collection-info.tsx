@@ -53,6 +53,9 @@ const CollectionInfo: React.FC = () => {
 
   useEffect(() => {
     setBusy(true);
+    if (!collectionId) {
+      setRedirect(true);
+    }
     (async () => {
       await getUser();
       await getSingleCollection(collectionId);
@@ -495,7 +498,7 @@ const CollectionInfo: React.FC = () => {
         </CollectionInfoContent>
         {photoDetail ? <PhotoDetail photo={photoDetail} /> : null}
       </CollectionInfoContainer>
-      {redirect && <Redirect to="collections" />}
+      {redirect && <Redirect to="coletas" />}
     </Container>
   );
 };

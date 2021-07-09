@@ -37,6 +37,10 @@ export const HandleRouteContainer = styled.div`
         margin-bottom: 1.5rem;
         color: red;
       }
+      .scroll {
+        height: 45vh;
+        overflow-y: scroll;
+      }
     }
     button {
       align-self: flex-end;

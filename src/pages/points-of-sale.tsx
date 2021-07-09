@@ -21,6 +21,7 @@ import {
 import { PageTitle } from '../utils/page-title';
 import { FilterPointsOfSaleDto } from '../entiti/filter-point-of-sale';
 import { useRoute } from '../hooks/route';
+import { useOperator } from '../hooks/operator';
 
 const PointsOfSalePage: React.FC = () => {
   // hooks
@@ -28,14 +29,24 @@ const PointsOfSalePage: React.FC = () => {
   const { getGroups, groups } = useGroup();
   const { getRoutes, routes } = useRoute();
   const { user } = useUser();
+  const { getOperators, operators } = useOperator();
   // state
   const [busy, setBusy] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [filters, setFilters] = useState<FilterPointsOfSaleDto>(
-    {} as FilterPointsOfSaleDto,
-  );
+  const [filters, setFilters] = useState<FilterPointsOfSaleDto>();
   const [pageSelected, setPageSelected] = useState<number>(1);
-  const [filterWasChanged, setFilterWasChanged] = useState(0);
+  const [groupSelected, setGroupSelected] = useState<{
+    label: string;
+    value: string;
+  }>({ label: 'Todas', value: 'none' });
+  const [operatorSelected, setOperatorSelected] = useState<{
+    label: string;
+    value: string;
+  }>({ label: 'Todos', value: 'none' });
+  const [routeSelected, setRouteSelected] = useState<{
+    label: string;
+    value: string;
+  }>({ label: 'Todas', value: 'none' });
 
   const numberOfPages = useCallback((num: number) => {
     return Math.ceil(num / 10);
@@ -47,6 +58,7 @@ const PointsOfSalePage: React.FC = () => {
       await getPointsOfSale(pageSelected * 10 - 10, filters);
       await getGroups();
       await getRoutes(undefined, undefined);
+      await getOperators();
       setBusy(false);
     })();
   }, []);
@@ -54,8 +66,11 @@ const PointsOfSalePage: React.FC = () => {
   useEffect(() => {
     (async () => {
       await getPointsOfSale(pageSelected * 10 - 10, filters);
+      if (groupSelected.value !== 'none') {
+        await getRoutes(undefined, { groupId: groupSelected.value });
+      }
     })();
-  }, [filterWasChanged, pageSelected]);
+  }, [filters, pageSelected]);
 
   return (
     <Container active="points-of-sale" loading={busy}>
@@ -83,48 +98,6 @@ const PointsOfSalePage: React.FC = () => {
         </PageTitle>
         <PointsOfSaleContent>
           <div className="filter">
-            <div className="filters label-filter">
-              <p style={{ marginBottom: '1rem' }}>Parceria</p>
-              <ReactSelect
-                name="groupId"
-                id="groupId"
-                defaultValue={{
-                  value: 'none',
-                  label: 'Todos',
-                }}
-                options={[
-                  {
-                    value: 'none',
-                    label: 'Todos',
-                  },
-                  ...(groups &&
-                    groups.map(group => {
-                      return {
-                        value: group.id,
-                        label: group.label ? group.label : 'Pessoal',
-                      };
-                    })),
-                ]}
-                onChange={(e: any) => {
-                  if (e) {
-                    const { value } = e;
-                    if (value === 'none') {
-                      setFilters(state => {
-                        state.groupId = undefined;
-                        return state;
-                      });
-                    } else {
-                      setFilters(state => {
-                        state.groupId = value;
-                        return state;
-                      });
-                    }
-                  }
-                  setPageSelected(1);
-                  setFilterWasChanged(filterWasChanged + 1);
-                }}
-              />
-            </div>
             <InputContainer isFocused={isFocused}>
               <label htmlFor="group-name">
                 <p>Pesquisar</p>
@@ -139,19 +112,109 @@ const PointsOfSalePage: React.FC = () => {
                     id="label"
                     onChange={e => {
                       if (e) {
-                        const { value } = e.target;
-                        setFilters(state => {
-                          state.label = value;
-                          return state;
-                        });
+                        setFilters({ ...filters, label: e.target.value });
                         setPageSelected(1);
-                        setFilterWasChanged(filterWasChanged + 1);
                       }
                     }}
                   />
                 </div>
               </label>
             </InputContainer>
+            {user?.role !== 'OPERATOR' && (
+              <>
+                <div className="filters label-filter">
+                  <p style={{ marginBottom: '1rem' }}>Parceria</p>
+                  <ReactSelect
+                    name="groupId"
+                    id="groupId"
+                    value={groupSelected}
+                    options={[
+                      {
+                        value: 'none',
+                        label: 'Todos',
+                      },
+                      ...(groups &&
+                        groups.map(group => {
+                          return {
+                            value: group.id,
+                            label: group.label ? group.label : 'Pessoal',
+                          };
+                        })),
+                    ]}
+                    onChange={e => {
+                      if (e) {
+                        setOperatorSelected({ value: 'none', label: 'Todos' });
+                        setRouteSelected({ value: 'none', label: 'Todas' });
+                        setGroupSelected(e);
+                        setFilters({
+                          ...filters,
+                          routeId: undefined,
+                          operatorId: undefined,
+                          groupId: e.value,
+                        });
+                        setPageSelected(1);
+                      }
+                    }}
+                  />
+                </div>
+                <div className="filters label-filter">
+                  <p style={{ marginBottom: '1rem' }}>Rota</p>
+                  <ReactSelect
+                    name="routeId"
+                    id="routeId"
+                    value={routeSelected}
+                    options={[
+                      {
+                        value: 'none',
+                        label: 'Todas',
+                      },
+                      ...(routes &&
+                        routes.map(operator => {
+                          return {
+                            value: operator.id,
+                            label: operator.label,
+                          };
+                        })),
+                    ]}
+                    onChange={e => {
+                      if (e) {
+                        setRouteSelected(e);
+                        setFilters({ ...filters, routeId: e.value });
+                        setPageSelected(1);
+                      }
+                    }}
+                  />
+                </div>
+                <div className="filters label-filter">
+                  <p style={{ marginBottom: '1rem' }}>Operador</p>
+                  <ReactSelect
+                    name="operatorId"
+                    id="operatorId"
+                    value={operatorSelected}
+                    options={[
+                      {
+                        value: 'none',
+                        label: 'Todos',
+                      },
+                      ...(operators &&
+                        operators.map(operator => {
+                          return {
+                            value: operator.id,
+                            label: operator.name,
+                          };
+                        })),
+                    ]}
+                    onChange={e => {
+                      if (e) {
+                        setOperatorSelected(e);
+                        setFilters({ ...filters, operatorId: e.value });
+                        setPageSelected(1);
+                      }
+                    }}
+                  />
+                </div>
+              </>
+            )}
           </div>
           <Table>
             <div className="table-title">

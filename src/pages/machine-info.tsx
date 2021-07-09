@@ -327,14 +327,18 @@ const MachineInfoPage: React.FC = () => {
                 <div className="spacer" />
                 {machineInfo?.machine.pointOfSale?.label ? (
                   <button type="button">
-                    <Link
-                      to={{
-                        pathname: 'detalhes-do-ponto-de-venda',
-                        state: machineInfo?.machine.locationId,
-                      }}
-                    >
-                      <h2>{machineInfo?.machine.pointOfSale?.label}</h2>
-                    </Link>
+                    {user?.role !== 'OPERATOR' ? (
+                      <Link
+                        to={{
+                          pathname: 'detalhes-do-ponto-de-venda',
+                          state: machineInfo?.machine.locationId,
+                        }}
+                      >
+                        <h2>{machineInfo?.machine.pointOfSale?.label}</h2>
+                      </Link>
+                    ) : (
+                      machineInfo?.machine.pointOfSale?.label
+                    )}
                   </button>
                 ) : (
                   <h2>Estoque</h2>

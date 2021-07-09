@@ -83,21 +83,21 @@ const PointOfSaleProvider: React.FC = ({ children }) => {
       offset: number | undefined,
       filter: FilterPointsOfSaleDto | undefined,
     ) => {
-      const params = [
-        offset !== undefined ? `limit=${10}` : '',
-        offset !== undefined ? `offset=${offset}` : '',
-        filter?.groupId ? `groupId=${filter.groupId}` : '',
-
-        filter?.label ? `label=${filter.label}` : '',
-      ]
-        .filter(value => value !== '')
-        .join('&');
       try {
         const response = await api.get<ResponseGetPointsOfSale>(
-          `/pointsOfSale?${params}`,
+          `/pointsOfSale`,
           {
             headers: {
               authorization: `Bearer ${token}`,
+            },
+            params: {
+              limit: offset === undefined ? undefined : 10,
+              offset: offset === undefined ? undefined : offset,
+              groupId: filter?.groupId === 'none' ? undefined : filter?.groupId,
+              routeId: filter?.routeId === 'none' ? undefined : filter?.routeId,
+              operatorId:
+                filter?.operatorId === 'none' ? undefined : filter?.operatorId,
+              label: filter?.label || undefined,
             },
           },
         );

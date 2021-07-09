@@ -20,9 +20,11 @@ export const CollectionsContent = styled.div`
   box-shadow: 0 0 3.7rem rgba(115, 102, 255, 0.1);
   padding: 3rem 1.5rem;
 
-  .filter {
-    width: 40%;
-    margin-bottom: 3rem;
+  .filters-container {
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2rem;
   }
   @media screen and (max-width: 37.5em) {
     .filter {

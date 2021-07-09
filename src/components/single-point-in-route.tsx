@@ -10,12 +10,10 @@ interface Props {
   user?: User;
 }
 
-const SinglePointInRoute: React.FC<Props> = ({ pointOfSale }) => {
+const SinglePointInRoute: React.FC<Props> = ({ pointOfSale, user }) => {
   return (
     <SinglePointInRouteContainer>
-      <Link
-        to={{ pathname: '/detalhes-do-ponto-de-venda', state: pointOfSale?.id }}
-      >
+      {user?.role === 'OPERATOR' ? (
         <button type="button">
           <div className="serial-number">{pointOfSale?.label}</div>
           <div className="group">
@@ -24,7 +22,23 @@ const SinglePointInRoute: React.FC<Props> = ({ pointOfSale }) => {
           <div className="city">{`${pointOfSale?.address.city} - ${pointOfSale?.address.state}`}</div>
           <div className="street">{`${pointOfSale?.address.street}, ${pointOfSale?.address.number}`}</div>
         </button>
-      </Link>
+      ) : (
+        <Link
+          to={{
+            pathname: '/detalhes-do-ponto-de-venda',
+            state: pointOfSale?.id,
+          }}
+        >
+          <button type="button">
+            <div className="serial-number">{pointOfSale?.label}</div>
+            <div className="group">
+              {pointOfSale?.group.label || 'Parceria pessoal'}
+            </div>
+            <div className="city">{`${pointOfSale?.address.city} - ${pointOfSale?.address.state}`}</div>
+            <div className="street">{`${pointOfSale?.address.street}, ${pointOfSale?.address.number}`}</div>
+          </button>
+        </Link>
+      )}
     </SinglePointInRouteContainer>
   );
 };

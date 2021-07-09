@@ -84,33 +84,35 @@ const TelemetriesPage: React.FC = () => {
         </PageTitle>
         <TelemetriesContent>
           <div className="filter">
-            <div className="filter-select">
-              <p style={{ marginBottom: '1rem' }}>Parceria</p>
-              <ReactSelect
-                name="groupId"
-                id="groupId"
-                defaultValue={groupSelected}
-                options={[
-                  {
-                    value: 'none',
-                    label: 'Todas',
-                  },
-                  ...(groups &&
-                    groups.map(group => {
-                      return {
-                        value: group.id,
-                        label: group.label ? group.label : 'Pessoal',
-                      };
-                    })),
-                ]}
-                onChange={e => {
-                  if (e) {
-                    setGroupSelected(e);
-                    setFilter({ ...filter, groupId: e?.value });
-                  }
-                }}
-              />
-            </div>
+            {user?.role !== 'OPERATOR' && (
+              <div className="filter-select">
+                <p style={{ marginBottom: '1rem' }}>Parceria</p>
+                <ReactSelect
+                  name="groupId"
+                  id="groupId"
+                  defaultValue={groupSelected}
+                  options={[
+                    {
+                      value: 'none',
+                      label: 'Todas',
+                    },
+                    ...(groups &&
+                      groups.map(group => {
+                        return {
+                          value: group.id,
+                          label: group.label ? group.label : 'Pessoal',
+                        };
+                      })),
+                  ]}
+                  onChange={e => {
+                    if (e) {
+                      setGroupSelected(e);
+                      setFilter({ ...filter, groupId: e?.value });
+                    }
+                  }}
+                />
+              </div>
+            )}
             <InputContainer isFocused={isFocused}>
               <label htmlFor="group-name">
                 <p>Pesquisar pelo número da telemetria</p>

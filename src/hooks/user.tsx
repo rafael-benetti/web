@@ -82,15 +82,24 @@ const UserProvider: React.FC = ({ children }) => {
       period: 'DAILY' | 'WEEKLY' | 'MONTHLY' | undefined;
       startDate?: string;
       endDate?: string;
+      groupId?: string;
+      routeId?: string;
+      pointOfSaleId?: string;
     }) => {
       try {
-        const response = await api.get<DashboardData>(`users/dashboard`, {
+        const response = await api.get<DashboardData>(`v2/users/dashboard`, {
           params: {
             period: filter.period,
             startDate: filter.startDate
               ? new Date(filter.startDate)
               : undefined,
             endDate: filter.endDate ? new Date(filter.endDate) : undefined,
+            groupId: filter.groupId === 'none' ? undefined : filter.groupId,
+            routeId: filter.routeId === 'none' ? undefined : filter.routeId,
+            pointOfSaleId:
+              filter.pointOfSaleId === 'none'
+                ? undefined
+                : filter.pointOfSaleId,
           },
           headers: {
             authorization: `Bearer ${token}`,

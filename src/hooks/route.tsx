@@ -60,7 +60,7 @@ const RouteProvider: React.FC = ({ children }) => {
             },
             params: {
               limit: offset === undefined ? undefined : 10,
-              offset: offset === undefined ? '' : offset,
+              offset: offset === undefined ? undefined : offset,
               operatorId:
                 filters?.operatorId === 'none'
                   ? undefined

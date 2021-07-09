@@ -53,18 +53,19 @@ const GroupsCheckboxList: React.FC<Props> = ({
     <GroupsCheckboxListContainer>
       {options.map((option, index) => (
         <div key={v4()}>
-          <input
-            defaultChecked={defaultValue.find((dv: string) => dv === option.id)}
-            ref={ref => {
-              inputRefs.current[index] = ref as HTMLInputElement;
-            }}
-            value={option.value}
-            type="checkbox"
-            id={option.id}
-            {...rest}
-          />
           <label htmlFor={option.id} key={option.label}>
-            <div className="checkbox-state" />
+            <input
+              defaultChecked={defaultValue.find(
+                (dv: string) => dv === option.id,
+              )}
+              ref={ref => {
+                inputRefs.current[index] = ref as HTMLInputElement;
+              }}
+              value={option.value}
+              type="checkbox"
+              id={option.id}
+              {...rest}
+            />
             <span className="label-font">{option.label}</span>
           </label>
         </div>

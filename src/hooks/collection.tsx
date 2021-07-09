@@ -12,7 +12,9 @@ import { useToast } from './toast';
 interface CollectionContext {
   getCollections(
     offset: number | undefined,
-    filter: string,
+    filter:
+      | { label?: string; operatorId?: string; routeId?: string }
+      | undefined,
   ): Promise<GetCollections | undefined>;
   createCollection(
     data: BaseData,
@@ -50,23 +52,24 @@ const CollectionProvider: React.FC = ({ children }) => {
   const [collection, setCollection] = useState<Collection>();
 
   const getCollections = useCallback(
-    async (offset?: number | undefined, filter?: string) => {
-      const params = [
-        `limit=${10}`,
-        offset ? `offset=${offset}` : '',
-        filter ? `machineSerialNumber=${filter}` : '',
-      ]
-        .filter(value => value !== '')
-        .join('&');
+    async (
+      offset?: number | undefined,
+      filter?: { label?: string; operatorId?: string; routeId?: string },
+    ) => {
       try {
-        const response = await api.get<GetCollections>(
-          `/collections?${params}`,
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
+        const response = await api.get<GetCollections>(`/collections`, {
+          headers: {
+            authorization: `Bearer ${token}`,
           },
-        );
+          params: {
+            limit: offset === undefined ? undefined : 10,
+            offset: offset === undefined ? undefined : offset,
+            machineSerialNumber: filter?.label || undefined,
+            operatorId:
+              filter?.operatorId === 'none' ? undefined : filter?.operatorId,
+            routeId: filter?.routeId === 'none' ? undefined : filter?.routeId,
+          },
+        });
         setCollections(response.data.collections);
         setCount(response.data.count);
         return response.data;

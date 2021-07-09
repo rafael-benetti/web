@@ -3,12 +3,7 @@ import { PointOfSale } from './point-of-sales';
 
 export interface DashboardData {
   chartData1: ChartData[];
-  chartData2: {
-    cashIncome: 2186;
-    coinIncome: 0;
-    creditCardIncome: 0;
-    others: 0;
-  };
+  chartData2: { total: number; counterLabel: string }[];
   givenPrizesCount: number;
   income: number;
   machinesNeverConnected: number;

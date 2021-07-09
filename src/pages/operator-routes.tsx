@@ -144,10 +144,14 @@ const OperatorRoutesPages: React.FC = () => {
                       if (e) {
                         setGroupSelected(e);
                         setFilterRouter({
+                          ...filterRouter,
+                          operatorId: undefined,
+                          pointOfSaleId: undefined,
                           groupId: e.value,
                         });
                         setOperatorSelected({ label: 'Todos', value: 'none' });
                         setPointSelected({ label: 'Todas', value: 'none' });
+                        setPageSelected(1);
                       }
                     }}
                   />
@@ -173,6 +177,7 @@ const OperatorRoutesPages: React.FC = () => {
                           ...filterRouter,
                           pointOfSaleId: e.value,
                         });
+                        setPageSelected(1);
                       }
                     }}
                   />
@@ -198,6 +203,7 @@ const OperatorRoutesPages: React.FC = () => {
                           ...filterRouter,
                           operatorId: e.value,
                         });
+                        setPageSelected(1);
                       }
                     }}
                   />
