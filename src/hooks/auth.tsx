@@ -45,6 +45,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const logOut = useCallback(() => {
     setToken(undefined);
     localStorage.removeItem('@sttigma:token');
+    window.location.reload();
   }, [token]);
 
   return (
