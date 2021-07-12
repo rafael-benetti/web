@@ -54,19 +54,19 @@ const MachineInPoint: React.FC<Props> = ({
     <SingleMachineContainer>
       <Link to={{ pathname: '/detalhes-da-maquina', state: machine.id }}>
         <button className="edit-btn" type="button">
-          <div className="serial-number">{machine.serialNumber}</div>
+          <div className="serial-number">{machine?.serialNumber}</div>
           {isSingleGroup ? null : group?.isPersonal ? (
             'Parceria pessoal'
           ) : (
             <div className="group">{group?.label || ''}</div>
           )}
-          <div className="operator">{machine.operator.name || '-'}</div>
-          <div className="operator">{machine.givenPrizes || '0'}</div>
+          <div className="operator">{machine?.operator?.name || '-'}</div>
+          <div className="operator">{machine?.givenPrizes || '0'}</div>
           <div className="telemetry">
             {telemetryStatus(telemetry)}
             <p>{telemetry ? `STG-${telemetry.id}` : '-'}</p>
           </div>
-          <div className="category">{machine.categoryLabel || ''}</div>
+          <div className="category">{machine?.categoryLabel || ''}</div>
           {pointOfSale ? (
             <div className="location">{pointOfSale?.label || ''}</div>
           ) : (
