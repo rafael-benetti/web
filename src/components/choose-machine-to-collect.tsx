@@ -30,7 +30,7 @@ const ChooseMachineToCollect: React.FC = () => {
       await getMachines(undefined, undefined, true);
         setBusy(false);
       })();
-    }, [machineId]);
+    }, []);
 
 
     const machineToSelect: Machine[] = []
