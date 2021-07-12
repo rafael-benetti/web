@@ -20,7 +20,9 @@ const SingleCollection: React.FC<Props> = ({ collection, user }) => {
       <Link
         to={{
           pathname: `${
-            user?.permissions?.editCollections || user?.role === 'OWNER'
+            user?.permissions?.editCollections ||
+            user?.role === 'OWNER' ||
+            user?.role === 'MANAGER'
               ? '/detalhes-da-coleta'
               : '/coletas'
           }`,
