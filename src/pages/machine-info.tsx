@@ -141,7 +141,9 @@ const MachineInfoPage: React.FC = () => {
   useEffect(() => {
     setBusyChart(true);
     (async () => {
-      await getSingleMachine(machineId, filter);
+      if (filter) {
+        await getSingleMachine(machineId, filter);
+      }
       setBusyChart(false);
     })();
   }, [filter]);

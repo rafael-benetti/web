@@ -18,6 +18,8 @@ import {
 import { Link } from 'react-router-dom';
 import { IconType } from 'react-icons/lib';
 import { v4 } from 'uuid';
+import { math } from 'polished';
+import { randomBytes } from 'crypto';
 import {
   SideBarContainer,
   SideBarLogo,
@@ -193,7 +195,9 @@ const SideBar: React.FC<IProps> = ({ active }) => {
     <>
       <SideBarContainer isToggle={isToggle}>
         <SideBarLogo>
-          <Link to="/dashboard">
+          <Link
+            to={{ pathname: '/dashboard', state: `refresh-${Math.random()}` }}
+          >
             <img src={Logo} alt="logo" />
           </Link>
         </SideBarLogo>

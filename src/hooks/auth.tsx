@@ -33,6 +33,7 @@ const AuthProvider: React.FC = ({ children }) => {
       const response = await api.post<Response>('users/auth', loginData);
       localStorage.setItem('@sttigma:token', response.data.token);
       setToken(response.data.token);
+      window.location.reload();
     } catch (error) {
       addToast({
         title: 'Ops!',

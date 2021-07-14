@@ -12,7 +12,7 @@ import { VscDebugDisconnect } from 'react-icons/vsc';
 import ReactSelect from 'react-select';
 import { ClipLoader } from 'react-spinners';
 import { DatePicker } from 'react-rainbow-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { v4 } from 'uuid';
 import Container from '../components/container';
 import {
@@ -39,6 +39,8 @@ import { useRoute } from '../hooks/route';
 import { usePointOfSale } from '../hooks/point-of-sale';
 
 const Dashboard: React.FC = () => {
+  const refresh = useLocation().state as string | undefined;
+
   // hooks
   const {
     getDashboardData,
@@ -87,7 +89,7 @@ const Dashboard: React.FC = () => {
       await getPointsOfSale(undefined, undefined);
       setBusy(false);
     })();
-  }, []);
+  }, [refresh]);
 
   useEffect(() => {
     setBusyChart(true);
@@ -509,11 +511,13 @@ const Dashboard: React.FC = () => {
             <div className="title">
               <h1 className="heading-font">Analítico</h1>
             </div>
-            <ChartPie
-              data={dashboardData?.chartData2.map(chart => {
-                return { label: chart.counterLabel, value: chart.total };
-              })}
-            />
+            {dashboardData && (
+              <ChartPie
+                data={dashboardData.chartData2.map(chart => {
+                  return { label: chart.counterLabel, value: chart.total };
+                })}
+              />
+            )}
           </DashboardAnalitycs>
         )}
       </DashboardContainer>
