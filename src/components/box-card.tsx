@@ -104,15 +104,13 @@ const BoxCard: React.FC<Props> = ({
               }}
             />
           ) : null}
-          {user?.role === 'OWNER' || user?.permissions?.fixMachineStock ? (
-            <Button
-              title="Resgatar"
-              color="secondary"
-              callback={() => {
-                togglePrizeRecover(box.boxId);
-              }}
-            />
-          ) : null}
+          <Button
+            title="Resgatar"
+            color="secondary"
+            callback={() => {
+              togglePrizeRecover(box.boxId);
+            }}
+          />
         </div>
       </BoxCardContainer>
       {showTransferProductToBox === box.boxId ? (

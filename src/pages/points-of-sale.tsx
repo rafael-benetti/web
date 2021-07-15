@@ -72,6 +72,15 @@ const PointsOfSalePage: React.FC = () => {
     })();
   }, [filters, pageSelected]);
 
+  useEffect(() => {
+    (async () => {
+      if (groupSelected.value !== 'none') {
+        await getPointsOfSale(undefined, { groupId: groupSelected.value });
+        await getRoutes(undefined, { groupId: groupSelected.value });
+      }
+    })();
+  }, [groupSelected.value]);
+
   return (
     <Container active="points-of-sale" loading={busy}>
       <PointsOfSaleContainer>

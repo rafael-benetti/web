@@ -11,6 +11,7 @@ import { FixMachineStockContainer } from '../styles/components/fix-machine-stock
 import { BoxInfo } from '../entiti/machine-info';
 import { FixMachineStockDto } from '../dto/fix-machine-stock';
 import getValidationErrors from '../utils/getValidationErrors';
+import { useToast } from '../hooks/toast';
 
 interface Props {
   machineId?: string;
@@ -24,6 +25,7 @@ const FixMachineStock: React.FC<Props> = ({ box, machineId, index }) => {
 
   // hooks
   const { toggleFixMachineStock, fixMachineStock } = useMachine();
+  const { addToast } = useToast();
 
   // state
   const [busyBtn, setBusyBtn] = useState<boolean>(false);
@@ -34,9 +36,7 @@ const FixMachineStock: React.FC<Props> = ({ box, machineId, index }) => {
       try {
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
-          quantity: Yup.number()
-            .required('Insira um valor')
-            .positive('Não é possível inserir valor negativo'),
+          quantity: Yup.number().required('Insira um valor'),
           observations: Yup.string().required('Insira o motivo desta correção'),
         });
         await schema.validate(data, {
@@ -44,6 +44,15 @@ const FixMachineStock: React.FC<Props> = ({ box, machineId, index }) => {
         });
 
         setBusyBtn(false);
+        if (parseFloat(data.quantity) < 0) {
+          addToast({
+            title: 'Atenção.',
+            description: 'Não é possível inserir valores negativos',
+            type: 'info',
+          });
+          setBusyBtn(false);
+          return;
+        }
         if (machineId && box.boxId) {
           await fixMachineStock(
             {

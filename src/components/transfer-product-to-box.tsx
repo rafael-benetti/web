@@ -74,6 +74,10 @@ const TransferProductToBox: React.FC<Props> = ({
             addToast({title: 'Aviso!', description: 'Não é possível inserir valor negativo', type: 'info'})
               return
           }
+          if(!amount) {
+            addToast({title: 'Aviso!', description: 'É necessário inserir um valor', type: 'info'})
+              return
+          }
         const transferData: TransferProductDto = {
           productType: 'PRIZE',
           productQuantity: amount,

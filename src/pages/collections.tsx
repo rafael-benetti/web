@@ -20,6 +20,7 @@ import { PaginationContainer } from '../styles/pages/points-of-sale';
 import { PageTitle } from '../utils/page-title';
 import { useRoute } from '../hooks/route';
 import { useOperator } from '../hooks/operator';
+import { useManager } from '../hooks/manager';
 
 const CollectionsPage: React.FC = () => {
   // hooks
@@ -34,6 +35,7 @@ const CollectionsPage: React.FC = () => {
   const { getUser, user } = useUser();
   const { getRoutes, routes } = useRoute();
   const { getOperators, operators } = useOperator();
+  const { getManagers, managers } = useManager();
 
   // state
   const [busy, setBusy] = useState<boolean>(false);
@@ -151,7 +153,7 @@ const CollectionsPage: React.FC = () => {
                   />
                 </div>
                 <div className="filters label-filter">
-                  <p style={{ marginBottom: '1rem' }}>Operador</p>
+                  <p style={{ marginBottom: '1rem' }}>Usuário</p>
                   <ReactSelect
                     name="operatorId"
                     id="operatorId"
@@ -166,6 +168,13 @@ const CollectionsPage: React.FC = () => {
                           return {
                             value: operator.id,
                             label: operator.name,
+                          };
+                        })),
+                      ...(managers &&
+                        managers.map(manager => {
+                          return {
+                            value: manager.id,
+                            label: manager.name,
                           };
                         })),
                     ]}
@@ -189,7 +198,7 @@ const CollectionsPage: React.FC = () => {
               <div className="data">Realizada em:</div>
               <div className="code">Núm. Série</div>
               <div className="machine">Localização</div>
-              <div className="last-conection center">Operador</div>
+              <div className="last-conection center">Usuário</div>
             </div>
             {collections &&
               collections.map(collection => {

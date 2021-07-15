@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable array-callback-return */
 import React, { useCallback, useEffect, useState } from 'react';
 import {
@@ -177,20 +178,20 @@ const PointOfSaleInfo: React.FC = () => {
                   <h2>Rota</h2>
                 </div>
                 <div className="spacer" />
-                <Link
-                  to={{
-                    pathname: 'detalhes-da-rota',
-                    state: pointOfSaleInfo?.route?.id,
-                  }}
-                >
-                  <button type="button">
-                    <h2>
-                      {pointOfSaleInfo?.route
-                        ? pointOfSaleInfo?.route.label
-                        : 'Sem rota'}
-                    </h2>
-                  </button>
-                </Link>
+                {pointOfSaleInfo?.route ? (
+                  <Link
+                    to={{
+                      pathname: 'detalhes-da-rota',
+                      state: pointOfSaleInfo?.route?.id,
+                    }}
+                  >
+                    <button type="button">
+                      <h2>{pointOfSaleInfo?.route.label}</h2>
+                    </button>
+                  </Link>
+                ) : (
+                  <h2>Sem rota</h2>
+                )}
               </div>
               <div className="general-info">
                 <div className="title">

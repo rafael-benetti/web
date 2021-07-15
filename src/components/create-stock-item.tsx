@@ -117,7 +117,7 @@ const CreateStockItem: React.FC<Props> = ({ groups }) => {
           </div>
           <div className="quantity-cost">
             <Input label="Quantidade" name="quantity" type="number" />
-            <Input label="Preço" name="cost" type="number" />
+            <Input label="Preço" name="cost" type="number" step=".01" />
           </div>
           <Button title="Salvar" color="primary" isSubmit busy={busyBtn} />
         </Form>

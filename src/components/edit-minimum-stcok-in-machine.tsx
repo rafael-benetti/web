@@ -26,7 +26,7 @@ const EditMinimumStockInMachine: React.FC<Props> = ({
   // state
   const [busyBtn, setBusyBtn] = useState<boolean>(false);
   const [minimumPrizeCountData, setMinimumPrizeCountData] = useState<string>(
-    '',
+    minimumStock || '',
   );
 
   const handleEditRent = useCallback(async () => {
@@ -54,7 +54,11 @@ const EditMinimumStockInMachine: React.FC<Props> = ({
             />
           </div>
           <div className="btn">
-            <Button color="tertiary" title="Cancelar" />
+            <Button
+              color="tertiary"
+              title="Cancelar"
+              callback={() => toggleEditMinimumStock(false)}
+            />
             <Button color="primary" title="Continuar" busy={busyBtn} isSubmit />
           </div>
         </Form>

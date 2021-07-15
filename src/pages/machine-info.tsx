@@ -547,13 +547,16 @@ const MachineInfoPage: React.FC = () => {
                         <h2>Fat. médio p/ prêmio</h2>
                         <h3 style={{ color: '#7366ff' }}>
                           R$
-                          {` ${(
-                            machineInfo?.boxesInfo
-                              .map(box => box.currentMoney)
-                              .reduce((acc, cur) => cur + acc, 0) /
-                              (machineInfo?.boxesInfo
-                                .map(box => box.givenPrizes)
-                                .reduce((acc, cur) => cur + acc, 0) || 0) || 0
+                          {` ${(machineInfo?.boxesInfo
+                            .map(box => box.givenPrizes)
+                            .reduce((acc, cur) => cur + acc, 0) === 0
+                            ? 0
+                            : machineInfo?.boxesInfo
+                                .map(box => box.currentMoney)
+                                .reduce((acc, cur) => cur + acc, 0) /
+                                (machineInfo?.boxesInfo
+                                  .map(box => box.givenPrizes)
+                                  .reduce((acc, cur) => cur + acc, 0) || 0) || 0
                           ).toFixed(2)}`}
                         </h3>
                       </div>

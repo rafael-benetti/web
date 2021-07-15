@@ -95,15 +95,18 @@ const Dashboard: React.FC = () => {
     setBusyChart(true);
     (async () => {
       await getDashboardData(filter);
-      if (groupSelected.value === 'none') {
-        await getRoutes(undefined, { groupId: groupSelected.value });
-      }
-      if (pointSelected.value === 'none') {
-        await getPointsOfSale(undefined, { routeId: routeSelected.value });
-      }
       setBusyChart(false);
     })();
-  }, [filter]);
+  }, [filter, refresh]);
+
+  useEffect(() => {
+    (async () => {
+      if (groupSelected.value !== 'none') {
+        await getPointsOfSale(undefined, { groupId: groupSelected.value });
+        await getRoutes(undefined, { groupId: groupSelected.value });
+      }
+    })();
+  }, [groupSelected.value]);
 
   const containerStyles = {
     maxWidth: 400,
