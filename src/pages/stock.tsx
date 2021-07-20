@@ -6,7 +6,6 @@ import { v4 } from 'uuid';
 import ReactSelect from 'react-select';
 import { FiGrid } from 'react-icons/fi';
 import { AiOutlineBars } from 'react-icons/ai';
-import { classNames } from 'react-select/src/utils';
 import Button from '../components/button';
 import Container from '../components/container';
 import CreateStockItem from '../components/create-stock-item';

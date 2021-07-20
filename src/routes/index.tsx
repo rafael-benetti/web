@@ -34,6 +34,7 @@ import MachineEventsLogs from '../pages/machine-events-log';
 import ReportPage from '../pages/reports';
 import ForgotPasswordPage from '../pages/forgot-password';
 import ChangePasswordPage from '../pages/change-password';
+import InventoryPage from '../pages/inventory';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -216,6 +217,7 @@ const Routes: React.FC = () => (
       exact
       component={MachineEventsLogs}
     />
+    <Route path="/inventario" isPrivate exact component={InventoryPage} />
   </Switch>
 );
 

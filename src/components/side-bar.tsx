@@ -14,6 +14,7 @@ import {
   FiUsers,
   FiChevronRight,
   FiCircle,
+  FiBox,
 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { IconType } from 'react-icons/lib';
@@ -138,6 +139,12 @@ const SideBar: React.FC<IProps> = ({ active }) => {
           : undefined,
     },
     {
+      menu: 'Inventário',
+      icon: FiBox,
+      path: '/inventario',
+      class: 'inventory',
+    },
+    {
       menu: 'Pontos de venda',
       icon: FiHome,
       path: '/pontos-de-venda',
@@ -204,6 +211,9 @@ const SideBar: React.FC<IProps> = ({ active }) => {
         <SideBarNav>
           {SideBarMenu.map(item => {
             if (item.class === 'groups' && user?.role === 'OPERATOR') {
+              return null;
+            }
+            if (item.class === 'inventory' && user?.role === 'OPERATOR') {
               return null;
             }
             if (

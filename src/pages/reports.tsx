@@ -133,7 +133,7 @@ const ReportPage: React.FC = () => {
   };
 
   return (
-    <Container active="relatorio" loading={busy}>
+    <Container active="report" loading={busy}>
       <ReportContainer>
         <PageTitle>
           <div className="title-nav">
