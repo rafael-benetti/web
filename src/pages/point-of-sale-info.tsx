@@ -463,33 +463,33 @@ const PointOfSaleInfo: React.FC = () => {
                 )}
               </ManagementInfo>
               <MachinesRate>
-                <div className="row">
-                  <div>
-                    <h1 className="heading-secondary-font">
-                      Resultado por máquina
-                    </h1>
-                    <ChartPie
-                      data={pointOfSaleInfo?.machinesInfo.map(machineInfo => {
-                        return {
-                          label: machineInfo.machine.serialNumber,
-                          value: machineInfo.income,
-                        };
-                      })}
-                    />
-                  </div>
-                  <div className="div">
-                    <h1 className="heading-secondary-font">
-                      Prêmios entregues por máquina
-                    </h1>
-                    <ChartPie
-                      data={pointOfSaleInfo?.machinesInfo.map(machineInfo => {
-                        return {
-                          label: machineInfo.machine.serialNumber,
-                          value: machineInfo.givenPrizes,
-                        };
-                      })}
-                    />
-                  </div>
+                <div>
+                  <h1 className="heading-secondary-font">
+                    Resultado por máquina
+                  </h1>
+                  <ChartPie
+                    data={pointOfSaleInfo?.machinesInfo.map(machineInfo => {
+                      return {
+                        label: machineInfo.machine.serialNumber,
+                        value: machineInfo.income,
+                        isPricing: true,
+                      };
+                    })}
+                  />
+                </div>
+                <div className="div">
+                  <h1 className="heading-secondary-font">
+                    Prêmios entregues por máquina
+                  </h1>
+                  <ChartPie
+                    data={pointOfSaleInfo?.machinesInfo.map(machineInfo => {
+                      return {
+                        label: machineInfo.machine.serialNumber,
+                        value: machineInfo.givenPrizes,
+                        isPricing: false,
+                      };
+                    })}
+                  />
                 </div>
               </MachinesRate>
             </>

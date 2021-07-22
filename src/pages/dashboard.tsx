@@ -517,7 +517,11 @@ const Dashboard: React.FC = () => {
             {dashboardData && (
               <ChartPie
                 data={dashboardData.chartData2.map(chart => {
-                  return { label: chart.counterLabel, value: chart.total };
+                  return {
+                    label: chart.counterLabel,
+                    value: chart.total,
+                    isPricing: true,
+                  };
                 })}
               />
             )}

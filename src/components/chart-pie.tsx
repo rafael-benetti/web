@@ -6,6 +6,7 @@ interface Props {
   data?: {
     label: string;
     value: number;
+    isPricing: boolean;
   }[];
 }
 
@@ -64,11 +65,15 @@ const ChartPie: React.FC<Props> = ({ data }) => {
   ];
   const customLabels = data?.map(
     (label, index) =>
-      `${label.label}: ${`R$ ${
-        data[index].value.toLocaleString('pt-BR', {
-          minimumFractionDigits: 2,
-        }) || '0,00'
-      }`}`,
+      `${label.label}: ${
+        label.isPricing
+          ? `R$ ${
+              data[index].value.toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+              }) || '0,00'
+            }`
+          : label.value
+      }`,
   );
   const pieData = {
     labels: customLabels,

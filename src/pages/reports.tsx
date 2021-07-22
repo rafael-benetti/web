@@ -156,10 +156,10 @@ const ReportPage: React.FC = () => {
                 options={[
                   { value: 'GROUP', label: 'Relatório de parcerias' },
                   { value: 'MACHINE', label: 'Relatório de máquinas' },
-                  {
-                    value: 'USER_STOCK',
-                    label: 'Relatório de estoque de usuários',
-                  },
+                  // {
+                  //   value: 'USER_STOCK',
+                  //   label: 'Relatório de estoque de usuários',
+                  // },
                   {
                     value: 'POINT_OF_SALE',
                     label: 'Relatório de ponto de venda',

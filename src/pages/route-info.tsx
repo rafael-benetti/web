@@ -228,33 +228,33 @@ const RouteInfo: React.FC = () => {
                 )}
               </ManagementInfo>
               <PointOfSaleRate>
-                <div className="row">
-                  <div>
-                    <h1 className="heading-secondary-font">
-                      Resultado por ponto de venda
-                    </h1>
-                    <ChartPie
-                      data={routeInfo?.chartData2.map(data => {
-                        return {
-                          label: data.label,
-                          value: data.income,
-                        };
-                      })}
-                    />
-                  </div>
-                  <div className="div">
-                    <h1 className="heading-secondary-font">
-                      Prêmios entregues por ponto de venda
-                    </h1>
-                    <ChartPie
-                      data={routeInfo?.chartData2.map(data => {
-                        return {
-                          label: data.label,
-                          value: data.givenPrizesCount,
-                        };
-                      })}
-                    />
-                  </div>
+                <div>
+                  <h1 className="heading-secondary-font">
+                    Resultado por ponto de venda
+                  </h1>
+                  <ChartPie
+                    data={routeInfo?.chartData2.map(data => {
+                      return {
+                        label: data.label,
+                        value: data.income,
+                        isPricing: true,
+                      };
+                    })}
+                  />
+                </div>
+                <div className="div">
+                  <h1 className="heading-secondary-font">
+                    Prêmios entregues por ponto de venda
+                  </h1>
+                  <ChartPie
+                    data={routeInfo?.chartData2.map(data => {
+                      return {
+                        label: data.label,
+                        value: data.givenPrizesCount,
+                        isPricing: false,
+                      };
+                    })}
+                  />
                 </div>
               </PointOfSaleRate>
             </>

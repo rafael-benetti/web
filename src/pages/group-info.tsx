@@ -384,7 +384,11 @@ const GroupInfoPage: React.FC = () => {
           </div>
           <ChartPie
             data={groupInfo?.chartData2.map(chart => {
-              return { label: chart.counterLabel, value: chart.total };
+              return {
+                label: chart.counterLabel,
+                value: chart.total,
+                isPricing: true,
+              };
             })}
           />
         </GroupAnalitycs>

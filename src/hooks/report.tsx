@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createContext, useCallback, useContext, useState } from 'react';
 // eslint-disable-next-line import/no-duplicates
@@ -11,6 +12,7 @@ import { PointOfSaleReport } from '../entiti/point-of-sale-report';
 import api from '../service/api';
 import { useAuth } from './auth';
 import { useError } from './error';
+import { Inventory } from '../entiti/inventory';
 
 interface ReportContext {
   getGroupReport(
@@ -20,6 +22,7 @@ interface ReportContext {
     },
     download?: boolean,
   ): Promise<void>;
+  getInventory(groupId?: string): Promise<void>;
   getMachineReport(
     date: { startDate: Date; endDate: Date },
     filter: { groupId?: string; machineIds?: string[] },
@@ -42,6 +45,7 @@ interface ReportContext {
     pointOfSaleId: string,
   ): Promise<void>;
   clearReport(): void;
+  inventory?: Inventory;
   groupReportData?: GroupReport[];
   machineReportData?: MachineReport[];
   pointsOfSaleReportData?: PointOfSaleReport[];
@@ -57,6 +61,7 @@ const ReportProvider: React.FC = ({ children }) => {
   // state
   const [groupReportData, setGroupReportData] = useState<GroupReport[]>();
   const [machineReportData, setMachineReportData] = useState<MachineReport[]>();
+  const [inventory, setInventory] = useState<Inventory>();
   const [pointsOfSaleReportData, setPointsOfSaleReportData] = useState<
     PointOfSaleReport[]
   >();
@@ -103,6 +108,23 @@ const ReportProvider: React.FC = ({ children }) => {
       } catch (error) {
         shootError(error.response.data.errorCode);
       }
+    },
+    [token],
+  );
+
+  const getInventory = useCallback(
+    async (groupId?: string) => {
+      try {
+        const response = await api.get<Inventory>('/users/inventory', {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+          params: {
+            groupId: groupId === 'none' || !groupId ? undefined : groupId,
+          },
+        });
+        setInventory(response.data);
+      } catch (error) {}
     },
     [token],
   );
@@ -273,10 +295,12 @@ const ReportProvider: React.FC = ({ children }) => {
         clearReport,
         getMachineReport,
         getPointsOfSaleReport,
+        getInventory,
         getUserStockReport,
         getCollectionReport,
         pointsOfSaleReportData,
         machineReportData,
+        inventory,
         groupReportData,
       }}
     >

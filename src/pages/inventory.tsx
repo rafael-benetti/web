@@ -3,6 +3,7 @@ import ReactSelect from 'react-select';
 import Container from '../components/container';
 import CurrentPath from '../components/current-path';
 import { useGroup } from '../hooks/group';
+import { useReport } from '../hooks/report';
 import {
   InventoryContainer,
   InventoryContent,
@@ -13,6 +14,7 @@ import { PageTitle } from '../utils/page-title';
 const InventoryPage: React.FC = () => {
   // hooks
   const { getGroups, groups } = useGroup();
+  const { getInventory, inventory } = useReport();
 
   // state
   const [busy, setBusy] = useState(false);
@@ -21,33 +23,22 @@ const InventoryPage: React.FC = () => {
     label: 'Todas',
   });
 
-  const machineCategory = [
-    { label: 'Black', stock: 12, inPoint: 56 },
-    { label: 'Carrossel', stock: 12, inPoint: 56 },
-    { label: 'Big Truck', stock: 12, inPoint: 56 },
-    { label: 'Maguine', stock: 12, inPoint: 56 },
-    { label: 'Xablengas', stock: 12, inPoint: 56 },
-    { label: 'Leiaas', stock: 12, inPoint: 56 },
-    { label: 'Popo', stock: 12, inPoint: 56 },
-  ];
-
-  const products = [
-    { label: 'Pelucia 20cm', user: 12, machine: 56, group: 32 },
-    { label: 'Mega torosso', user: 12, machine: 56, group: 32 },
-    { label: 'Rodinha', user: 12, machine: 56, group: 32 },
-    { label: 'Chapéu de mendigo', user: 12, machine: 56, group: 32 },
-    { label: 'Xablengas', user: 12, machine: 56, group: 32 },
-    { label: 'Leiaas', user: 12, machine: 56, group: 32 },
-    { label: 'Popo', user: 12, machine: 56, group: 32 },
-  ];
-
   useEffect(() => {
     setBusy(true);
     (async () => {
       await getGroups();
+      await getInventory();
       setBusy(false);
     })();
   }, []);
+
+  useEffect(() => {
+    setBusy(true);
+    (async () => {
+      await getInventory(selectedGroup.value);
+      setBusy(false);
+    })();
+  }, [selectedGroup]);
 
   return (
     <Container active="inventory" loading={busy}>
@@ -82,71 +73,121 @@ const InventoryPage: React.FC = () => {
               }}
             />
           </div>
-          <div className="grid">
-            <Table>
-              <div className="table-title">
-                <h1 className="table-title-font partnerships-name">Produtos</h1>
-              </div>
-              {products.map(product => {
+          <Table>
+            <div className="table-title">
+              <h1 className="table-title-font partnerships-name">
+                Máquinas por categoria
+              </h1>
+            </div>
+            {inventory &&
+              inventory.machinesPerCategory.map(machine => {
                 return (
                   <div className="column">
                     <div className="grid-table">
-                      <div className="category">{product.label}</div>
-                      <div className="labels">
-                        <div className="operation-label">
-                          {selectedGroup.value !== 'none'
-                            ? 'Parceria'
-                            : 'Parcerias'}
-                        </div>
-                        <div className="operation-label">Usuários</div>
-                        <div className="stock-label">Máquinas</div>
-                      </div>
-                      <div className="values">
-                        <div className="stock-label">{product.group}</div>
-                        <div className="value">{product.user}</div>
-                        <div className="value">{product.machine}</div>
-                      </div>
-                    </div>
-                    <div className="total">
-                      <div className="total-label">Total</div>
-                      <div className="total-value">
-                        {product.group + product.user + product.machine}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </Table>
-            <Table>
-              <div className="table-title">
-                <h1 className="table-title-font partnerships-name">
-                  Categorias de máquinas
-                </h1>
-              </div>
-
-              {machineCategory.map(machine => {
-                return (
-                  <div className="column">
-                    <div className="grid-table">
-                      <div className="category">{machine.label}</div>
+                      <div className="category">{machine.categoryLabel}</div>
                       <div className="labels">
                         <div className="operation-label">em operação</div>
                         <div className="stock-label">em estoque</div>
                       </div>
                       <div className="values">
-                        <div className="stock-label">{machine.inPoint}</div>
-                        <div className="value">{machine.stock}</div>
+                        <div className="stock-label">
+                          {machine.totalInOperation}
+                        </div>
+                        <div className="value">{machine.totalInStock}</div>
                       </div>
                     </div>
                     <div className="total">
                       <div className="total-label">Total</div>
                       <div className="total-value">
-                        {machine.inPoint + machine.stock}
+                        {machine.totalInOperation + machine.totalInStock}
                       </div>
                     </div>
                   </div>
                 );
               })}
+          </Table>
+          <div className="grid">
+            <Table>
+              <div className="table-title">
+                <h1 className="table-title-font partnerships-name">Prêmios</h1>
+              </div>
+              {inventory &&
+                inventory.prizes.map(prize => {
+                  return (
+                    <div className="column">
+                      <div className="grid-table">
+                        <div className="category">{prize.prizeLabel}</div>
+                        <div className="labels">
+                          <div className="operation-label">
+                            {selectedGroup.value !== 'none'
+                              ? 'Parceria'
+                              : 'Parcerias'}
+                          </div>
+                          <div className="operation-label">Usuários</div>
+                          <div className="stock-label">Máquinas</div>
+                        </div>
+                        <div className="values">
+                          <div className="stock-label">
+                            {prize.groupsTotalPrizes}
+                          </div>
+                          <div className="value">{prize.usersTotalPrizes}</div>
+                          <div className="value">
+                            {prize.machinesTotalPrizes}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="total">
+                        <div className="total-label">Total</div>
+                        <div className="total-value">
+                          {prize.groupsTotalPrizes +
+                            prize.usersTotalPrizes +
+                            prize.machinesTotalPrizes}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </Table>
+            <Table>
+              <div className="table-title">
+                <h1 className="table-title-font partnerships-name">
+                  Suprimentos
+                </h1>
+              </div>
+
+              {inventory &&
+                inventory.supplies.map(supply => {
+                  return (
+                    <div className="column">
+                      <div className="grid-table">
+                        <div className="category">{supply.supplieLabel}</div>
+                        <div className="labels">
+                          <div className="operation-label">
+                            {selectedGroup.value !== 'none'
+                              ? 'Parceria'
+                              : 'Parcerias'}
+                          </div>
+                          <div className="stock-label">Usuário</div>
+                        </div>
+                        <div className="values">
+                          <div className="stock-label">
+                            {supply.groupsTotalSupplies}
+                          </div>
+                          <div className="value">
+                            {supply.usersTotalSupplies}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="total">
+                        <div className="total-label">Total</div>
+                        <div className="total-value">
+                          {supply.groupsTotalSupplies +
+                            supply.usersTotalSupplies}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
             </Table>
           </div>
         </InventoryContent>

@@ -78,7 +78,7 @@ const StockPage: React.FC = () => {
           </div>
           {user?.permissions?.createProducts || user?.role === 'OWNER' ? (
             <Button
-              title="Criar estoque"
+              title="Criar item"
               color="primary"
               callback={() => toggleCreateProduct(true)}
             />
