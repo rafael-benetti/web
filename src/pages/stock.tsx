@@ -201,8 +201,18 @@ const StockPage: React.FC = () => {
                       )}
                       <div className="route">Quantidade</div>
                       <div className="contact-name">Transferir</div>
-                      <div className="phone">Adicionar</div>
-                      <div className="phone">Remover</div>
+                      {user?.permissions?.editProducts ||
+                      user?.role === 'OWNER' ? (
+                        <div className="phone">Adicionar</div>
+                      ) : (
+                        <div>-</div>
+                      )}
+                      {user?.permissions?.deleteProducts ||
+                      user?.role === 'OWNER' ? (
+                        <div className="phone">Remover</div>
+                      ) : (
+                        <div>-</div>
+                      )}
                     </div>
                     {prizes &&
                       prizes.map(prize => {
@@ -354,8 +364,18 @@ const StockPage: React.FC = () => {
                       )}
                       <div className="route">Quantidade</div>
                       <div className="contact-name">Transferir</div>
-                      <div className="phone">Adicionar</div>
-                      <div className="phone">Remover</div>
+                      {user?.permissions?.editProducts ||
+                      user?.role === 'OWNER' ? (
+                        <div className="phone">Adicionar</div>
+                      ) : (
+                        <div>-</div>
+                      )}
+                      {user?.permissions?.deleteProducts ||
+                      user?.role === 'OWNER' ? (
+                        <div className="phone">Remover</div>
+                      ) : (
+                        <div>-</div>
+                      )}
                     </div>
                     {supplies &&
                       supplies.map(supply => {

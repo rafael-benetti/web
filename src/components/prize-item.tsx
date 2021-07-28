@@ -43,16 +43,18 @@ const PrizeItem: React.FC<Props> = ({ prize, groups, operators, managers, user, 
             <h1 className="label ">{prize.label}</h1>
             <h1 className="qtd ">{`Quantidade: ${prize.quantity}`}</h1>
           </div>
-          {user?.permissions?.createProducts || user?.role === 'OWNER' ? (
-            <div className="buttons-row">
+          <div className="buttons-row">
+            {user?.permissions?.deleteProducts || user?.role === 'OWNER' ? (
               <button
                 className="remove-btn"
                 type="button"
                 onClick={() =>
-            toggleRemoveItems({ ownerItemId: prize.ownerId, itemId: prize.id })}
+                  toggleRemoveItems({ ownerItemId: prize.ownerId, itemId: prize.id })}
               >
                 Remover
               </button>
+              ): null}
+            {user?.permissions?.editProducts || user?.role === 'OWNER' ? (
               <button
                 className="add-btn"
                 type="button"
@@ -61,8 +63,8 @@ const PrizeItem: React.FC<Props> = ({ prize, groups, operators, managers, user, 
               >
                 Adicionar
               </button>
-            </div>
-      ): null}
+            ): null}
+          </div>
           <button
             type="button"
             onClick={() =>
@@ -76,8 +78,9 @@ const PrizeItem: React.FC<Props> = ({ prize, groups, operators, managers, user, 
       : (
         <PrizeItemTable>
           <div className="label">{prize.label}</div>
-
-          <div className="group">{prize.ownerLabel}</div>
+          {groups.length === 1 ? null : (
+            <div className="group">{prize.ownerLabel}</div>
+                      )}
           <div className="quantity">{prize.quantity}</div>
 
           <div className="transfer">
@@ -88,31 +91,30 @@ const PrizeItem: React.FC<Props> = ({ prize, groups, operators, managers, user, 
           toggleTransferProduct({ownerItemId: prize.ownerId, itemId: prize.id})}
             />
           </div>
-          {user?.permissions?.createProducts || user?.role === 'OWNER' ? (
-            <>
-              <div className="add">
-                <Button
-                  title="Adicionar"
-                  color="quartiary"
-                  callback={() =>
-            toggleAddItems({ ownerItemId: prize.ownerId, itemId: prize.id })}
-                />
-              </div>
-              <div className="remove">
-                <Button
-                  title="Remover"
-                  color="tertiary"
-                  callback={() =>
+          {user?.permissions?.editProducts ? (
+            <div className="add">
+              <Button
+                title="Adicionar"
+                color="quartiary"
+                callback={() =>
+                    toggleAddItems({ ownerItemId: prize.ownerId, itemId: prize.id })}
+              />
+            </div>
+          ) : <div>-</div>}
+          {user?.permissions?.deleteProducts || user?.role === 'OWNER' ? (
+            <div className="remove">
+              <Button
+                title="Remover"
+                color="tertiary"
+                callback={() =>
             toggleRemoveItems({ ownerItemId: prize.ownerId, itemId: prize.id })}
-                />
-              </div>
-            </>
-          ): (
-            <>
-              <div>-</div>
-              <div>-</div>
-            </>
-          )}
+              />
+            </div>
+            ): (
+              <>
+                <div>-</div>
+              </>
+            )}
         </PrizeItemTable>
     )}
 

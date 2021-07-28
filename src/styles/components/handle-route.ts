@@ -38,7 +38,7 @@ export const HandleRouteContainer = styled.div`
         color: red;
       }
       .scroll {
-        height: 45vh;
+        max-height: 25vh;
         overflow-y: scroll;
       }
     }

@@ -219,6 +219,7 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
             </div>
             {pointsOfSaleChecked.length > 0 ? (
               <SelectInput
+                maxMenuHeight={100}
                 name="operatorId"
                 label="Selecione um operador. (Lista de operadores que possuem acesso ao(s) ponto(s) de venda selecionados)"
                 value={operatorSelected}

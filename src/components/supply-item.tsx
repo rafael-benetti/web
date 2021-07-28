@@ -53,8 +53,8 @@ const SupplyItem: React.FC<Props> = ({
             <h1 className="label ">{supply.label}</h1>
             <h1 className="qtd ">{`Quantidade: ${supply.quantity}`}</h1>
           </div>
-          {user?.permissions?.createProducts || user?.role === 'OWNER' ? (
-            <div className="buttons-row">
+          <div className="buttons-row">
+            {user?.permissions?.deleteProducts || user?.role === 'OWNER' ? (
               <button
                 className="remove-btn"
                 type="button"
@@ -67,6 +67,8 @@ const SupplyItem: React.FC<Props> = ({
               >
                 Remover
               </button>
+            ) : null}
+            {user?.permissions?.editProducts || user?.role === 'OWNER' ? (
               <button
                 className="add-btn"
                 type="button"
@@ -79,8 +81,8 @@ const SupplyItem: React.FC<Props> = ({
               >
                 Adicionar
               </button>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
           <button
             type="button"
             onClick={() =>
@@ -96,10 +98,10 @@ const SupplyItem: React.FC<Props> = ({
       ) : (
         <SupplyItemTable>
           <div className="label">{supply.label}</div>
-
-          <div className="group">{supply.ownerLabel}</div>
+          {groups.length === 1 ? null : (
+            <div className="group">{supply.ownerLabel}</div>
+          )}
           <div className="quantity">{supply.quantity}</div>
-
           <div className="transfer">
             <Button
               title="Transferir"
@@ -112,38 +114,37 @@ const SupplyItem: React.FC<Props> = ({
               }
             />
           </div>
-          {user?.permissions?.createProducts || user?.role === 'OWNER' ? (
-            <>
-              <div className="add">
-                <Button
-                  title="Adicionar"
-                  color="quartiary"
-                  callback={() =>
-                    toggleAddItems({
-                      ownerItemId: supply.ownerId,
-                      itemId: supply.id,
-                    })
-                  }
-                />
-              </div>
-              <div className="remove">
-                <Button
-                  title="Remover"
-                  color="tertiary"
-                  callback={() =>
-                    toggleRemoveItems({
-                      ownerItemId: supply.ownerId,
-                      itemId: supply.id,
-                    })
-                  }
-                />
-              </div>
-            </>
+          {user?.permissions?.editProducts || user?.role === 'OWNER' ? (
+            <div className="add">
+              <Button
+                title="Adicionar"
+                color="quartiary"
+                callback={() =>
+                  toggleAddItems({
+                    ownerItemId: supply.ownerId,
+                    itemId: supply.id,
+                  })
+                }
+              />
+            </div>
           ) : (
-            <>
-              <div>-</div>
-              <div>-</div>
-            </>
+            <div>-</div>
+          )}
+          {user?.permissions?.deleteProducts || user?.role === 'OWNER' ? (
+            <div className="remove">
+              <Button
+                title="Remover"
+                color="tertiary"
+                callback={() =>
+                  toggleRemoveItems({
+                    ownerItemId: supply.ownerId,
+                    itemId: supply.id,
+                  })
+                }
+              />
+            </div>
+          ) : (
+            <div>-</div>
           )}
         </SupplyItemTable>
       )}
