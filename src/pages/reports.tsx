@@ -483,9 +483,13 @@ const ReportPage: React.FC = () => {
                               setSelectedGroup(e);
                               setSelectedMachines([]);
                               (async () => {
-                                await getMachines(undefined, {
-                                  groupId: e.value,
-                                });
+                                await getMachines(
+                                  undefined,
+                                  {
+                                    groupId: e.value,
+                                  },
+                                  true,
+                                );
                               })();
                             }
                           }}
