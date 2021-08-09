@@ -24,6 +24,7 @@ export const ReportContent = styled.div`
       margin-bottom: 2rem;
       div {
         #datePicker-15 {
+          margin-bottom: 1rem;
           div {
             div {
               input {
@@ -33,6 +34,15 @@ export const ReportContent = styled.div`
               }
             }
           }
+        }
+      }
+    }
+    .picker {
+      .datepicker-label {
+        display: flex;
+        align-items: center;
+        input {
+          margin-right: 1rem;
         }
       }
     }

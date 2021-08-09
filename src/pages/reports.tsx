@@ -7,6 +7,7 @@ import ReactSelect from 'react-select';
 import { ClipLoader } from 'react-spinners';
 import { v4 } from 'uuid';
 import CreatableSelect from 'react-select/creatable';
+import { endOfDay, startOfDay } from 'date-fns';
 import Button from '../components/button';
 import Container from '../components/container';
 import CurrentPath from '../components/current-path';
@@ -64,6 +65,8 @@ const ReportPage: React.FC = () => {
     label: string;
   }>();
   const [range, setRenge] = useState<Date>();
+  const [oneDayRange, setOneDayRange] = useState<Date>();
+
   const [busyBtn, setBusyBtn] = useState(false);
   const [selectedGroups, setSelectedGroups] = useState<
     { value: string; label: string }[]
@@ -79,6 +82,7 @@ const ReportPage: React.FC = () => {
     { value: string; label: string }[]
   >([]);
   const [filteredPdvs, setFilteredPdvs] = useState<PointOfSale[]>([]);
+  const [isRange, setIsRange] = useState(true);
 
   useEffect(() => {
     setBusy(true);
@@ -220,32 +224,64 @@ const ReportPage: React.FC = () => {
               <div className="filters label-filter">
                 <p style={{ marginBottom: '1rem' }}>Selecione as datas</p>
                 <div
-                  className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto"
+                  className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto picker"
                   style={containerStyles}
                 >
-                  <DatePicker
-                    id="datePicker-15"
-                    placeholder="Selecione a data"
-                    selectionType="range"
-                    formatStyle="large"
-                    variant="single"
-                    locale="pt-BR"
-                    value={range}
-                    onChange={value => {
-                      setRenge(value);
-                      const [startDate, endDate] = value.toString().split(',');
+                  {isRange ? (
+                    <DatePicker
+                      id="datePicker-15"
+                      placeholder="Selecione um intervalo de data"
+                      selectionType="range"
+                      formatStyle="large"
+                      variant="single"
+                      locale="pt-BR"
+                      value={range}
+                      onChange={value => {
+                        setRenge(value);
+                        const [startDate, endDate] = value
+                          .toString()
+                          .split(',');
 
-                      if (endDate) {
+                        if (endDate) {
+                          setReportFilter({
+                            ...reportFilter,
+                            date: {
+                              startDate: new Date(startDate),
+                              endDate: new Date(endDate),
+                            },
+                          });
+                        }
+                      }}
+                    />
+                  ) : (
+                    <DatePicker
+                      id="datePicker-15"
+                      placeholder="Selecione um único dia"
+                      selectionType="single"
+                      formatStyle="large"
+                      locale="pt-BR"
+                      value={oneDayRange}
+                      onChange={value => {
+                        setOneDayRange(value);
                         setReportFilter({
                           ...reportFilter,
                           date: {
-                            startDate: new Date(startDate),
-                            endDate: new Date(endDate),
+                            startDate: startOfDay(new Date(value)),
+                            endDate: endOfDay(new Date(value)),
                           },
                         });
-                      }
-                    }}
-                  />
+                      }}
+                    />
+                  )}
+                  <label htmlFor="range-input" className="datepicker-label">
+                    <input
+                      id="range-input"
+                      type="checkbox"
+                      checked={isRange}
+                      onChange={e => setIsRange(e.target.checked)}
+                    />
+                    Filtrar com intervalo de data
+                  </label>
                 </div>
               </div>
             )}
