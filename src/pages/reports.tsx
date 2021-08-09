@@ -665,7 +665,8 @@ const ReportPage: React.FC = () => {
                       <div>
                         {machineReportData
                           .map(data => data.playsPerPrize)
-                          .reduce((acc, cur) => cur + acc, 0) || '0'}
+                          .reduce((acc, cur) => cur + acc, 0) /
+                          machineReportData.length || '0'}
                       </div>
                       <div>
                         {`R$ ${

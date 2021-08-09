@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
-export const CardContainer = styled.div`
+export const CardContainer = styled.button`
   position: relative;
   display: flex;
   flex-direction: row;
+  width: 100%;
+  outline: none;
+  background-color: inherit;
   align-items: center;
   justify-content: flex-start;
   border: none;

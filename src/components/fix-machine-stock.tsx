@@ -44,7 +44,7 @@ const FixMachineStock: React.FC<Props> = ({ box, machineId, index }) => {
         });
 
         setBusyBtn(false);
-        if (parseFloat(data.quantity) < 0) {
+        if (parseFloat(data.quantity.toString()) < 0) {
           addToast({
             title: 'Atenção.',
             description: 'Não é possível inserir valores negativos',
@@ -86,7 +86,7 @@ const FixMachineStock: React.FC<Props> = ({ box, machineId, index }) => {
             desta correção.
           </p>
           <div className="first-input">
-            <Input name="quantity" type="number" label="Valor" />
+            <Input name="quantity" type="number" label="Quantidade" />
           </div>
           <Input name="observations" type="text" label="Motivo" />
           <div className="btn">

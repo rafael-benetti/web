@@ -516,7 +516,7 @@ const CreateCollectionPage: React.FC = () => {
                   });
                 })}
             </div>
-            {!initialData &&
+            {/* {!initialData &&
               (user?.role === 'OWNER' ||
                 user?.permissions?.fixMachineStock === true) && (
                 <div className="stock">
@@ -541,7 +541,7 @@ const CreateCollectionPage: React.FC = () => {
                     );
                   })}
                 </div>
-              )}
+              )} */}
             <div className="submit-button">
               <Link to="coletas">
                 <Button color="tertiary" title="Cancelar" />

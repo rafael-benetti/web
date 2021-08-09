@@ -23,6 +23,13 @@ export const PointsOfSaleContent = styled.div`
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
     margin-bottom: 3rem;
+    .reset-filter {
+      border: none;
+      background-color: inherit;
+      text-align: start;
+      color: blue;
+      outline: none;
+    }
   }
   @media screen and (max-width: 37.5em) {
     padding: 5rem 2rem;

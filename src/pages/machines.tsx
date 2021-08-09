@@ -1,6 +1,8 @@
+/* eslint-disable func-names */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { v4 } from 'uuid';
 import { Pagination } from '@material-ui/lab';
 import ReactSelect from 'react-select';
@@ -25,7 +27,6 @@ import {
   Table,
 } from '../styles/pages/machines';
 import { PageTitle } from '../utils/page-title';
-import { FilterMachineDto } from '../entiti/filter-machine';
 import { useUser } from '../hooks/user';
 import { useTelemetry } from '../hooks/telemetry';
 import { useRoute } from '../hooks/route';
@@ -33,19 +34,11 @@ import { Route } from '../entiti/route';
 import ModalTelemetry from '../components/modal-telemetry';
 
 const MachinesPage: React.FC = () => {
-  // location
-  const preFilter = useLocation().state as
-    | 'ONLINE'
-    | 'OFFLINE'
-    | 'VIRGIN'
-    | 'NO_TELEMETRY'
-    | undefined;
-
   // hooks
   const { getGroups, groups } = useGroup();
   const { getPointsOfSale, pointsOfSale } = usePointOfSale();
   const { getCategories, categories } = useCategory();
-  const { getMachines, machines, count } = useMachine();
+  const { getMachines, machines, count, filters, handleFilter } = useMachine();
   const {
     getTelemetries,
     telemetries,
@@ -58,78 +51,58 @@ const MachinesPage: React.FC = () => {
   // state
   const [busy, setBusy] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [filters, setFilters] = useState<FilterMachineDto>({});
   const [pageSelected, setPageSelected] = useState<number>(1);
   const [filterWasChanged, setFilterWasChanged] = useState(0);
   const [routesFiltered, setRoutesFiltered] = useState<Route[]>([]);
-  const [groupSelected, setGroupSelected] = useState<{
-    value: string;
-    label: string;
-  }>({
-    value: 'none',
-    label: 'Todas', // await login(data)
-  });
-  const [pointsOfSaleSelected, setPointsOfSaleSelected] = useState<{
-    value: string;
-    label: string;
-  }>({
-    value: 'none',
-    label: 'Todas', // await login(data)
-  });
-  const [categorySelected, setCategorySelected] = useState<{
-    value: string;
-    label: string;
-  }>({
-    value: 'none',
-    label: 'Todas', // await login(data)
-  });
-  const [routeSelected, setRouteSelected] = useState<{
-    value: string;
-    label: string;
-  }>({
-    value: 'none',
-    label: 'Todas', // await login(data)
-  });
-  const [telemetryStatusSelected, setTelemetryStatusSelected] = useState<{
-    value: string;
-    label: string;
-  }>({
-    value: 'none',
-    label: 'Todas', // await login(data)
-  });
+
   const numberOfPages = useCallback((num: number) => {
     return Math.ceil(num / 10);
+  }, []);
+
+  const handleParams = useCallback((value: string | undefined) => {
+    if (value) {
+      if (value === 'none') {
+        return undefined;
+      }
+      if (value === 'stock') {
+        return null;
+      }
+      if (value !== 'none' && value !== null) {
+        return value;
+      }
+    }
+    return undefined;
   }, []);
 
   useEffect(() => {
     setBusy(true);
     toggleTelemetryModal(undefined);
     (async () => {
-      if (preFilter === 'ONLINE') {
-        setTelemetryStatusSelected({ label: 'Online', value: 'ONLINE' });
-        setFilters({ telemetryStatus: 'ONLINE' });
-        setFilterWasChanged(1);
-      } else if (preFilter === 'OFFLINE') {
-        setTelemetryStatusSelected({ label: 'Offline', value: 'OFFLINE' });
-        setFilters({ telemetryStatus: 'OFFLINE' });
-        setFilterWasChanged(2);
-      } else if (preFilter === 'NO_TELEMETRY') {
-        setTelemetryStatusSelected({
-          label: 'Sem telemetria',
-          value: 'NO_TELEMETRY',
-        });
-        setFilters({ telemetryStatus: 'NO_TELEMETRY' });
-        setFilterWasChanged(3);
-      } else if (preFilter === 'VIRGIN') {
-        setTelemetryStatusSelected({
-          value: 'VIRGIN',
-          label: 'Nunca conectada',
-        });
-        setFilters({ telemetryStatus: 'VIRGIN' });
-        setFilterWasChanged(4);
-      } else if (!preFilter) {
-        await getMachines(pageSelected * 10 - 10, filters);
-      }
+      await getMachines(pageSelected * 10 - 10, {
+        categoryId: filters.categoryId
+          ? (handleParams(filters.categoryId.value) as string | undefined)
+          : undefined,
+        groupId: filters.groupId?.value
+          ? (handleParams(filters.groupId.value) as string | undefined)
+          : undefined,
+        isActive: filters.isActive || undefined,
+        lean: filters.lean || undefined,
+        pointOfSaleId: filters.pointOfSaleId?.value
+          ? (handleParams(filters.pointOfSaleId.value) as string | undefined)
+          : undefined,
+        routeId: filters.routeId?.value
+          ? (handleParams(filters.routeId.value) as string | undefined)
+          : undefined,
+        serialNumber: filters.serialNumber || undefined,
+        telemetryStatus: filters.telemetryStatus
+          ? (handleParams(filters.telemetryStatus.value) as
+              | 'ONLINE'
+              | 'OFFLINE'
+              | 'VIRGIN'
+              | 'NO_TELEMETRY'
+              | 'none')
+          : undefined,
+      });
       await getGroups();
       await getPointsOfSale(undefined, undefined);
       await getCategories();
@@ -138,22 +111,47 @@ const MachinesPage: React.FC = () => {
       setRoutesFiltered(routes);
       setBusy(false);
     })();
-  }, [preFilter]);
+  }, []);
 
   useEffect(() => {
     (async () => {
-      await getMachines(pageSelected * 10 - 10, filters);
+      await getMachines(pageSelected * 10 - 10, {
+        categoryId: filters.categoryId
+          ? (handleParams(filters.categoryId.value) as string | undefined)
+          : undefined,
+        groupId: filters.groupId?.value
+          ? (handleParams(filters.groupId.value) as string | undefined)
+          : undefined,
+        isActive: filters.isActive || undefined,
+        lean: filters.lean || undefined,
+        pointOfSaleId: filters.pointOfSaleId?.value
+          ? (handleParams(filters.pointOfSaleId.value) as string | undefined)
+          : undefined,
+        routeId: filters.routeId?.value
+          ? (handleParams(filters.routeId.value) as string | undefined)
+          : undefined,
+        serialNumber: filters.serialNumber || undefined,
+        telemetryStatus: filters.telemetryStatus
+          ? (handleParams(filters.telemetryStatus.value) as
+              | 'ONLINE'
+              | 'OFFLINE'
+              | 'VIRGIN'
+              | 'NO_TELEMETRY'
+              | 'none')
+          : undefined,
+      });
 
-      if (groupSelected?.value === 'none') {
+      if (filters.groupId === undefined || filters.groupId.value === 'none') {
         await getPointsOfSale(undefined, undefined);
         setRoutesFiltered(routes);
       } else {
         await getPointsOfSale(undefined, {
-          groupId: groupSelected?.value,
+          groupId: filters.groupId.value,
         });
-
         setRoutesFiltered(
-          routes.filter(route => route.groupIds?.includes(groupSelected.value)),
+          routes.filter(route =>
+            route.groupIds?.includes(filters.groupId!.value),
+          ),
         );
       }
     })();
@@ -192,7 +190,11 @@ const MachinesPage: React.FC = () => {
               <ReactSelect
                 name="groupId"
                 id="groupId"
-                defaultValue={groupSelected}
+                value={
+                  filters.groupId
+                    ? filters.groupId
+                    : { label: 'Todas', value: 'none' }
+                }
                 options={[
                   {
                     value: 'none',
@@ -208,44 +210,14 @@ const MachinesPage: React.FC = () => {
                 ]}
                 onChange={e => {
                   if (e) {
-                    setGroupSelected({
-                      label: e?.label,
-                      value: e?.value,
-                    });
-                    const { value } = e;
-                    if (value === 'none') {
-                      setFilters(state => {
-                        state = {
-                          groupId: undefined,
-                          categoryId: undefined,
-                          lean: undefined,
-                          pointOfSaleId: undefined,
-                          routeId: undefined,
-                          serialNumber: undefined,
-                          telemetryStatus: undefined,
-                        };
-                        return state;
-                      });
-                    } else {
-                      setFilters(state => {
-                        state = {
-                          groupId: value,
-                          categoryId: undefined,
-                          lean: undefined,
-                          pointOfSaleId: undefined,
-                          routeId: undefined,
-                          serialNumber: undefined,
-                          telemetryStatus: undefined,
-                        };
-                        return state;
-                      });
-                    }
-                    setPointsOfSaleSelected({ value: 'none', label: 'Todas' });
-                    setCategorySelected({ value: 'none', label: 'Todas' });
-                    setRouteSelected({ value: 'none', label: 'Todas' });
-                    setTelemetryStatusSelected({
-                      value: 'none',
-                      label: 'Todas',
+                    handleFilter({
+                      groupId: e,
+                      categoryId: undefined,
+                      lean: undefined,
+                      pointOfSaleId: undefined,
+                      routeId: undefined,
+                      serialNumber: undefined,
+                      telemetryStatus: undefined,
                     });
                   }
                   setPageSelected(1);
@@ -258,9 +230,13 @@ const MachinesPage: React.FC = () => {
               <p style={{ marginBottom: '1rem' }}>Localização</p>
               <ReactSelect
                 name="pointOfSaleId"
-                value={pointsOfSaleSelected}
+                value={
+                  filters.pointOfSaleId
+                    ? filters.pointOfSaleId
+                    : { label: 'Todos', value: 'none' }
+                }
                 options={[
-                  { value: 'none', label: 'Todas' },
+                  { value: 'none', label: 'Todos' },
                   { value: 'stock', label: 'Estoque' },
                   ...pointsOfSale.map(pointOfSale => {
                     return {
@@ -271,24 +247,10 @@ const MachinesPage: React.FC = () => {
                 ]}
                 onChange={e => {
                   if (e) {
-                    setPointsOfSaleSelected({ value: e.value, label: e.label });
-                    const { value } = e;
-                    if (value === 'none') {
-                      setFilters(state => {
-                        state.pointOfSaleId = undefined;
-                        return state;
-                      });
-                    } else if (value === 'stock') {
-                      setFilters(state => {
-                        state.pointOfSaleId = null;
-                        return state;
-                      });
-                    } else {
-                      setFilters(state => {
-                        state.pointOfSaleId = value;
-                        return state;
-                      });
-                    }
+                    handleFilter({
+                      ...filters,
+                      pointOfSaleId: e,
+                    });
                   }
                   setPageSelected(1);
                   setFilterWasChanged(filterWasChanged + 1);
@@ -299,7 +261,11 @@ const MachinesPage: React.FC = () => {
               <p style={{ marginBottom: '1rem' }}>Categorias</p>
               <ReactSelect
                 name="categoryId"
-                value={categorySelected}
+                value={
+                  filters.categoryId
+                    ? filters.categoryId
+                    : { label: 'Todas', value: 'none' }
+                }
                 options={[
                   { value: 'none', label: 'Todas' },
                   ...(categories &&
@@ -312,19 +278,10 @@ const MachinesPage: React.FC = () => {
                 ]}
                 onChange={e => {
                   if (e) {
-                    setCategorySelected({ value: e.value, label: e.label });
-                    const { value } = e;
-                    if (value === 'none') {
-                      setFilters(state => {
-                        state.categoryId = undefined;
-                        return state;
-                      });
-                    } else {
-                      setFilters(state => {
-                        state.categoryId = value;
-                        return state;
-                      });
-                    }
+                    handleFilter({
+                      ...filters,
+                      categoryId: e,
+                    });
                   }
                   setPageSelected(1);
                   setFilterWasChanged(filterWasChanged + 1);
@@ -335,7 +292,11 @@ const MachinesPage: React.FC = () => {
               <p style={{ marginBottom: '1rem' }}>Rota</p>
               <ReactSelect
                 name="routerId"
-                value={routeSelected}
+                value={
+                  filters.routeId
+                    ? filters.routeId
+                    : { label: 'Todas', value: 'none' }
+                }
                 options={[
                   {
                     value: 'none',
@@ -351,22 +312,13 @@ const MachinesPage: React.FC = () => {
                 ]}
                 onChange={e => {
                   if (e) {
-                    setRouteSelected({ label: e.label, value: e.value });
-                    const { value } = e;
-                    if (value === 'none') {
-                      setFilters(state => {
-                        state.routeId = undefined;
-                        return state;
-                      });
-                    } else {
-                      setFilters(state => {
-                        state.routeId = value;
-                        return state;
-                      });
-                    }
+                    handleFilter({
+                      ...filters,
+                      routeId: e,
+                    });
+                    setPageSelected(1);
+                    setFilterWasChanged(filterWasChanged + 1);
                   }
-                  setPageSelected(1);
-                  setFilterWasChanged(filterWasChanged + 1);
                 }}
               />
             </div>
@@ -374,7 +326,14 @@ const MachinesPage: React.FC = () => {
               <p style={{ marginBottom: '1rem' }}>Status de telemetria</p>
               <ReactSelect
                 name="telemetryId"
-                value={telemetryStatusSelected}
+                value={
+                  filters.telemetryStatus
+                    ? filters.telemetryStatus
+                    : {
+                        value: 'none',
+                        label: 'Todas',
+                      }
+                }
                 options={[
                   {
                     value: 'none',
@@ -387,28 +346,18 @@ const MachinesPage: React.FC = () => {
                 ]}
                 onChange={e => {
                   if (e) {
-                    setTelemetryStatusSelected({
-                      label: e.label,
-                      value: e.value,
-                    });
-
-                    const { value } = e;
-                    if (value === 'none') {
-                      setFilters(state => {
-                        state.telemetryStatus = undefined;
-                        return state;
-                      });
-                    } else {
-                      setFilters(state => {
-                        state.telemetryStatus = value as
+                    handleFilter({
+                      ...filters,
+                      telemetryStatus: e as {
+                        label: string;
+                        value:
                           | 'ONLINE'
                           | 'OFFLINE'
                           | 'VIRGIN'
                           | 'NO_TELEMETRY'
                           | 'none';
-                        return state;
-                      });
-                    }
+                      },
+                    });
                   }
                   setPageSelected(1);
                   setFilterWasChanged(filterWasChanged + 1);
@@ -429,15 +378,18 @@ const MachinesPage: React.FC = () => {
                       }}
                       name="serialNumber"
                       type="text"
+                      value={filters.serialNumber || ''}
                       onChange={e => {
                         if (e) {
                           const { value } = e.target;
-                          setFilters(state => {
-                            state.serialNumber = value;
-                            return state;
-                          });
-                          setPageSelected(1);
-                          setFilterWasChanged(filterWasChanged + 1);
+                          setTimeout(function () {
+                            handleFilter({
+                              ...filters,
+                              serialNumber: value,
+                            });
+                            setPageSelected(1);
+                            setFilterWasChanged(filterWasChanged + 1);
+                          }, 500);
                         }
                       }}
                     />
@@ -445,6 +397,17 @@ const MachinesPage: React.FC = () => {
                 </label>
               </InputContainer>
             </div>
+            <button
+              className="reset-filter"
+              type="button"
+              onClick={() => {
+                handleFilter({});
+                setPageSelected(1);
+                setFilterWasChanged(filterWasChanged + 1);
+              }}
+            >
+              Resetar filtro
+            </button>
           </div>
 
           <Legend>

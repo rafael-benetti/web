@@ -23,6 +23,13 @@ export const MachinesContent = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1rem;
+    .reset-filter {
+      border: none;
+      background-color: inherit;
+      text-align: start;
+      color: blue;
+      outline: none;
+    }
   }
   @media screen and (max-width: 37.5em) {
     padding: 3rem 1.5rem;

@@ -7,6 +7,7 @@ import {
   HandlePointOfSaleDto,
 } from '../dto/handle-point-os-sale-dto';
 import { FilterPointsOfSaleDto } from '../entiti/filter-point-of-sale';
+import { FilterPointOfSalePage } from '../entiti/filter-point-of-sale-page';
 import { PointOfSaleInfo } from '../entiti/point-of-sale-info';
 import { PointOfSale } from '../entiti/point-of-sales';
 import { ResponseGetPointsOfSale } from '../entiti/response-get-points-of-sale';
@@ -47,6 +48,8 @@ interface PointOfSaleContext {
       | undefined,
     refresh?: boolean,
   ): void;
+  handleFilter(filter: FilterPointOfSalePage): void;
+  filters: FilterPointOfSalePage;
   showAction:
     | 'RENT'
     | 'MACHINE'
@@ -77,6 +80,7 @@ const PointOfSaleProvider: React.FC = ({ children }) => {
     'RENT' | 'MACHINE' | 'ROUTE' | 'REMOVE_ROUTE' | 'WARNING_ROUTE' | undefined
   >();
   const [shouldRefreshPoint, setShouldRefreshPoint] = useState<boolean>(false);
+  const [filters, setFilters] = useState<FilterPointOfSalePage>({});
 
   const getPointsOfSale = useCallback(
     async (
@@ -284,6 +288,13 @@ const PointOfSaleProvider: React.FC = ({ children }) => {
     [shouldRefreshPoint],
   );
 
+  const handleFilter = useCallback(
+    (filter: FilterPointOfSalePage) => {
+      setFilters(filter);
+    },
+    [filters],
+  );
+
   return (
     <PointOfSaleContext.Provider
       value={{
@@ -293,6 +304,8 @@ const PointOfSaleProvider: React.FC = ({ children }) => {
         getSinglePointOfSale,
         editRent,
         toggleActions,
+        handleFilter,
+        filters,
         shouldRefreshPoint,
         showAction,
         pointOfSaleInfo,

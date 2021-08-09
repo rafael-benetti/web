@@ -1,5 +1,5 @@
 export interface FixMachineStockDto {
   boxId: string;
-  quantity: string;
+  quantity: number;
   observations: string;
 }

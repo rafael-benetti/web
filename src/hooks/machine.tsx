@@ -8,6 +8,7 @@ import { RemoteCreditDto } from '../dto/remote-credit-dto';
 import { TransferMachineDto } from '../dto/transfer-machine';
 import { TransferProductDto } from '../dto/transfer-product';
 import { FilterMachineDto } from '../entiti/filter-machine';
+import { FilterMachinePage } from '../entiti/filter-machine-page';
 import { Machine } from '../entiti/machine';
 import { MachineInfo } from '../entiti/machine-info';
 import { ResponseGetMachine } from '../entiti/response-get-machines';
@@ -59,6 +60,8 @@ interface MachineContext {
   ): Promise<void>;
   toggleRemoteCredit(bool: boolean, refresh?: boolean): void;
   sendRemoteCredit(data: RemoteCreditDto, machineId: string): Promise<boolean>;
+  handleFilter(filter: FilterMachinePage): void;
+  filters: FilterMachinePage;
   showFixMachineStock: string | undefined;
   showPrizeRecover: string | undefined;
   showEditMinimumStock: boolean;
@@ -103,6 +106,7 @@ const MachineProvider: React.FC = ({ children }) => {
   const [showMaintenanceMode, setShowMaintenanceMode] = useState(false);
   const [showMachineGoals, setShowMachineGoals] = useState(false);
   const [showRemoteCredit, setShowRemoteCredit] = useState(false);
+  const [filters, setFilters] = useState<FilterMachinePage>({});
 
   const getMachines = useCallback(
     async (
@@ -399,9 +403,16 @@ const MachineProvider: React.FC = ({ children }) => {
   const sendRemoteCredit = useCallback(
     async (data: RemoteCreditDto, machineId: string) => {
       try {
-        await api.post(`machine-logs/${machineId}`, data, {
-          headers: { authorization: `Bearer ${token}` },
-        });
+        await api.post(
+          `machine-logs/${machineId}`,
+          {
+            observations: data.observations,
+            quantity: parseFloat(data.quantity.toString()),
+          } as RemoteCreditDto,
+          {
+            headers: { authorization: `Bearer ${token}` },
+          },
+        );
         addToast({
           title: 'Crédito remoto enviado com sucesso',
           type: 'success',
@@ -418,11 +429,19 @@ const MachineProvider: React.FC = ({ children }) => {
   const fixMachineStock = useCallback(
     async (data: FixMachineStockDto, id: string) => {
       try {
-        await api.patch<Machine>(`/machines/${id}/fix-stock`, data, {
-          headers: {
-            authorization: `Bearer ${token}`,
+        await api.patch<Machine>(
+          `/machines/${id}/fix-stock`,
+          {
+            boxId: data.boxId,
+            observations: data.observations,
+            quantity: parseFloat(data.quantity.toString()),
+          } as FixMachineStockDto,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
         addToast({
           title: 'Estoque alterado com sucesso',
           type: 'success',
@@ -582,6 +601,13 @@ const MachineProvider: React.FC = ({ children }) => {
     [shouldRefresh],
   );
 
+  const handleFilter = useCallback(
+    (filter: FilterMachinePage) => {
+      setFilters(filter);
+    },
+    [filters],
+  );
+
   return (
     <MachineContext.Provider
       value={{
@@ -608,6 +634,8 @@ const MachineProvider: React.FC = ({ children }) => {
         editGoals,
         toggleRemoteCredit,
         sendRemoteCredit,
+        handleFilter,
+        filters,
         showRemoteCredit,
         showMachineGoals,
         showMaintenanceMode,

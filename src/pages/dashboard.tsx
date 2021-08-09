@@ -384,7 +384,6 @@ const Dashboard: React.FC = () => {
             <Link
               to={{
                 pathname: '/maquinas',
-                state: 'ONLINE',
               }}
             >
               <DashboardCard
@@ -392,12 +391,12 @@ const Dashboard: React.FC = () => {
                 value={dashboardData?.onlineMachines || 0}
                 color="#28a745"
                 Icon={AiOutlineWifi}
+                params={{ value: 'ONLINE', label: 'Online' }}
               />
             </Link>
             <Link
               to={{
                 pathname: '/maquinas',
-                state: 'OFFLINE',
               }}
             >
               <DashboardCard
@@ -405,12 +404,12 @@ const Dashboard: React.FC = () => {
                 value={dashboardData?.offlineMachines || 0}
                 color="#dc3545"
                 Icon={FiWifiOff}
+                params={{ value: 'OFFLINE', label: 'Offline' }}
               />
             </Link>
             <Link
               to={{
                 pathname: '/maquinas',
-                state: 'VIRGIN',
               }}
             >
               <DashboardCard
@@ -418,12 +417,12 @@ const Dashboard: React.FC = () => {
                 value={dashboardData?.machinesNeverConnected || 0}
                 color="#7366ff "
                 Icon={VscDebugDisconnect}
+                params={{ value: 'VIRGIN', label: 'Nunca conectada' }}
               />
             </Link>
             <Link
               to={{
                 pathname: '/maquinas',
-                state: 'NO_TELEMETRY',
               }}
             >
               <DashboardCard
@@ -431,6 +430,7 @@ const Dashboard: React.FC = () => {
                 value={dashboardData?.machinesWithoutTelemetryBoard || 0}
                 color="#444 "
                 Icon={FiAlertTriangle}
+                params={{ value: 'NO_TELEMETRY', label: 'Sem telemetria' }}
               />
             </Link>
           </Cards>

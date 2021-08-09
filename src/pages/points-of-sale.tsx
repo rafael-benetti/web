@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,13 +20,18 @@ import {
   Table,
 } from '../styles/pages/points-of-sale';
 import { PageTitle } from '../utils/page-title';
-import { FilterPointsOfSaleDto } from '../entiti/filter-point-of-sale';
 import { useRoute } from '../hooks/route';
 import { useOperator } from '../hooks/operator';
 
 const PointsOfSalePage: React.FC = () => {
   // hooks
-  const { getPointsOfSale, pointsOfSale, count } = usePointOfSale();
+  const {
+    getPointsOfSale,
+    pointsOfSale,
+    count,
+    filters,
+    handleFilter,
+  } = usePointOfSale();
   const { getGroups, groups } = useGroup();
   const { getRoutes, routes } = useRoute();
   const { user } = useUser();
@@ -33,20 +39,7 @@ const PointsOfSalePage: React.FC = () => {
   // state
   const [busy, setBusy] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [filters, setFilters] = useState<FilterPointsOfSaleDto>();
   const [pageSelected, setPageSelected] = useState<number>(1);
-  const [groupSelected, setGroupSelected] = useState<{
-    label: string;
-    value: string;
-  }>({ label: 'Todas', value: 'none' });
-  const [operatorSelected, setOperatorSelected] = useState<{
-    label: string;
-    value: string;
-  }>({ label: 'Todos', value: 'none' });
-  const [routeSelected, setRouteSelected] = useState<{
-    label: string;
-    value: string;
-  }>({ label: 'Todas', value: 'none' });
 
   const numberOfPages = useCallback((num: number) => {
     return Math.ceil(num / 10);
@@ -55,7 +48,12 @@ const PointsOfSalePage: React.FC = () => {
   useEffect(() => {
     setBusy(true);
     (async () => {
-      await getPointsOfSale(pageSelected * 10 - 10, filters);
+      await getPointsOfSale(pageSelected * 10 - 10, {
+        groupId: filters.group?.value || undefined,
+        label: filters.label || undefined,
+        operatorId: filters.operator?.value || undefined,
+        routeId: filters.route?.value || undefined,
+      });
       await getGroups();
       await getRoutes(undefined, undefined);
       await getOperators();
@@ -65,21 +63,28 @@ const PointsOfSalePage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      await getPointsOfSale(pageSelected * 10 - 10, filters);
-      if (groupSelected.value !== 'none') {
-        await getRoutes(undefined, { groupId: groupSelected.value });
+      await getPointsOfSale(pageSelected * 10 - 10, {
+        groupId: filters.group?.value || undefined,
+        label: filters.label || undefined,
+        operatorId: filters.operator?.value || undefined,
+        routeId: filters.route?.value || undefined,
+      });
+      if (filters.group) {
+        if (filters.group.value !== 'none')
+          await getRoutes(undefined, { groupId: filters.group.value });
       }
     })();
   }, [filters, pageSelected]);
 
   useEffect(() => {
     (async () => {
-      if (groupSelected.value !== 'none') {
-        await getPointsOfSale(undefined, { groupId: groupSelected.value });
-        await getRoutes(undefined, { groupId: groupSelected.value });
+      if (filters.group) {
+        if (filters.group.value !== 'none')
+          await getPointsOfSale(undefined, { groupId: filters.group.value });
+        await getRoutes(undefined, { groupId: filters.group.value });
       }
     })();
-  }, [groupSelected.value]);
+  }, [filters]);
 
   return (
     <Container active="points-of-sale" loading={busy}>
@@ -118,11 +123,14 @@ const PointsOfSalePage: React.FC = () => {
                     onBlur={() => {
                       setIsFocused(false);
                     }}
+                    value={filters.label || ''}
                     id="label"
                     onChange={e => {
                       if (e) {
-                        setFilters({ ...filters, label: e.target.value });
-                        setPageSelected(1);
+                        setTimeout(function () {
+                          handleFilter({ ...filters, label: e.target.value });
+                          setPageSelected(1);
+                        }, 500);
                       }
                     }}
                   />
@@ -136,11 +144,15 @@ const PointsOfSalePage: React.FC = () => {
                   <ReactSelect
                     name="groupId"
                     id="groupId"
-                    value={groupSelected}
+                    value={
+                      filters.group
+                        ? filters.group
+                        : { label: 'Todas', value: 'none' }
+                    }
                     options={[
                       {
                         value: 'none',
-                        label: 'Todos',
+                        label: 'Todas',
                       },
                       ...(groups &&
                         groups.map(group => {
@@ -152,14 +164,11 @@ const PointsOfSalePage: React.FC = () => {
                     ]}
                     onChange={e => {
                       if (e) {
-                        setOperatorSelected({ value: 'none', label: 'Todos' });
-                        setRouteSelected({ value: 'none', label: 'Todas' });
-                        setGroupSelected(e);
-                        setFilters({
+                        handleFilter({
                           ...filters,
-                          routeId: undefined,
-                          operatorId: undefined,
-                          groupId: e.value,
+                          route: undefined,
+                          operator: undefined,
+                          group: e,
                         });
                         setPageSelected(1);
                       }
@@ -171,7 +180,11 @@ const PointsOfSalePage: React.FC = () => {
                   <ReactSelect
                     name="routeId"
                     id="routeId"
-                    value={routeSelected}
+                    value={
+                      filters.route
+                        ? filters.route
+                        : { label: 'Todas', value: 'none' }
+                    }
                     options={[
                       {
                         value: 'none',
@@ -187,8 +200,7 @@ const PointsOfSalePage: React.FC = () => {
                     ]}
                     onChange={e => {
                       if (e) {
-                        setRouteSelected(e);
-                        setFilters({ ...filters, routeId: e.value });
+                        handleFilter({ ...filters, route: e });
                         setPageSelected(1);
                       }
                     }}
@@ -199,7 +211,11 @@ const PointsOfSalePage: React.FC = () => {
                   <ReactSelect
                     name="operatorId"
                     id="operatorId"
-                    value={operatorSelected}
+                    value={
+                      filters.operator
+                        ? filters.operator
+                        : { label: 'Todos', value: 'none' }
+                    }
                     options={[
                       {
                         value: 'none',
@@ -215,8 +231,7 @@ const PointsOfSalePage: React.FC = () => {
                     ]}
                     onChange={e => {
                       if (e) {
-                        setOperatorSelected(e);
-                        setFilters({ ...filters, operatorId: e.value });
+                        handleFilter({ ...filters, operator: e });
                         setPageSelected(1);
                       }
                     }}
@@ -224,6 +239,16 @@ const PointsOfSalePage: React.FC = () => {
                 </div>
               </>
             )}
+            <button
+              className="reset-filter"
+              type="button"
+              onClick={() => {
+                handleFilter({});
+                setPageSelected(1);
+              }}
+            >
+              Resetar filtro
+            </button>
           </div>
           <Table>
             <div className="table-title">
