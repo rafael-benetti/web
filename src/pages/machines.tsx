@@ -10,6 +10,7 @@ import { VscDebugDisconnect } from 'react-icons/vsc';
 import { AiOutlineWifi } from 'react-icons/ai';
 import { RiWifiOffLine } from 'react-icons/ri';
 import { FiInfo } from 'react-icons/fi';
+import { ClipLoader } from 'react-spinners';
 import Button from '../components/button';
 import Container from '../components/container';
 import CurrentPath from '../components/current-path';
@@ -54,6 +55,8 @@ const MachinesPage: React.FC = () => {
   const [pageSelected, setPageSelected] = useState<number>(1);
   const [filterWasChanged, setFilterWasChanged] = useState(0);
   const [routesFiltered, setRoutesFiltered] = useState<Route[]>([]);
+  const [label, setLabel] = useState<string>();
+  const [busyFilter, setBusyFilter] = useState<boolean>(false);
 
   const numberOfPages = useCallback((num: number) => {
     return Math.ceil(num / 10);
@@ -114,6 +117,7 @@ const MachinesPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    setBusyFilter(true);
     (async () => {
       await getMachines(pageSelected * 10 - 10, {
         categoryId: filters.categoryId
@@ -154,8 +158,20 @@ const MachinesPage: React.FC = () => {
           ),
         );
       }
+      setBusyFilter(false);
     })();
-  }, [filterWasChanged, pageSelected]);
+  }, [filterWasChanged, pageSelected, filters]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      handleFilter({
+        ...filters,
+        serialNumber: label,
+      });
+    }, 800);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [label]);
 
   return (
     <Container active="machines" loading={busy}>
@@ -378,18 +394,12 @@ const MachinesPage: React.FC = () => {
                       }}
                       name="serialNumber"
                       type="text"
-                      value={filters.serialNumber || ''}
+                      value={label}
                       onChange={e => {
                         if (e) {
                           const { value } = e.target;
-                          setTimeout(function () {
-                            handleFilter({
-                              ...filters,
-                              serialNumber: value,
-                            });
-                            setPageSelected(1);
-                            setFilterWasChanged(filterWasChanged + 1);
-                          }, 500);
+                          setLabel(value);
+                          setPageSelected(1);
                         }
                       }}
                     />

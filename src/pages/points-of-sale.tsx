@@ -40,6 +40,7 @@ const PointsOfSalePage: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [pageSelected, setPageSelected] = useState<number>(1);
+  const [label, setLabel] = useState<string>();
 
   const numberOfPages = useCallback((num: number) => {
     return Math.ceil(num / 10);
@@ -86,6 +87,17 @@ const PointsOfSalePage: React.FC = () => {
     })();
   }, [filters]);
 
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      handleFilter({
+        ...filters,
+        label,
+      });
+    }, 800);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [label]);
+
   return (
     <Container active="points-of-sale" loading={busy}>
       <PointsOfSaleContainer>
@@ -123,14 +135,13 @@ const PointsOfSalePage: React.FC = () => {
                     onBlur={() => {
                       setIsFocused(false);
                     }}
-                    value={filters.label || ''}
+                    value={label}
                     id="label"
                     onChange={e => {
                       if (e) {
-                        setTimeout(function () {
-                          handleFilter({ ...filters, label: e.target.value });
-                          setPageSelected(1);
-                        }, 500);
+                        const { value } = e.target;
+                        setLabel(value);
+                        setPageSelected(1);
                       }
                     }}
                   />
