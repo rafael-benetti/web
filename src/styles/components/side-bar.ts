@@ -70,8 +70,8 @@ export const NavBtn = styled.div<IProps>`
       90deg,
       #fff 0%,
       #fff 50%,
-      #00161d 50%,
-      #0013ff 100%
+      rgb(106, 118, 122) 50%,
+      rgb(230, 231, 231) 100%
     );
     background-size: 230%;
     transition: all 0.4s;
@@ -91,7 +91,6 @@ export const NavBtn = styled.div<IProps>`
       flex: 5;
       padding-left: 1rem;
     }
-    &:hover,
     &:active {
       outline: none;
       background-position: 100%;
@@ -122,8 +121,8 @@ export const NavSelectBtn = styled.div<IProps>`
         90deg,
         #fff 0%,
         #fff 50%,
-        #00161d 50%,
-        #0013ff 100%
+        rgb(106, 118, 122) 50%,
+        rgb(230, 231, 231) 100%
       );
       background-size: 230%;
       transition: all 0.4s;
@@ -143,7 +142,6 @@ export const NavSelectBtn = styled.div<IProps>`
         flex: 5;
         padding-left: 1rem;
       }
-      &:hover,
       &:active {
         outline: none;
         background-position: 100%;
@@ -187,7 +185,11 @@ export const NavSelectBtn = styled.div<IProps>`
         from(#00161d),
         to(#00161d)
       );
-      background-image: linear-gradient(90deg, #00161d 0%, #0013ff 100%);
+      background-image: linear-gradient(
+        90deg,
+        rgb(106, 118, 122) 0%,
+        rgb(230, 231, 231) 100%
+      );
       color: #fff;
       -webkit-box-shadow: 0px 0px 12px 0px rgba(115, 102, 255, 0.35);
       box-shadow: 0px 0px 12px 0px rgba(115, 102, 255, 0.35);

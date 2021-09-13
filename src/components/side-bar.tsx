@@ -308,7 +308,7 @@ const SideBar: React.FC<IProps> = ({ active }) => {
                       item.class === active
                         ? {
                             backgroundImage:
-                              'linear-gradient(90deg, #00161d 0%, #0013ff 100%)',
+                              'linear-gradient(90deg,rgb(106, 118, 122) 0%, rgb(230, 231, 231) 100%)',
                             color: '#fff',
                             WebkitBoxShadow:
                               '0px 0px 12px 0px rgba(115, 102, 255, 0.35)',
