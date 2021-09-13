@@ -49,7 +49,7 @@ export const PermissionsContainer = styled.div`
         }
         input[type='checkbox']:checked + label {
           div {
-            color: #7366ff;
+            color: #00161d;
             &::after {
               content: url(${check});
               position: absolute;
@@ -124,7 +124,7 @@ export const PermissionCheckboxTableContainer = styled.div`
     }
     input[type='checkbox']:checked + label {
       div {
-        color: #7366ff;
+        color: #00161d;
         &::after {
           content: url(${check});
           position: absolute;
@@ -213,7 +213,7 @@ export const CreateUsersPermissions = styled.div`
     }
     input[type='checkbox']:checked + label {
       div {
-        color: #7366ff;
+        color: #00161d;
         &::after {
           content: url(${check});
           position: absolute;

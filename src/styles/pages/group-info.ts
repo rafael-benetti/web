@@ -86,7 +86,7 @@ export const NavBar = styled.div<NavBarProps>`
     transition: all 0.5s;
     outline: none;
     &:hover {
-      background-color: #7366ff;
+      background-color: #00161d;
       h1 {
         color: #fff;
       }
@@ -96,7 +96,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'DAILY') {
       return css`
         .daily {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -106,7 +106,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'WEEKLY') {
       return css`
         .weekly {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -116,7 +116,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (!props.active) {
       return css`
         .period {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -125,7 +125,7 @@ export const NavBar = styled.div<NavBarProps>`
     }
     return css`
       .monthly {
-        background-color: #7366ff;
+        background-color: #00161d;
         h1 {
           color: #fff;
         }

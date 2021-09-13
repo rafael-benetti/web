@@ -32,7 +32,7 @@ export const SingleCheckboxContainer = styled.div`
   }
   input[type='checkbox']:checked + label {
     div {
-      color: #7366ff;
+      color: #00161d;
       &::after {
         content: url(${check});
         position: absolute;

@@ -41,7 +41,7 @@ export const NavBar = styled.div<NavBarProps>`
     outline: none;
 
     &:hover {
-      background-color: #7366ff;
+      background-color: #00161d;
       h1 {
         color: #fff;
       }
@@ -51,7 +51,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'POINT_OF_SALE') {
       return css`
         .location {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -60,7 +60,7 @@ export const NavBar = styled.div<NavBarProps>`
     }
     return css`
       .group {
-        background-color: #7366ff;
+        background-color: #00161d;
         h1 {
           color: #fff;
         }

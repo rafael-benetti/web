@@ -163,7 +163,7 @@ const PointOfSaleInfo: React.FC = () => {
               <h1 className="heading-secondary-font">Informações gerais</h1>
               <div className="general-info">
                 <div className="title">
-                  <FiThumbsUp color="#7366ff" size={15} />
+                  <FiThumbsUp color="#00161d" size={15} />
                   <h2>Parceria</h2>
                 </div>
                 <div className="spacer" />
@@ -174,7 +174,7 @@ const PointOfSaleInfo: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FaRoute color="#7366ff" size={15} />
+                  <FaRoute color="#00161d" size={15} />
                   <h2>Rota</h2>
                 </div>
                 <div className="spacer" />
@@ -195,7 +195,7 @@ const PointOfSaleInfo: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiDollarSign color="#7366ff" size={15} />
+                  <FiDollarSign color="#00161d" size={15} />
                   <h2>Aluguel</h2>
                 </div>
                 <div className="spacer" />
@@ -214,7 +214,7 @@ const PointOfSaleInfo: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiMap color="#7366ff" size={15} />
+                  <FiMap color="#00161d" size={15} />
                   <h2>Cidade/Estado</h2>
                 </div>
                 <div className="spacer" />
@@ -222,7 +222,7 @@ const PointOfSaleInfo: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiMapPin color="#7366ff" size={15} />
+                  <FiMapPin color="#00161d" size={15} />
                   <h2>Endereço</h2>
                 </div>
                 <div className="spacer" />
@@ -230,7 +230,7 @@ const PointOfSaleInfo: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <BsPerson color="#7366ff" size={15} />
+                  <BsPerson color="#00161d" size={15} />
                   <h2>Contato</h2>
                 </div>
                 <div className="spacer" />
@@ -238,7 +238,7 @@ const PointOfSaleInfo: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiPhoneCall color="#7366ff" size={15} />
+                  <FiPhoneCall color="#00161d" size={15} />
                   <h2>Telefone</h2>
                 </div>
                 <div className="spacer" />
@@ -458,7 +458,7 @@ const PointOfSaleInfo: React.FC = () => {
                   </>
                 ) : (
                   <div className="is-loading">
-                    <ClipLoader size={30} color="#7366ff" />
+                    <ClipLoader size={30} color="#00161d" />
                   </div>
                 )}
               </ManagementInfo>

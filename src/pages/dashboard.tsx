@@ -370,7 +370,7 @@ const Dashboard: React.FC = () => {
                 </>
               ) : (
                 <div className="is-loading">
-                  <ClipLoader size={30} color="#7366ff" />
+                  <ClipLoader size={30} color="#00161d" />
                 </div>
               )}
             </ManagementInfo>
@@ -415,7 +415,7 @@ const Dashboard: React.FC = () => {
               <DashboardCard
                 title="Máquinas nunca conectadas"
                 value={dashboardData?.machinesNeverConnected || 0}
-                color="#7366ff "
+                color="#00161d "
                 Icon={VscDebugDisconnect}
                 params={{ value: 'VIRGIN', label: 'Nunca conectada' }}
               />

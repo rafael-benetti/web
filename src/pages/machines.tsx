@@ -426,7 +426,7 @@ const MachinesPage: React.FC = () => {
               <h2>Nunca conectada</h2>
             </div>
             <div>
-              <RiWifiOffLine color="#f73164" />
+              <RiWifiOffLine color="#ff008c" />
               <h2>Desconectada</h2>
             </div>
             <div>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Button from '../components/button';
-import Logo from '../assets/logo-login.png';
+import Logo from '../assets/logo.png';
 import { InputContainer } from '../styles/components/input';
 import {
   ForgotPasswordContainer,

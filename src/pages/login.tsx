@@ -6,7 +6,7 @@ import { Form } from '@unform/web';
 import { Link } from 'react-router-dom';
 import Button from '../components/button';
 import { Content, LoginPageContainer } from '../styles/pages/login';
-import Logo from '../assets/logo-login.png';
+import Logo from '../assets/logo.png';
 import Input from '../components/input';
 import { LoginDto } from '../dto/login';
 import getValidationErrors from '../utils/getValidationErrors';

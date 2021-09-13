@@ -35,7 +35,7 @@ export const StockContent = styled.div`
     }
     .colored {
       svg {
-        color: #7366ff;
+        color: #00161d;
       }
     }
   }
@@ -69,7 +69,7 @@ export const NavBar = styled.div<NavBarProps>`
     outline: none;
 
     &:hover {
-      background-color: #7366ff;
+      background-color: #00161d;
       h1 {
         color: #fff;
       }
@@ -79,7 +79,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'PRIZES') {
       return css`
         .prizes {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -89,7 +89,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'MACHINES') {
       return css`
         .machines {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -98,7 +98,7 @@ export const NavBar = styled.div<NavBarProps>`
     }
     return css`
       .supplies {
-        background-color: #7366ff;
+        background-color: #00161d;
         h1 {
           color: #fff;
         }

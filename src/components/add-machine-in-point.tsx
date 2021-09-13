@@ -92,7 +92,7 @@ const AddMachineInPoint: React.FC<Props> = ({ pointOfSaleInfo }) => {
           </>
         ) : (
           <div>
-            <ClipLoader size={30} color="#7366ff" />
+            <ClipLoader size={30} color="#00161d" />
           </div>
         )}
       </AddMachineInPointContainer>

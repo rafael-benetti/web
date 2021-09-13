@@ -46,7 +46,7 @@ export const SwitchContainer = styled.div`
   }
   input[type='checkbox']:checked + label {
     div {
-      background-color: #7366ff;
+      background-color: #00161d;
       &::before {
         content: '';
 

@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import Logo from '../assets/logo-login.png';
+import Logo from '../assets/logo.png';
 import { useUser } from '../hooks/user';
 import {
   ChangePasswordContainer,

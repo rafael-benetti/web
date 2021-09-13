@@ -98,7 +98,7 @@ const RouteInfo: React.FC = () => {
               <h1 className="heading-secondary-font">Informações gerais</h1>
               <div className="general-info">
                 <div className="title">
-                  <BsPerson color="#7366ff" size={15} />
+                  <BsPerson color="#00161d" size={15} />
                   <h2>Operador</h2>
                 </div>
                 <div className="spacer" />
@@ -223,7 +223,7 @@ const RouteInfo: React.FC = () => {
                   </>
                 ) : (
                   <div className="is-loading">
-                    <ClipLoader size={30} color="#7366ff" />
+                    <ClipLoader size={30} color="#00161d" />
                   </div>
                 )}
               </ManagementInfo>

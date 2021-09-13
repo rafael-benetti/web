@@ -1041,7 +1041,7 @@ const ReportPage: React.FC = () => {
             </ReportResults>
           ) : (
             <div className="is-loading">
-              <ClipLoader size={30} color="#7366ff" />
+              <ClipLoader size={30} color="#00161d" />
             </div>
           )}
         </ReportContent>

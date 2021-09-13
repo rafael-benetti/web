@@ -98,7 +98,7 @@ const MachineInfoPage: React.FC = () => {
         new Date(machineInfo.machine.lastConnection),
       ) > 10
     ) {
-      return <RiWifiOffLine color="#f73164" />;
+      return <RiWifiOffLine color="#ff008c" />;
     }
     return <AiOutlineWifi color="#228b22" />;
   }, [machineInfo]);
@@ -313,7 +313,7 @@ const MachineInfoPage: React.FC = () => {
               <h1 className="heading-secondary-font">Informações gerais</h1>
               <div className="general-info">
                 <div className="title">
-                  <FiThumbsUp color="#7366ff" size={15} />
+                  <FiThumbsUp color="#00161d" size={15} />
                   <h2>Parceria</h2>
                 </div>
                 <div className="spacer" />
@@ -323,7 +323,7 @@ const MachineInfoPage: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiHome color="#7366ff" size={15} />
+                  <FiHome color="#00161d" size={15} />
                   <h2>Ponto de venda</h2>
                 </div>
                 <div className="spacer" />
@@ -348,7 +348,7 @@ const MachineInfoPage: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiHardDrive color="#7366ff" size={15} />
+                  <FiHardDrive color="#00161d" size={15} />
                   <h2>Categoria</h2>
                 </div>
                 <div className="spacer" />
@@ -356,7 +356,7 @@ const MachineInfoPage: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiRadio color="#7366ff" size={15} />
+                  <FiRadio color="#00161d" size={15} />
                   <h2>Telemetria</h2>
                 </div>
                 <div className="spacer" />
@@ -368,7 +368,7 @@ const MachineInfoPage: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiUsers color="#7366ff" size={15} />
+                  <FiUsers color="#00161d" size={15} />
                   <h2>Operador responsável</h2>
                 </div>
                 <div className="spacer" />
@@ -380,7 +380,7 @@ const MachineInfoPage: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiDollarSign color="#7366ff" size={15} />
+                  <FiDollarSign color="#00161d" size={15} />
                   <h2>Valor da jogada</h2>
                 </div>
                 <div className="spacer" />
@@ -399,7 +399,7 @@ const MachineInfoPage: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiGift color="#7366ff" size={15} />
+                  <FiGift color="#00161d" size={15} />
                   <h2>Tipo de prêmio</h2>
                 </div>
                 <div className="spacer" />
@@ -413,7 +413,7 @@ const MachineInfoPage: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiPackage color="#7366ff" size={15} />
+                  <FiPackage color="#00161d" size={15} />
                   <h2>Estoque mínimo</h2>
                 </div>
                 <div className="spacer" />
@@ -421,7 +421,7 @@ const MachineInfoPage: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <RiDivideFill color="#7366ff" size={15} />
+                  <RiDivideFill color="#00161d" size={15} />
                   <h2>Meta de faturamento por prêmio</h2>
                 </div>
                 <div className="spacer" />
@@ -433,7 +433,7 @@ const MachineInfoPage: React.FC = () => {
               </div>
               <div className="general-info">
                 <div className="title">
-                  <FiDatabase color="#7366ff" size={15} />
+                  <FiDatabase color="#00161d" size={15} />
                   <h2>Meta faturamento mensal</h2>
                 </div>
                 <div className="spacer" />
@@ -505,7 +505,7 @@ const MachineInfoPage: React.FC = () => {
                 </>
               ) : (
                 <div className="is-loading">
-                  <ClipLoader size={30} color="#7366ff" />
+                  <ClipLoader size={30} color="#00161d" />
                 </div>
               )}
             </div>
@@ -545,7 +545,7 @@ const MachineInfoPage: React.FC = () => {
                     <>
                       <div className="line">
                         <h2>Fat. médio p/ prêmio</h2>
-                        <h3 style={{ color: '#7366ff' }}>
+                        <h3 style={{ color: '#00161d' }}>
                           R$
                           {` ${(machineInfo?.boxesInfo
                             .map(box => box.givenPrizes)

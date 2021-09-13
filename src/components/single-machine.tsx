@@ -41,7 +41,7 @@ const MachineInPoint: React.FC<Props> = ({
         if (
           differenceInMinutes(new Date(), new Date(machine.lastConnection)) > 10
         ) {
-          return <RiWifiOffLine color="#f73164" />;
+          return <RiWifiOffLine color="#ff008c" />;
         }
         return <AiOutlineWifi color="#228b22" />;
       }

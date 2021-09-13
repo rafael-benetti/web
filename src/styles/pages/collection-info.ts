@@ -248,7 +248,7 @@ export const Photo = styled.div`
       svg {
         width: 3rem;
         height: 3rem;
-        color: #7366ff;
+        color: #00161d;
         opacity: 0.7;
       }
     }

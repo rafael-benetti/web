@@ -70,11 +70,11 @@ export const AddRemoveItemsContainer = styled.div`
       border: none;
       border-radius: 0.3rem;
       transition: all 0.4s;
-      background-color: #f73164;
+      background-color: #ff008c;
       margin-top: 1rem;
       color: #fff;
       &:hover {
-        background-color: ${shade(0.2, '#f73164')};
+        background-color: ${shade(0.2, '#ff008c')};
       }
     }
   }

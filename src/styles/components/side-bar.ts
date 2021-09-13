@@ -66,7 +66,13 @@ export const NavBtn = styled.div<IProps>`
     width: 100%;
     color: #2b2b2b;
     text-decoration: none;
-    background-image: linear-gradient(90deg, #fff 0%, #fff 50%, #7366ff 50%);
+    background-image: linear-gradient(
+      90deg,
+      #fff 0%,
+      #fff 50%,
+      #00161d 50%,
+      #0013ff 100%
+    );
     background-size: 230%;
     transition: all 0.4s;
     font-size: 1.4rem;
@@ -112,7 +118,13 @@ export const NavSelectBtn = styled.div<IProps>`
       width: 100%;
       color: #2b2b2b;
       text-decoration: none;
-      background-image: linear-gradient(90deg, #fff 0%, #fff 50%, #7366ff 50%);
+      background-image: linear-gradient(
+        90deg,
+        #fff 0%,
+        #fff 50%,
+        #00161d 50%,
+        #0013ff 100%
+      );
       background-size: 230%;
       transition: all 0.4s;
       font-size: 1.4rem;
@@ -172,10 +184,10 @@ export const NavSelectBtn = styled.div<IProps>`
         linear,
         left top,
         right top,
-        from(#7366ff),
-        to(#a26cf8)
+        from(#00161d),
+        to(#00161d)
       );
-      background-image: linear-gradient(90deg, #7366ff 0%, #a26cf8 100%);
+      background-image: linear-gradient(90deg, #00161d 0%, #0013ff 100%);
       color: #fff;
       -webkit-box-shadow: 0px 0px 12px 0px rgba(115, 102, 255, 0.35);
       box-shadow: 0px 0px 12px 0px rgba(115, 102, 255, 0.35);
@@ -210,7 +222,7 @@ export const ToggleButton = styled.button<Props>`
     &::before {
       width: 3rem;
       height: 2px;
-      background-color: #333;
+      background-color: #00161d;
       display: inline-block;
       transition: all 0.2s;
     }

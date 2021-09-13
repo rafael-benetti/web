@@ -73,7 +73,7 @@ const BoxCard: React.FC<Props> = ({
           <>
             <div className="line">
               <h2>Fat. médio p/ prêmio</h2>
-              <h3 style={{ color: '#7366ff' }}>
+              <h3 style={{ color: '#00161d' }}>
                 R$
                 {` ${calculateIncome(box.currentMoney, box.givenPrizes)}`}
               </h3>

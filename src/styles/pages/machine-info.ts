@@ -97,7 +97,7 @@ export const SingleMachineContent = styled.div<Props>`
           text-decoration: none;
         }
         button {
-          background-color: #7366ff;
+          background-color: #00161d;
           border: none;
           border-radius: 3px;
           padding: 0.5rem;
@@ -301,7 +301,7 @@ export const NavBar = styled.div<NavBarProps>`
     outline: none;
 
     &:hover {
-      background-color: #7366ff;
+      background-color: #00161d;
       h1 {
         color: #fff;
       }
@@ -311,7 +311,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'DAILY') {
       return css`
         .daily {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -321,7 +321,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'WEEKLY') {
       return css`
         .weekly {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -330,7 +330,7 @@ export const NavBar = styled.div<NavBarProps>`
     }
     return css`
       .monthly {
-        background-color: #7366ff;
+        background-color: #00161d;
         h1 {
           color: #fff;
         }

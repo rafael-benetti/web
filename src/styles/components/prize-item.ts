@@ -14,7 +14,7 @@ export const PrizeItemContainer = styled.div`
     svg {
       width: 1.5rem;
       height: 1.5rem;
-      color: #f73164;
+      color: #ff008c;
     }
   }
   h1 {
@@ -27,12 +27,12 @@ export const PrizeItemContainer = styled.div`
     border-top: 1px solid #eee;
     padding-top: 2rem;
     .remove-btn {
-      background-color: #f73164;
+      background-color: #ff008c;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       margin-right: 0.1rem;
       &:hover {
-        background-color: ${shade(0.2, '#f73164')};
+        background-color: ${shade(0.2, '#ff008c')};
       }
     }
     .add-btn {
@@ -49,14 +49,14 @@ export const PrizeItemContainer = styled.div`
     width: 100%;
     padding: 0.8rem;
     border: none;
-    background-color: #7366ff;
+    background-color: #00161d;
     border-radius: 1rem;
     color: #fff;
     font-weight: 500;
     transition: all 0.5s;
     outline: none;
     &:hover {
-      background-color: ${shade(0.2, '#7366ff')};
+      background-color: ${shade(0.2, '#00161d')};
     }
   }
 `;

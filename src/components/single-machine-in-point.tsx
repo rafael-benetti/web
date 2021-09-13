@@ -22,7 +22,7 @@ const SingleMachineInPoint: React.FC<Props> = ({ machineInfo }) => {
   const telemetryStatus = useCallback((lastConnection: Date | undefined) => {
     if (lastConnection) {
       if (differenceInMinutes(new Date(), new Date(lastConnection)) > 10) {
-        return <RiWifiOffLine color="#f73164" />;
+        return <RiWifiOffLine color="#ff008c" />;
       }
       return <AiOutlineWifi color="#228b22" />;
     }

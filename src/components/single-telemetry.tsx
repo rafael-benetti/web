@@ -40,7 +40,7 @@ const SingleTelemetry: React.FC<SingleTelemetryProps> = ({
       return <VscDebugDisconnect color="#333" />;
     }
     if (differenceInMinutes(new Date(), new Date(lastConnection)) > 10) {
-      return <RiWifiOffLine color="#f73164" />;
+      return <RiWifiOffLine color="#ff008c" />;
     }
     return <AiOutlineWifi color="#228b22" />;
   }, []);

@@ -17,7 +17,7 @@ export const MachineItemContainer = styled.div`
     svg {
       width: 1.5rem;
       height: 1.5rem;
-      color: #f73164;
+      color: #ff008c;
     }
   }
   h1 {
@@ -27,13 +27,13 @@ export const MachineItemContainer = styled.div`
     width: 100%;
     padding: 0.8rem;
     border: none;
-    background-color: #a927f9;
+    background-color: #ff2a00;
     border-radius: 1rem;
     color: #fff;
     font-weight: 500;
     transition: all 0.5s;
     &:hover {
-      background-color: ${shade(0.2, '#a927f9')};
+      background-color: ${shade(0.2, '#ff2a00')};
     }
   }
 `;

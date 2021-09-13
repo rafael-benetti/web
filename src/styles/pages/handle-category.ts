@@ -29,7 +29,7 @@ export const HandleCategoryContent = styled.div`
       padding: 1rem;
       border: none;
       background-color: inherit;
-      color: #7366ff;
+      color: #00161d;
       margin-top: 2.5rem;
       svg {
         margin-left: 0.3rem;
@@ -76,7 +76,7 @@ export const Boxes = styled.div`
   .delete-box-btn {
     border: none;
     background-color: inherit;
-    color: #f73164;
+    color: #ff008c;
     svg {
       height: 2rem;
       width: 2rem;
@@ -92,7 +92,7 @@ export const Boxes = styled.div`
     padding: 0.5rem;
     border: none;
     background-color: inherit;
-    color: #a927f9;
+    color: #ff2a00;
     svg {
       margin-left: 0.3rem;
     }
@@ -111,7 +111,7 @@ export const Counters = styled.div`
     .delete-counter-btn {
       border: none;
       background-color: inherit;
-      color: #f73164;
+      color: #ff008c;
       svg {
         height: 2rem;
         width: 2rem;

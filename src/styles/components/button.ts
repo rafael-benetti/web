@@ -16,25 +16,25 @@ export const ButtonContainer = styled.button<IProps>`
   ${props => {
     if (props.color === 'primary') {
       return css`
-        background-color: #7366ff;
+        background-color: #00161d;
         &:hover {
-          background-color: ${shade(0.2, '#7366ff')};
-        }
-      `;
-    }
-    if (props.color === 'secondary') {
-      return css`
-        background-color: #a927f9;
-        &:hover {
-          background-color: ${shade(0.2, '#a927f9')};
+          background-color: ${shade(0.2, '#00161d')};
         }
       `;
     }
     if (props.color === 'tertiary') {
       return css`
-        background-color: #f73164;
+        background-color: #ff2a00;
         &:hover {
-          background-color: ${shade(0.2, '#f73164')};
+          background-color: ${shade(0.2, '#ff2a00')};
+        }
+      `;
+    }
+    if (props.color === 'secondary') {
+      return css`
+        background-color: #ff008c;
+        &:hover {
+          background-color: ${shade(0.2, '#ff008c')};
         }
       `;
     }
@@ -56,9 +56,9 @@ export const ButtonContainer = styled.button<IProps>`
     }
     if (props.color === 'sexternary') {
       return css`
-        background-color: orangered;
+        background-color: #0013ff;
         &:hover {
-          background-color: ${shade(0.2, 'orangered')};
+          background-color: ${shade(0.2, '#0013ff')};
         }
       `;
     }

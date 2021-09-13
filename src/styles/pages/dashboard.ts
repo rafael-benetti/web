@@ -43,7 +43,7 @@ export const Notification = styled.button<NotificationProps>`
   border-radius: 0.3rem;
   transition: all 0.4s;
   padding: 0.6rem 2.8rem;
-  background-color: #7366ff;
+  background-color: #00161d;
   p {
     color: #fff;
   }
@@ -60,7 +60,7 @@ export const Notification = styled.button<NotificationProps>`
           position: absolute;
           top: 0;
           right: 0;
-          background-color: #f73164;
+          background-color: #ff008c;
           height: 2.5rem;
           width: 2.5rem;
           border-radius: 50%;
@@ -82,6 +82,7 @@ export const Cards = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 2rem;
+
   a {
     text-decoration: none;
   }
@@ -98,6 +99,8 @@ export const ManagementInfo = styled.div`
   padding: 3rem;
   -webkit-box-shadow: 0 0 3.7rem rgba(115, 102, 255, 0.1);
   box-shadow: 0 0 3.7rem rgba(115, 102, 255, 0.1);
+  background-color: #fff;
+
   .is-loading {
     height: 30vh !important;
   }
@@ -157,7 +160,7 @@ export const NavBar = styled.div<NavBarProps>`
     transition: all 0.5s;
     outline: none;
     &:hover {
-      background-color: #7366ff;
+      background-color: #00161d;
       h1 {
         color: #fff;
       }
@@ -167,7 +170,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'DAILY') {
       return css`
         .daily {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -177,7 +180,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'WEEKLY') {
       return css`
         .weekly {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -187,7 +190,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (!props.active) {
       return css`
         .period {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -196,7 +199,7 @@ export const NavBar = styled.div<NavBarProps>`
     }
     return css`
       .monthly {
-        background-color: #7366ff;
+        background-color: #00161d;
         h1 {
           color: #fff;
         }
@@ -214,6 +217,8 @@ export const DashboardInfo = styled.div`
   padding: 3rem;
   -webkit-box-shadow: 0 0 3.7rem rgba(115, 102, 255, 0.1);
   box-shadow: 0 0 3.7rem rgba(115, 102, 255, 0.1);
+  background-color: #fff;
+
   .title {
     margin-bottom: 2rem;
   }
@@ -232,6 +237,8 @@ export const DashboardInfo = styled.div`
 `;
 
 export const DashboardAnalitycs = styled.div`
+  background-color: #fff;
+
   margin: 2rem 0 4rem 0;
   border-radius: 1.5rem;
   padding: 3rem;

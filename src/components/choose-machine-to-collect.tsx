@@ -99,7 +99,7 @@ const ChooseMachineToCollect: React.FC = () => {
           </>
         ) : (
           <div>
-            <ClipLoader size={30} color="#7366ff" />
+            <ClipLoader size={30} color="#00161d" />
           </div>
         )}
       </ChooseMachineToCollectContainer>

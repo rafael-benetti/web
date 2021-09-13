@@ -51,7 +51,7 @@ export const NavBar = styled.div<NavBarProps>`
     }
 
     &:hover {
-      background-color: #7366ff;
+      background-color: #00161d;
       h1 {
         color: #fff;
       }
@@ -61,7 +61,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'GROUP') {
       return css`
         .prizes {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -71,7 +71,7 @@ export const NavBar = styled.div<NavBarProps>`
     if (props.active === 'MANAGER') {
       return css`
         .machines {
-          background-color: #7366ff;
+          background-color: #00161d;
           h1 {
             color: #fff;
           }
@@ -80,7 +80,7 @@ export const NavBar = styled.div<NavBarProps>`
     }
     return css`
       .supplies {
-        background-color: #7366ff;
+        background-color: #00161d;
         h1 {
           color: #fff;
         }

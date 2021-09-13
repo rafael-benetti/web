@@ -14,7 +14,7 @@ export const PersonalPrizeItemContainer = styled.div`
     svg {
       width: 1.5rem;
       height: 1.5rem;
-      color: #f73164;
+      color: #ff008c;
       margin-bottom: 2rem;
     }
   }
@@ -26,14 +26,14 @@ export const PersonalPrizeItemContainer = styled.div`
     width: 100%;
     padding: 0.8rem;
     border: none;
-    background-color: #7366ff;
+    background-color: #00161d;
     border-radius: 1rem;
     color: #fff;
     font-weight: 500;
     transition: all 0.5s;
     outline: none;
     &:hover {
-      background-color: ${shade(0.2, '#7366ff')};
+      background-color: ${shade(0.2, '#00161d')};
     }
   }
 `;

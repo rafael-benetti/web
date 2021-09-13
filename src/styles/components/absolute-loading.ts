@@ -18,7 +18,7 @@ export const AbsoluteLoadingContainer = styled.div`
     align-items: center;
     width: 20rem;
     height: 20rem;
-    background: #7366ff;
+    background: #00161d;
     border-radius: 1rem;
     opacity: 0.6;
   }

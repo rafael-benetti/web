@@ -9,7 +9,7 @@ export default createGlobalStyle`
   }
 
   :root{
-    --color-primary: #7366ff;
+    --color-primary: #00161d;
   }
 
   html {
@@ -35,7 +35,7 @@ export default createGlobalStyle`
 
   body{
     -webkit-font-smoothing: antialiased;
-    background: #FFF;
+    background: #fff;
 
   }
 

@@ -28,7 +28,7 @@ export const ChangePasswordContainer = styled.div`
   }
   .confirmed {
     font-size: 2.4rem;
-    color: #7366ff;
+    color: #00161d;
     font-weight: 500;
     margin-bottom: 1rem;
     text-align: center;

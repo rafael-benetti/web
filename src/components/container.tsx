@@ -17,7 +17,7 @@ const Container: React.FC<Props> = ({ children, loading, active }) => {
       <div className="main">
         {loading ? (
           <div className="is-loading">
-            <ClipLoader size={30} color="#7366ff" />
+            <ClipLoader size={30} color="#00161d" />
           </div>
         ) : (
           children

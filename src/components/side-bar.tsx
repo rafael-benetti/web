@@ -19,8 +19,6 @@ import {
 import { Link } from 'react-router-dom';
 import { IconType } from 'react-icons/lib';
 import { v4 } from 'uuid';
-import { math } from 'polished';
-import { randomBytes } from 'crypto';
 import {
   SideBarContainer,
   SideBarLogo,
@@ -278,7 +276,7 @@ const SideBar: React.FC<IProps> = ({ active }) => {
                             <FiCircle
                               size={14}
                               color={
-                                sub.class === active ? '#a26cf8' : undefined
+                                sub.class === active ? '#00161d' : undefined
                               }
                             />
                             <p
@@ -286,7 +284,7 @@ const SideBar: React.FC<IProps> = ({ active }) => {
                               style={
                                 sub.class === active
                                   ? {
-                                      color: '#a26cf8',
+                                      color: '#00161d',
                                     }
                                   : undefined
                               }
@@ -310,7 +308,7 @@ const SideBar: React.FC<IProps> = ({ active }) => {
                       item.class === active
                         ? {
                             backgroundImage:
-                              'linear-gradient(to right, #7366ff 0%, #a26cf8 100%)',
+                              'linear-gradient(90deg, #00161d 0%, #0013ff 100%)',
                             color: '#fff',
                             WebkitBoxShadow:
                               '0px 0px 12px 0px rgba(115, 102, 255, 0.35)',
