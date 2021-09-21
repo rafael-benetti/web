@@ -159,7 +159,7 @@ const UserProvider: React.FC = ({ children }) => {
       setUser(response.data);
       return response.data;
     } catch (error) {
-      localStorage.removeItem('@sttigma:token');
+      localStorage.removeItem('@blacktelemetry-viewer:token');
       window.location.reload();
       return undefined;
     }
