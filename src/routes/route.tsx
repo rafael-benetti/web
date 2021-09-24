@@ -5,6 +5,7 @@ import {
   Redirect,
   Route as ReactDOMRoute,
   RouteProps as ReactDOMRouterProps,
+  useLocation,
 } from 'react-router-dom';
 import { useAuth } from '../hooks/auth';
 import { useUser } from '../hooks/user';
@@ -28,6 +29,14 @@ const Route: React.FC<IProps> = ({
   const { getUser, user } = useUser();
   // state
   const [busy, setBusy] = useState(true);
+  // location
+  const [, tok] = window.location.search.split('token=');
+
+  useEffect(() => {
+    if (tok) {
+      localStorage.setItem('@blacktelemetry-viewer:token', `${tok}`);
+    }
+  }, []);
 
   useEffect(() => {
     setBusy(true);
@@ -37,7 +46,7 @@ const Route: React.FC<IProps> = ({
       }
       setBusy(false);
     })();
-  }, [token]);
+  }, [token, tok]);
 
   return (
     <>
@@ -47,7 +56,7 @@ const Route: React.FC<IProps> = ({
           render={() => {
             if (isPrivate) {
               if (!token) {
-                return <Redirect to={{ pathname: '/' }} />;
+                return <Redirect to={{ pathname: '/login' }} />;
               }
               if (except && user?.role === except) {
                 return <Redirect to={{ pathname: '/dashboard' }} />;

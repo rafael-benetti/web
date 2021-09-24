@@ -156,11 +156,12 @@ const UserProvider: React.FC = ({ children }) => {
           authorization: `Bearer ${token}`,
         },
       });
+      console.log(token);
       setUser(response.data);
       return response.data;
     } catch (error) {
-      localStorage.removeItem('@blacktelemetry-viewer:token');
-      window.location.reload();
+      // localStorage.removeItem('@blacktelemetry-viewer:token');
+      // window.location.reload();
       return undefined;
     }
   }, [token, user]);
