@@ -160,13 +160,9 @@ const UserProvider: React.FC = ({ children }) => {
       setUser(response.data);
       return response.data;
     } catch (error) {
-<<<<<<< HEAD
       // localStorage.removeItem('@blacktelemetry-viewer:token');
       // window.location.reload();
-=======
-      localStorage.removeItem('blacktelemetry:token');
-      window.location.reload();
->>>>>>> main
+
       return undefined;
     }
   }, [token, user]);

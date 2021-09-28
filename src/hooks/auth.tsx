@@ -21,11 +21,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   // state
   const [token, setToken] = useState<string | undefined>(() => {
-<<<<<<< HEAD
     return localStorage.getItem('@blacktelemetry-viewer:token') || undefined;
-=======
-    return localStorage.getItem('blacktelemetry:token') || undefined;
->>>>>>> main
   });
 
   const login = useCallback(async (data: LoginDto) => {
@@ -35,11 +31,8 @@ const AuthProvider: React.FC = ({ children }) => {
         password: data.password,
       };
       const response = await api.post<Response>('users/auth', loginData);
-<<<<<<< HEAD
       localStorage.setItem('@blacktelemetry-viewer:token', response.data.token);
-=======
-      localStorage.setItem('blacktelemetry:token', response.data.token);
->>>>>>> main
+
       setToken(response.data.token);
       window.location.reload();
     } catch (error) {
@@ -53,13 +46,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const logOut = useCallback(() => {
     setToken(undefined);
-<<<<<<< HEAD
     localStorage.removeItem('@blacktelemetry-viewer:token');
     window.close();
-=======
-    localStorage.removeItem('blacktelemetry:token');
-    window.location.reload();
->>>>>>> main
   }, [token]);
 
   return (
