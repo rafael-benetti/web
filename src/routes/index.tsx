@@ -38,7 +38,7 @@ import InventoryPage from '../pages/inventory';
 
 const Routes: React.FC = () => (
   <Switch>
-    <Route path="/login" isPrivate={false} exact component={LoginPage} />
+    <Route path="/auth" isPrivate={false} exact component={LoginPage} />
 
     <Route
       path="/recuperar-senha"

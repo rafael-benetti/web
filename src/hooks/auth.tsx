@@ -46,7 +46,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const logOut = useCallback(() => {
     setToken(undefined);
     localStorage.removeItem('@blacktelemetry-viewer:token');
-    window.location.reload();
+    window.close();
   }, [token]);
 
   return (
