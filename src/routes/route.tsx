@@ -56,7 +56,7 @@ const Route: React.FC<IProps> = ({
           render={() => {
             if (isPrivate) {
               if (!token) {
-                return <Redirect to={{ pathname: '/login' }} />;
+                return <Redirect to={{ pathname: '/' }} />;
               }
               if (except && user?.role === except) {
                 return <Redirect to={{ pathname: '/dashboard' }} />;
