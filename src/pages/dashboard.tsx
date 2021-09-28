@@ -509,7 +509,7 @@ const Dashboard: React.FC = () => {
             </Table>
           </Tables>
         </DashboardInfo>
-        {user?.role !== 'OPERATOR' && (
+        {/* {user?.role !== 'OPERATOR' && (
           <DashboardAnalitycs>
             <div className="title">
               <h1 className="heading-font">Analítico</h1>
@@ -526,7 +526,7 @@ const Dashboard: React.FC = () => {
               />
             )}
           </DashboardAnalitycs>
-        )}
+        )} */}
       </DashboardContainer>
     </Container>
   );
