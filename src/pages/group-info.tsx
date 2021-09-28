@@ -24,7 +24,6 @@ import {
   NavBar,
   Tables,
   Table,
-  GroupAnalitycs,
   PointsOfSaleRank,
   TablePoint,
 } from '../styles/pages/group-info';
@@ -33,7 +32,6 @@ import { useGroup } from '../hooks/group';
 import { useUser } from '../hooks/user';
 import DashboardCard from '../components/dashboard-card';
 import MachineWithoutCommunication from '../components/machine-without-communication';
-import ChartPie from '../components/chart-pie';
 import HandleGroup from '../components/handle-group';
 
 const GroupInfoPage: React.FC = () => {
@@ -378,7 +376,7 @@ const GroupInfoPage: React.FC = () => {
             </Table>
           </Tables>
         </GroupInfo>
-        <GroupAnalitycs>
+        {/* <GroupAnalitycs>
           <div className="title">
             <h1 className="heading-font">Analítico</h1>
           </div>
@@ -391,7 +389,7 @@ const GroupInfoPage: React.FC = () => {
               };
             })}
           />
-        </GroupAnalitycs>
+        </GroupAnalitycs> */}
       </GroupInfoContainer>
       {showEditGroup === groupInfo?.group.id ? (
         <HandleGroup initialData={groupInfo?.group} />

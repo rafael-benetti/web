@@ -10,18 +10,14 @@ interface Props {
   user?: User;
 }
 
-const SingleOperator: React.FC<Props> = ({ data, user }) => {
+const SingleOperator: React.FC<Props> = ({ data }) => {
   // hooks
 
   return (
     <SingleOperatorContainer>
       <Link
         to={{
-          pathname: `${
-            user?.permissions?.createOperators || user?.role === 'OWNER'
-              ? '/editar-operador'
-              : '/operadores'
-          }`,
+          pathname: `operador-info`,
           state: data,
         }}
       >
