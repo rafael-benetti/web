@@ -116,7 +116,7 @@ const ErrorProvider: React.FC = ({ children }) => {
         break;
       default:
         error =
-          'Um erro aconteceu, caso o erro permaneça entre em contato com a equipe Sttigma';
+          'Um erro aconteceu, caso o erro permaneça entre em contato com a equipe Black Telemetry';
         break;
     }
     if (error !== '') {
