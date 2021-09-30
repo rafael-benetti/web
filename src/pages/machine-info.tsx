@@ -541,27 +541,23 @@ const MachineInfoPage: React.FC = () => {
                         .reduce((acc, cur) => cur + acc, 0)}
                     </h3>
                   </div>
-                  {user?.role !== 'OPERATOR' ? (
-                    <>
-                      <div className="line">
-                        <h2>Fat. médio p/ prêmio</h2>
-                        <h3 style={{ color: '#00161d' }}>
-                          R$
-                          {` ${(machineInfo?.boxesInfo
-                            .map(box => box.givenPrizes)
-                            .reduce((acc, cur) => cur + acc, 0) === 0
-                            ? 0
-                            : machineInfo?.boxesInfo
-                                .map(box => box.currentMoney)
-                                .reduce((acc, cur) => cur + acc, 0) /
-                                (machineInfo?.boxesInfo
-                                  .map(box => box.givenPrizes)
-                                  .reduce((acc, cur) => cur + acc, 0) || 0) || 0
-                          ).toFixed(2)}`}
-                        </h3>
-                      </div>
-                    </>
-                  ) : null}
+                  <div className="line">
+                    <h2>Fat. médio p/ prêmio</h2>
+                    <h3 style={{ color: '#00161d' }}>
+                      R$
+                      {` ${(machineInfo?.boxesInfo
+                        .map(box => box.givenPrizes)
+                        .reduce((acc, cur) => cur + acc, 0) === 0
+                        ? 0
+                        : machineInfo?.boxesInfo
+                            .map(box => box.currentMoney)
+                            .reduce((acc, cur) => cur + acc, 0) /
+                            (machineInfo?.boxesInfo
+                              .map(box => box.givenPrizes)
+                              .reduce((acc, cur) => cur + acc, 0) || 0) || 0
+                      ).toFixed(2)}`}
+                    </h3>
+                  </div>
                   <div className="line">
                     <h2>Estoque atual</h2>
                     <h3 style={{ color: 'orange' }}>
