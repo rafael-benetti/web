@@ -49,7 +49,6 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
     PointOfSale[]
   >([]);
   const [pointsOfSaleChecked, setPointsOfSaleChecked] = useState<string[]>([]);
-  const [operatorsToRender, setOperatorsToRender] = useState<User[]>([]);
   const [operatorSelected, setOperatorSelected] = useState<{
     label: string;
     value: string;
@@ -106,7 +105,6 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
   const obteinOperatorsToRender = useCallback(
     (pointsOfSaleCheckedData: string[]) => {
       const groupsInPointsOfSales: string[] = [];
-
       pointsOfSaleToRender.forEach(pointOfSale => {
         pointsOfSaleCheckedData.forEach(pointOfSaleCheckedId => {
           if (pointOfSale.id === pointOfSaleCheckedId) {
@@ -124,17 +122,11 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
           availableOperators.push(operator);
         }
       });
-      setOperatorsToRender(availableOperators);
-      if (groupsInPointsOfSales.length < 1) {
-        setOperatorsToRender([]);
-      }
-    },
-    [operatorsToRender],
-  );
 
-  useEffect(() => {
-    obteinOperatorsToRender(pointsOfSaleChecked);
-  }, [pointsOfSaleChecked]);
+      return availableOperators;
+    },
+    [],
+  );
 
   useEffect(() => {
     setBusy(true);
@@ -162,13 +154,13 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
           label: initialData.label,
           pointsOfSaleIds: [''],
         });
-        // pointsOfSale?.forEach(pointOfSale => {
-        //   initialData.pointsOfSaleIds.forEach(initialPointId => {
-        //     if (pointOfSale.id === initialPointId) {
-        //       availablePoints.push(pointOfSale);
-        //     }
-        //   });
-        // });
+        pointsOfSale?.forEach(pointOfSale => {
+          initialData.pointsOfSaleIds.forEach(initialPointId => {
+            if (pointOfSale.id === initialPointId) {
+              availablePoints.push(pointOfSale);
+            }
+          });
+        });
       }
     })();
   }, [toggleEditRoute, editRoute, initialData]);
@@ -206,7 +198,6 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
                       pointsOfSaleChecked.splice(index, 1);
                       setPointsOfSaleChecked(pointsOfSaleChecked);
                     }
-                    obteinOperatorsToRender(pointsOfSaleChecked);
                     setOperatorSelected({ value: '', label: '' });
                   }}
                 />
@@ -228,13 +219,15 @@ const HandleRoute: React.FC<Props> = ({ initialData, operators }) => {
                 }}
                 options={[
                   { value: 'none', label: 'Definir depois' },
-                  ...(operatorsToRender &&
-                    operatorsToRender.map(operatorToRender => {
-                      return {
-                        label: operatorToRender.name,
-                        value: operatorToRender.id,
-                      };
-                    })),
+                  ...(obteinOperatorsToRender(pointsOfSaleChecked) &&
+                    obteinOperatorsToRender(pointsOfSaleChecked).map(
+                      operatorToRender => {
+                        return {
+                          label: operatorToRender.name,
+                          value: operatorToRender.id,
+                        };
+                      },
+                    )),
                 ]}
               />
             ) : null}
