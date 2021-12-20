@@ -91,7 +91,7 @@ const PrizeItem: React.FC<Props> = ({ prize, groups, operators, managers, user, 
           toggleTransferProduct({ownerItemId: prize.ownerId, itemId: prize.id})}
             />
           </div>
-          {user?.permissions?.editProducts ? (
+          {user?.permissions?.editProducts || user?.role === 'OWNER' ? (
             <div className="add">
               <Button
                 title="Adicionar"
